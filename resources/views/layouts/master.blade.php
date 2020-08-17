@@ -37,6 +37,15 @@
 </head>
 
 <body>
-    <!-- header area start -->
-        @include('partials.header')
+    @include('partials.header')
+
+    @yield('content')
+
+    @include('partials.footer')
+    
+    @yield('js')
+
+</body>
+
+</html>
 
