@@ -27,12 +27,11 @@
                                 <div class="main-menu-inner header-top-navigation">
                                     <nav>
                                         <ul class="main-menu">
-                                            <li class="active"><a href="#">timeline</a></li>
-                                            <li><a href="about.html">about</a></li>
-                                            <li><a href="photos.html">photos</a></li>
-                                            <li><a href="{{route('friends')}}">friends</a></li>
-                                            <li><a href="about.html">more</a></li>
-                                            <!-- <li class="d-inline-block d-md-none"><a href="profile.html">edit profile</a></li> -->
+                                            <li><a href="#">timeline</a></li>
+                                            <li><a href="{{route('about')}}">about</a></li>
+                                            <li><a href="{{route('photos')}}">photos</a></li>
+                                            <li class="active"><a href="{{route('friends')}}">friends</a></li>
+                                            <li class="d-inline-block d-md-none"><a href="profile.html">edit profile</a></li>
                                         </ul>
                                     </nav>
                                 </div>

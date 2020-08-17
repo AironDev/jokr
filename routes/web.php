@@ -26,6 +26,10 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
+Route::get('/photos', function () {
+    return view('photos');
+})->name('photos');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
