@@ -8,7 +8,7 @@
                         <div class="header-top-navigation">
                             <nav>
                                 <ul>
-                                    <li class="active"><a href="index.html">home</a></li>
+                                    <li class="active"><a href="{{route('index')}}">home</a></li>
                                     <li class="msg-trigger"><a class="msg-trigger-btn" href="#a">message</a>
                                         <div class="message-dropdown" id="a">
                                             <div class="dropdown-title">

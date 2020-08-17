@@ -30,7 +30,7 @@
                                             <li class="active"><a href="#">timeline</a></li>
                                             <li><a href="about.html">about</a></li>
                                             <li><a href="photos.html">photos</a></li>
-                                            <li><a href="friends.html">friends</a></li>
+                                            <li><a href="{{route('friends')}}">friends</a></li>
                                             <li><a href="about.html">more</a></li>
                                             <!-- <li class="d-inline-block d-md-none"><a href="profile.html">edit profile</a></li> -->
                                         </ul>

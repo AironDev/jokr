@@ -15,11 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');;
 
 Route::get('/friends', function () {
     return view('friends');
-});
+})->name('friends');
+
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
 
 Auth::routes();
 
