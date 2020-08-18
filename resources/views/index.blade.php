@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 
-
 @section('content')
     <main>
         <div class="main-wrapper pt-80">
@@ -21,7 +20,7 @@
                                         </a>
                                     </figure>
                                     <div class="profile-desc text-center">
-                                        <h6 class="author"><a href="profile.html">Dimbel Lebmid</a></h6>
+                                        <h6 class="author"><a href="{{route('profile')}}">Dimbel Lebmid</a></h6>
                                         <p>Any one can join with but Social network us if you want Any one can join with us if you want</p>
                                     </div>
                                 </div>
@@ -238,13 +237,13 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Share Your Mood</h5>
+                                                <h5 class="modal-title">Share</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body custom-scroll">
-                                                <textarea name="share" class="share-field-big custom-scroll" placeholder="Say Something"></textarea>
+                                                <textarea name="share" class="share-field-big custom-scroll" placeholder="Say Something" id="share"></textarea>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="post-share-btn" data-dismiss="modal">cancel</button>
@@ -1046,9 +1045,46 @@
 
 
 
-    <!-- JS
-============================================ -->
+<!-- JS   ================== -->
 @section('js')
     @Include('partials.js')
+    <script src="https://cdn.tiny.cloud/1/bqjnseimjjp05nmtsdy3zl6tne4hdpgf3zbsvlzs7rjfx51a/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+            var editor_config = {
+                path_absolute : "/",
+                selector: "textarea#share",
+                height: 400,
+                menubar:false,
+                statusbar: false,
+                plugins: [
+                  "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                  "searchreplace wordcount visualblocks visualchars code fullscreen",
+                  "insertdatetime media nonbreaking save table contextmenu directionality",
+                  "emoticons template paste textcolor colorpicker textpattern"
+                ],
+                toolbar: "insertfile undo redo | styleselect | bold italic code | alignleft aligncenter alignright alignjustify | emoticons bullist numlist outdent indent | link image media",
+                relative_urls: false,
+
+                file_picker_callback: function (callback, value, meta) {
+                    let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+                    let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+
+                    let type = 'image' === meta.filetype ? 'Images' : 'Files',
+                    url  = editor_config.path_absolute + 'laravel-filemanager?editor=tinymce5&type=' + type;
+
+                    tinymce.activeEditor.windowManager.openUrl({
+                        url : url,
+                        title : 'Filemanager',
+                        width : x * 0.8,
+                        height : y * 0.8,
+                        onMessage: (api, message) => {
+                            callback(message.content);
+                        }
+                    });
+                }
+            };
+    tinymce.init(editor_config);
+    </script>
 @endsection
 
