@@ -14,13 +14,16 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('user_id')->index()->nullable();
-            $table->mediumText('post_body')->nullable();
-            $table->dateTime('posted_at')->index()->nullable()
-                ->comment('Public posted at time, if this is in future then it wont appear yet');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->longText('content');
+            $table->string('privacy')->default('public')->nullable();
+            $table->longText('tags')->nullable();
             $table->boolean('is_published')->default(true);
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

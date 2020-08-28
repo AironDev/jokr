@@ -14,49 +14,22 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');;
+Route::get('/', 'PageController@index')->name('index');;
 
-Route::get('/friends', function () {
-    return view('friends');
-})->name('friends');
+Route::get('/friends', 'PageController@friends')->name('friends');
+
+Route::get('/about', 'PageController@about')->name('about');
 
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+Route::get('/photos', 'PageController@photos')->name('photos');
 
-Route::get('/photos', function () {
-    return view('photos');
-})->name('photos');
+Route::get('/profile', 'PageController@profile')->name('profile');
 
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
-
-
-Route::post('/upload', function (Request $request) {
-  // $content = $request->content;
-  // return response()->json(['path' => $content]);
-
-	$imgpath = $request->file->name;
-    return response()->json(['location' => $imgpath]);
-
-})->name('upload');
-
-Route::get('/uploaded', function (Request $request) {
-	
-})->name('uploaded');
-
-
+Route::resource('/posts', 'PostController');
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
      \UniSharp\LaravelFilemanager\Lfm::routes();
  });
-
-
-
 
 Auth::routes();
 

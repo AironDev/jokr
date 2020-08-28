@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\CommentReply;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 
-class PostController extends Controller
+class CommentReplyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,38 +34,28 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {	
-    	$posted_at = Carbon::now();
-    	$user_id = Auth::user()->id;
-
-    	$data = [
-    		'content' => $request->content,
-    		'user_id' => $user_id,
-    		'privacy' => $request->privacy,
-            'tags' => $request->tags,
-    	];
-        Post::create($data);
-        return redirect()->back();
+    {
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  \App\CommentReply  $commentReply
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(CommentReply $commentReply)
     {
-        
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  \App\CommentReply  $commentReply
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(CommentReply $commentReply)
     {
         //
     }
@@ -76,10 +64,10 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
+     * @param  \App\CommentReply  $commentReply
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, CommentReply $commentReply)
     {
         //
     }
@@ -87,10 +75,10 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Post  $post
+     * @param  \App\CommentReply  $commentReply
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(CommentReply $commentReply)
     {
         //
     }
