@@ -1941,6 +1941,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_PostService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/PostService */ "./resources/js/services/PostService.js");
 //
 //
 //
@@ -2008,9 +2009,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      post: new _services_PostService__WEBPACK_IMPORTED_MODULE_0__["default"](),
       posts: [],
       options: ['current_page_url', 'last_page_url', 'next_page_url', 'total'],
       load_more: true
@@ -2020,24 +2023,24 @@ __webpack_require__.r(__webpack_exports__);
     getPost: function getPost() {
       var _this = this;
 
-      return axios.get('http://jokr.air/posts/?page=1', {}).then(function (response) {
-        _this.posts = response.data.data.data;
-        _this.options['total'] = response.data.data.total;
-        _this.options['last_page_url'] = response.data.data.last_page_url;
-        _this.options['next_page_url'] = response.data.data.next_page_url;
-        _this.options['current_page_url'] = response.data.current_page_url;
+      return this.post.getPost().then(function (response) {
+        _this.posts = response.data;
+        _this.options['total'] = response.meta.total;
+        _this.options['last_page_url'] = response.links.last;
+        _this.options['next_page_url'] = response.links.next;
+        _this.options['current_page_url'] = response.links.first;
       });
     },
-    scroll: function scroll() {
+    loadMore: function loadMore() {
       var _this2 = this;
 
       window.onscroll = function () {
         var bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
 
         if (bottomOfWindow && _this2.load_more) {
-          axios.get(_this2.options['next_page_url'], {}).then(function (response) {
-            _this2.posts = _this2.posts.concat(response.data.data.data);
-            _this2.options['next_page_url'] = response.data.data.next_page_url;
+          _this2.post.loadMore(_this2.options['next_page_url']).then(function (response) {
+            _this2.posts = _this2.posts.concat(response.data);
+            _this2.options['next_page_url'] = response.links.next;
           });
 
           if (_this2.options['last_page_url'] == _this2.options['next_page_url']) {
@@ -2051,7 +2054,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {},
   mounted: function mounted() {
     this.getPost();
-    this.scroll();
+    this.loadMore();
   }
 });
 
@@ -50173,6 +50176,98 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PostFeedComponent_vue_vue_type_template_id_c86e0c38___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/services/PostService.js":
+/*!**********************************************!*\
+  !*** ./resources/js/services/PostService.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var PostService = /*#__PURE__*/function () {
+  function PostService() {
+    _classCallCheck(this, PostService);
+  } // ADMIN COMMENTS SERVICES
+
+
+  _createClass(PostService, [{
+    key: "getPost",
+    value: function getPost() {
+      return axios.get('http://jokr.air/api/posts', {}).then(function (response) {
+        return response.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "loadMore",
+    value: function loadMore(next_page) {
+      return axios.get(next_page, {}).then(function (response) {
+        return response.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "getTrend",
+    value: function getTrend(commentId, ownerId) {
+      return axios.post('/api/comments/' + commentId, {
+        ownerId: ownerId
+      }).then(function (response) {
+        response = {
+          data: response.data,
+          message: "comment deleted successfully"
+        };
+        return response;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "deletePost",
+    value: function deletePost(commentId, replyId, ownerId) {
+      return axios.post('/api/comments/' + commentId + '/replies/' + replyId, {
+        ownerId: ownerId
+      }).then(function (response) {
+        response = {
+          data: response.data,
+          message: "reply deleted successfully"
+        };
+        return response;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "updatePost",
+    value: function updatePost(commentId, ownerId, content) {
+      return axios.patch('/api/comments/' + commentId, {
+        content: content,
+        ownerId: ownerId
+      }).then(function (response) {
+        response = {
+          data: response.data,
+          message: "comment updated successfully"
+        };
+        return response;
+      });
+    }
+  }]);
+
+  return PostService;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (PostService);
 
 /***/ }),
 

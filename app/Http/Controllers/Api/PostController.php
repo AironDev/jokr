@@ -23,8 +23,8 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return PostResource::collection($this->model->getAll($perPage = 2));
+    {   
+        return PostResource::collection($this->model->getAll($paginate = 10));
     }
 
     /**

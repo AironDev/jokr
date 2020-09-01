@@ -11,8 +11,8 @@ class PostRepository implements PostRepositoryInterface {
         $this->model = $post;
     }
 
-    public function getAll($perPage = null){
-        $posts = $this->model::orderBy('created_at', 'desc')->paginate($perPage);
+    public function getAll($paginate = null){
+        $posts = $this->model::orderBy('created_at', 'desc')->paginate($paginate);
         return $posts;
     }
 

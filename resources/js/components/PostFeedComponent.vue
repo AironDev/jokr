@@ -66,9 +66,11 @@
 </template>
 
 <script>
+    import Post from '../services/PostService';
     export default {
         data() {
             return {
+                post: new Post(),
                 posts: [],
                 options: [
                     'current_page_url',
@@ -82,29 +84,26 @@
 
         methods: {
             getPost () {
-                return axios.get('http://jokr.air/posts/?page=1', {
-                })
-                .then(response => {
-                    this.posts = response.data.data.data;
-                    this.options['total'] = response.data.data.total;
-                    this.options['last_page_url'] = response.data.data.last_page_url;
-                    this.options['next_page_url'] = response.data.data.next_page_url;
-                    this.options['current_page_url'] = response.data.current_page_url;
-                }); 
+                return this.post.getPost()
+                    .then(response => {
+                        this.posts = response.data;
+                        this.options['total'] = response.meta.total;
+                        this.options['last_page_url'] = response.links.last;
+                        this.options['next_page_url'] = response.links.next;
+                        this.options['current_page_url'] = response.links.first;
+                    }); 
             },
 
-            scroll () {
+            loadMore () {
                 window.onscroll = () => {
-                  let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+                    let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
                   
-                  if (bottomOfWindow && this.load_more ) {
-                     axios.get(this.options['next_page_url'], {
-                    })
-                    .then(response => {
-                        this.posts = this.posts.concat(response.data.data.data);
-                        this.options['next_page_url'] = response.data.data.next_page_url;
-                    });
-
+                    if (bottomOfWindow && this.load_more ) {
+                        this.post.loadMore(this.options['next_page_url'])
+                            .then(response => {
+                                this.posts = this.posts.concat(response.data);
+                                this.options['next_page_url'] = response.links.next;
+                            });
                     if(this.options['last_page_url'] == this.options['next_page_url']){
                         this.load_more = false;
                         console.log('last page loaded');
@@ -119,7 +118,7 @@
         },
         mounted() {
             this.getPost();
-            this.scroll();
+            this.loadMore();
             
             
         }
