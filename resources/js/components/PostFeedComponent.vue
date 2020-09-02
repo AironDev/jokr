@@ -7,15 +7,15 @@
             <div class="profile-thumb">
                 <a href="#">
                     <figure class="profile-thumb-middle">
-                        <img src="assets/images/profile/profile-small-1.jpg" alt="profile picture">
+                        <img v-bind:src="post.user.photo" alt="profile picture">
                     </figure>
                 </a>
             </div>
             <!-- profile picture end -->
 
             <div class="posted-author">
-                <h6 class="author"><a href="profile.html">merry watson</a></h6>
-                <span class="post-time">20 min ago</span>
+                <h6 class="author"><a :href="profile +'/' + post.user.username">{{post.user.display_name}}</a></h6>
+                <span class="post-time">40 min ago</span>
             </div>
 
             <div class="post-settings-bar">
@@ -42,7 +42,7 @@
             <div class="post-meta">
                 <button class="post-meta-like">
                     <i class="bi bi-heart-beat"></i>
-                    <span>You and 201 people like this</span>
+                    <span>You and 101 people like this</span>
                     <strong>201</strong>
                 </button>
                 <ul class="comment-share-meta">
@@ -68,6 +68,7 @@
 <script>
     import Post from '../services/PostService';
     export default {
+        props: ['profile'],
         data() {
             return {
                 post: new Post(),
@@ -103,6 +104,8 @@
                             .then(response => {
                                 this.posts = this.posts.concat(response.data);
                                 this.options['next_page_url'] = response.links.next;
+                            }).catch(err => {
+                                console.log(err);
                             });
                     if(this.options['last_page_url'] == this.options['next_page_url']){
                         this.load_more = false;
@@ -124,3 +127,12 @@
         }
     }
 </script>
+
+<style>
+    .post-desc video, iframe, img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+</style>
+
+

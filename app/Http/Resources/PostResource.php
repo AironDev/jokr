@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\User;
 
 class PostResource extends JsonResource
 {
@@ -13,7 +14,24 @@ class PostResource extends JsonResource
      * @return array
      */
     public function toArray($request)
-    {
-        return parent::toArray($request);
+    {   $user = User::find($this->user_id)->with('profile:user_id,photo')->first();
+        $user = collect([
+                    'id' => $user->id,
+                    'photo' => $user->profile->photo,
+                    'display_name' => $user->display_name,
+                    'username' => $user->username
+                ]);
+
+        return [
+            'id' => $this->id,
+            'content' => $this->content,
+            'privacy' =>  $this->privacy,
+            'tags' => $this->tags,
+            'is_published' => $this->is_published,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'user' => $user,
+            
+        ];
     }
 }

@@ -226,7 +226,7 @@
                                 <!-- share content box start -->
                                 <div class="share-content-box w-100">
                                     <form class="share-text-box">
-                                        <textarea name="share" class="share-text-field" aria-disabled="true" placeholder="Say Something" data-toggle="modal" data-target="#textbox" id="email"></textarea>
+                                        <textarea name="share" class="share-text-field" aria-disabled="true" placeholder="What's funny?" data-toggle="modal" data-target="#textbox" id="email"></textarea>
                                         <button class="btn-share" type="submit">share</button>
                                     </form>
                                 </div>
@@ -263,7 +263,7 @@
 
                         <!-- post feed start -->
                             
-                        <post-feed></post-feed>
+                        <post-feed profile="{{route('profile')}}"></post-feed>
                         <!-- post feed end -->
 
                         
@@ -517,11 +517,6 @@
     tinymce.init(editor_config);
     </script>
 
-    <style type="text/css">
-        .post-desc video, iframe, img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-    </style>
+    
 @endsection
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Post;
+use App\User;
 
 use Illuminate\Http\Request;
 
@@ -24,7 +25,8 @@ class PageController extends Controller
     	return view('photos');
     }
 
-    public function profile(){
-    	return view('profile');
+    public function profile($username = null){
+        $user = User::where('username', $username)->with('profile')->first();
+    	return view('profile')->with(['user' => $user]);
     }
 }

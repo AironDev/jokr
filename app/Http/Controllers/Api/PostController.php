@@ -24,7 +24,7 @@ class PostController extends Controller
      */
     public function index()
     {   
-        return PostResource::collection($this->model->getAll($paginate = 10));
+        return PostResource::collection($this->model->getAll($paginate = 20));
     }
 
     /**

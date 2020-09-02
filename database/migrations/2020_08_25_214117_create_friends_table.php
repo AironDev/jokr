@@ -40,6 +40,6 @@ class CreateFriendsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mates');
+        Schema::dropIfExists('friends');
     }
 }

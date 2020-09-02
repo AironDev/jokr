@@ -23,7 +23,7 @@ Route::get('/about', 'PageController@about')->name('about');
 
 Route::get('/photos', 'PageController@photos')->name('photos');
 
-Route::get('/profile', 'PageController@profile')->name('profile');
+Route::get('/profile/{username?}', 'PageController@profile')->name('profile');
 
 Route::resource('/posts', 'PostController');
 

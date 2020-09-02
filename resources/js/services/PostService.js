@@ -4,9 +4,7 @@ class PostService{
 
     }
  
-   
-// ADMIN COMMENTS SERVICES
-    
+     
      getPost(){
         return axios.get('http://jokr.air/api/posts', {
         })
