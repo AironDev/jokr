@@ -14,7 +14,7 @@ class PostResource extends JsonResource
      * @return array
      */
     public function toArray($request)
-    {   $user = User::find($this->user_id)->with('profile:user_id,photo')->first();
+    {   $user = User::where('id', $this->user_id)->with('profile:user_id,photo')->first();
         $user = collect([
                     'id' => $user->id,
                     'photo' => $user->profile->photo,
@@ -25,6 +25,7 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'content' => $this->content,
+            'user_id' => $this->user_id,
             'privacy' =>  $this->privacy,
             'tags' => $this->tags,
             'is_published' => $this->is_published,

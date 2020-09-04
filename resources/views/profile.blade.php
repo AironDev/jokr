@@ -2,7 +2,6 @@
 
 @section('content')
     <main id="app">
-
         <div class="main-wrapper">
             <div class="profile-banner-large bg-img" data-bg="{{asset($user->profile->cover_photo)}}">
             </div>
@@ -279,6 +278,8 @@
 
                     <div class="col-lg-3 order-3">
                         <aside class="widget-area">
+
+                            @if(Auth::user()->id == $user->id)
                             <!-- widget single item start -->
                             <div class="card widget-item">
                                 <h4 class="widget-title">Recent Notifications</h4>
@@ -320,6 +321,10 @@
                                 </div>
                             </div>
                             <!-- widget single item end -->
+                            
+
+                            @endif
+
 
                             <!-- widget single item start -->
                             <div class="card widget-item">

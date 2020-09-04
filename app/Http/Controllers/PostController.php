@@ -16,7 +16,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(5)->toArray();
+        $posts = Post::orderBy('created_at', 'desc')
+        ->joinReactionCounterOfType('funny')
+        ->joinReactionCounterOfType('notfunny', 'hates')
+        ->paginate(5)->toArray();
         return response()->json(['data' => $posts]);
     }
 

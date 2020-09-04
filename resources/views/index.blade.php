@@ -265,10 +265,6 @@
                             
                         <post-feed profile="{{route('profile')}}"></post-feed>
                         <!-- post feed end -->
-
-                        
-
-
                     </div>
 
                     <div class="col-lg-3 order-3">
