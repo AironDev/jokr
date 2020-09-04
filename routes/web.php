@@ -18,6 +18,11 @@ use Cog\Contracts\Love\ReactionType\Models\ReactionType;
 |
 */
 
+// Return curent auth user - called from vue components
+Route::get('/user', function(){
+	return Auth::user();
+});
+
 Route::get('/', 'PageController@index')->name('index');;
 
 Route::get('/friends', 'PageController@friends')->name('friends');
@@ -70,7 +75,7 @@ Route::get('/react', function(){
 	//Get Reactions Which Reacter Has Made
 	$userReactions = $userReactionInterface->getReactions(); 
 
-	//Get all post reactions counters
+	//Get all post reactions and counters (array)
 	$allReactionCounters = $postReactionInterface->getReactionCounters();
 	// Total is sum of counters of all reaction types.
 	$reactionTotal = $postReactionInterface->getReactionTotal(); 

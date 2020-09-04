@@ -42,8 +42,9 @@
             <div class="post-meta">
                 <button class="post-meta-like">
                     <i class="bi bi-heart-beat"></i>
-                    <span>You and 101 people like this</span>
-                    <strong>201</strong>
+                    <span v-if="post.reactions.total > 2">{{post.reactions.total}} people reacted this</span>
+                    <span v-if="post.reactions.total == 1">{{post.reactions.total}} person reacted this</span>
+                    <span v-if="post.reactions.total == 0">Be the first to react</span>
                 </button>
                 <ul class="comment-share-meta">
                     <li>
@@ -55,7 +56,7 @@
                     <li>
                         <button class="post-share">
                             <i class="bi bi-share"></i>
-                            <span>07</span>
+                            <span>{{post.reactions.points}}</span>
                         </button>
                     </li>
                 </ul>
@@ -67,6 +68,7 @@
 
 <script>
     import Post from '../services/PostService';
+    import Auth from '../services/AuthService';
     export default {
         props: ['profile'],
         data() {
@@ -80,6 +82,7 @@
                     'total',
                 ],
                 load_more: true,
+                auth_user: [],
             }
         },
 
@@ -92,6 +95,15 @@
                         this.options['last_page_url'] = response.links.last;
                         this.options['next_page_url'] = response.links.next;
                         this.options['current_page_url'] = response.links.first;
+                    }); 
+            },
+
+            getAuth () {
+                let user = new Auth();
+                return user.getAuth()
+                    .then(response => {
+                        this.auth_user = response;
+                        console.log(this.auth_user);
                     }); 
             },
 
@@ -122,6 +134,7 @@
         mounted() {
             this.getPost();
             this.loadMore();
+            this.getAuth();
             
             
         }

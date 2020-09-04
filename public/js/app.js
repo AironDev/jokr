@@ -1942,6 +1942,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_PostService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/PostService */ "./resources/js/services/PostService.js");
+/* harmony import */ var _services_AuthService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/AuthService */ "./resources/js/services/AuthService.js");
+//
 //
 //
 //
@@ -2010,6 +2012,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['profile'],
   data: function data() {
@@ -2017,7 +2020,8 @@ __webpack_require__.r(__webpack_exports__);
       post: new _services_PostService__WEBPACK_IMPORTED_MODULE_0__["default"](),
       posts: [],
       options: ['current_page_url', 'last_page_url', 'next_page_url', 'total'],
-      load_more: true
+      load_more: true,
+      auth_user: []
     };
   },
   methods: {
@@ -2032,22 +2036,31 @@ __webpack_require__.r(__webpack_exports__);
         _this.options['current_page_url'] = response.links.first;
       });
     },
-    loadMore: function loadMore() {
+    getAuth: function getAuth() {
       var _this2 = this;
+
+      var user = new _services_AuthService__WEBPACK_IMPORTED_MODULE_1__["default"]();
+      return user.getAuth().then(function (response) {
+        _this2.auth_user = response;
+        console.log(_this2.auth_user);
+      });
+    },
+    loadMore: function loadMore() {
+      var _this3 = this;
 
       window.onscroll = function () {
         var bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
 
-        if (bottomOfWindow && _this2.load_more) {
-          _this2.post.loadMore(_this2.options['next_page_url']).then(function (response) {
-            _this2.posts = _this2.posts.concat(response.data);
-            _this2.options['next_page_url'] = response.links.next;
+        if (bottomOfWindow && _this3.load_more) {
+          _this3.post.loadMore(_this3.options['next_page_url']).then(function (response) {
+            _this3.posts = _this3.posts.concat(response.data);
+            _this3.options['next_page_url'] = response.links.next;
           })["catch"](function (err) {
             console.log(err);
           });
 
-          if (_this2.options['last_page_url'] == _this2.options['next_page_url']) {
-            _this2.load_more = false;
+          if (_this3.options['last_page_url'] == _this3.options['next_page_url']) {
+            _this3.load_more = false;
             console.log('last page loaded');
           }
         }
@@ -2058,6 +2071,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.getPost();
     this.loadMore();
+    this.getAuth();
   }
 });
 
@@ -38375,7 +38389,43 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "post-thumb-gallery" }),
           _vm._v(" "),
-          _vm._m(1, true)
+          _c("div", { staticClass: "post-meta" }, [
+            _c("button", { staticClass: "post-meta-like" }, [
+              _c("i", { staticClass: "bi bi-heart-beat" }),
+              _vm._v(" "),
+              post.reactions.total > 2
+                ? _c("span", [
+                    _vm._v(
+                      _vm._s(post.reactions.total) + " people reacted this"
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              post.reactions.total == 1
+                ? _c("span", [
+                    _vm._v(
+                      _vm._s(post.reactions.total) + " person reacted this"
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              post.reactions.total == 0
+                ? _c("span", [_vm._v("Be the first to react")])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("ul", { staticClass: "comment-share-meta" }, [
+              _vm._m(1, true),
+              _vm._v(" "),
+              _c("li", [
+                _c("button", { staticClass: "post-share" }, [
+                  _c("i", { staticClass: "bi bi-share" }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v(_vm._s(post.reactions.points))])
+                ])
+              ])
+            ])
+          ])
         ])
       ])
     }),
@@ -38409,31 +38459,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "post-meta" }, [
-      _c("button", { staticClass: "post-meta-like" }, [
-        _c("i", { staticClass: "bi bi-heart-beat" }),
+    return _c("li", [
+      _c("button", { staticClass: "post-comment" }, [
+        _c("i", { staticClass: "bi bi-chat-bubble" }),
         _vm._v(" "),
-        _c("span", [_vm._v("You and 101 people like this")]),
-        _vm._v(" "),
-        _c("strong", [_vm._v("201")])
-      ]),
-      _vm._v(" "),
-      _c("ul", { staticClass: "comment-share-meta" }, [
-        _c("li", [
-          _c("button", { staticClass: "post-comment" }, [
-            _c("i", { staticClass: "bi bi-chat-bubble" }),
-            _vm._v(" "),
-            _c("span", [_vm._v("41")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("button", { staticClass: "post-share" }, [
-            _c("i", { staticClass: "bi bi-share" }),
-            _vm._v(" "),
-            _c("span", [_vm._v("07")])
-          ])
-        ])
+        _c("span", [_vm._v("41")])
       ])
     ])
   }
@@ -50843,6 +50873,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PostFeedComponent_vue_vue_type_template_id_c86e0c38___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/services/AuthService.js":
+/*!**********************************************!*\
+  !*** ./resources/js/services/AuthService.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var AuthService = /*#__PURE__*/function () {
+  function AuthService() {
+    _classCallCheck(this, AuthService);
+  }
+
+  _createClass(AuthService, [{
+    key: "getAuth",
+    value: function getAuth() {
+      return axios.get('/user', {}).then(function (response) {
+        return response.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }]);
+
+  return AuthService;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (AuthService);
 
 /***/ }),
 
