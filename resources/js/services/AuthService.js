@@ -8,7 +8,7 @@ class AuthService{
         return axios.get('/user', {
         })
         .then(response => {
-            return response.data;
+            return response;
         }).catch(err => {
             console.log(err);
         })

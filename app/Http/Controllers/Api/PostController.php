@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StorePost;
 use App\Repositories\Interfaces\PostRepositoryInterface;
 use App\Http\Resources\PostResource;
+use App\Post;
 
 class PostController extends Controller
 {
@@ -24,7 +25,10 @@ class PostController extends Controller
      */
     public function index()
     {   
-        return PostResource::collection($this->model->getAll($paginate = 20));
+        //request()->request->add(['auth_user_id' => $request]);
+        //return PostResource::collection($this->model->getAll($paginate = 20));
+        $posts = Post::orderBy('created_at', 'desc')->paginate(20);
+        return PostResource::collection($posts);
     }
 
     /**

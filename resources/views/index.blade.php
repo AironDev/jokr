@@ -263,7 +263,7 @@
 
                         <!-- post feed start -->
                             
-                        <post-feed profile="{{route('profile')}}"></post-feed>
+                        <post-feed profile="{{route('profile')}}" auth_user="{{Auth::user()->id}}"></post-feed>
                         <!-- post feed end -->
                     </div>
 

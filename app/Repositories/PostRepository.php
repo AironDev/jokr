@@ -12,7 +12,7 @@ class PostRepository implements PostRepositoryInterface {
     }
 
     public function getAll($paginate = null){
-        $posts = $this->model::orderBy('created_at', 'desc')->paginate($paginate);
+        $posts = $this->model::orderBy('created_at', 'asc')->paginate($paginate);
         return $posts;
     }
 

@@ -23,18 +23,15 @@ Route::get('/user', function(){
 	return Auth::user();
 });
 
-Route::get('/', 'PageController@index')->name('index');;
+Route::group(['middleware' => ['web', 'auth']], function () {
+	Route::get('/', 'PageController@index')->name('index');;
+	Route::get('/friends', 'PageController@friends')->name('friends');
+	Route::get('/about', 'PageController@about')->name('about');
+	Route::get('/photos', 'PageController@photos')->name('photos');
+	Route::get('/profile/{username?}', 'PageController@profile')->name('profile');
+	Route::resource('/posts', 'PostController');   
+ });
 
-Route::get('/friends', 'PageController@friends')->name('friends');
-
-Route::get('/about', 'PageController@about')->name('about');
-
-
-Route::get('/photos', 'PageController@photos')->name('photos');
-
-Route::get('/profile/{username?}', 'PageController@profile')->name('profile');
-
-Route::resource('/posts', 'PostController');
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
      \UniSharp\LaravelFilemanager\Lfm::routes();
@@ -88,7 +85,50 @@ Route::get('/react', function(){
 
 	$isReactedBy = $postReactionInterface->isReactedBy($user);
 
-	return response()->json(['userReactions' => $userReactions]);
+	return response()->json(['userReactions' => $allReactionCounters[0]->getReactionType()]);
+});
+
+Route::get('/user_reaction', function(Request $request){
+	$post = Post::where('id', $request->post_id)->first();
+	$user = User::where('id', $request->user_id )->first();
+	$userReactionInterface = $user->viaLoveReacter();
+	$userLike = $userReactionInterface->hasReactedTo($post);
+
+
+	return $userLike;
+});
+
+
+Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => ['auth']], function(){
+    
+    Route::get('/posts', 'PostController@index');
+
+    Route::get('/post/react', function(Request $request){
+		$user = User::find($request->auth_user_id); 
+		$post = Post::find($request->post_id);
+		$type = $request->type;
+		$rate = (int)$request->rate;
+
+		if($user->id != Auth::user()->id){
+			return "are you a marlian ?";
+		}
+
+		// user model instance of the Reacterable interface
+		$userReactionInterface = $user->viaLoveReacter(); 
+		// post model instance of the Reactable interface
+		$postReactionInterface = $post->viaLoveReactant();
+		$userNotReacted = $userReactionInterface->hasNotReactedTo($post, $type); 
+
+		if($userNotReacted){
+			$userReactionInterface->reactTo($post, $type, $rate);
+			return 'reacted';
+		}else{
+			$userReactionInterface->unreactTo($post, $type, $rate);
+			return 'unreacted';
+		}
+    	//return $request->post_id;
+    });
+    
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

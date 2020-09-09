@@ -5,8 +5,8 @@ class PostService{
     }
  
      
-     getPost(){
-        return axios.get('http://jokr.air/api/posts', {
+     getPost(auth_user){
+        return axios.get(`http://jokr.air/api/posts?auth_user_id=${auth_user}`, {
         })
         .then(response => {
             return response.data;
@@ -15,8 +15,20 @@ class PostService{
         })
     }
 
-    loadMore(next_page){
-         return axios.get(next_page, {
+
+    // getUserReaction(user_id, post_id){
+    //     return axios.get('http://jokr.air/api/posts', {
+    //     })
+    //     .then(response => {
+    //         return response.data;
+    //     }).catch(err => {
+    //         console.log(err);
+    //     })
+    // }
+
+
+    loadMore(next_page, auth_user){
+         return axios.get(`${next_page}&auth_user_id=${auth_user}` , {
         })
          .then(response => {
             return response.data;
