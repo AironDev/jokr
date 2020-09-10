@@ -6,7 +6,7 @@ class PostService{
  
      
      getPost(auth_user){
-        return axios.get(`http://jokr.air/api/posts?auth_user_id=${auth_user}`, {
+        return axios.get(`http://jokr.air/posts?auth_user_id=${auth_user}`, {
         })
         .then(response => {
             return response.data;

@@ -20,33 +20,46 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::group(['namespace' => 'Api', 'middleware' => ['api']], function(){
-    
-//     Route::get('/posts', 'PostController@index');
+// ROUTES to test laravel love methods
+Route::get('/react', function(){
 
-//     Route::get('/post/react', function(Request $request){
-// 		$user = User::find($request->auth_user_id); 
-// 		$post = Post::find($request->post_id);
-// 		$type = $request->type;
+	//reacter (reacterable instance)
+	$user = User::find(2); 
 
-// 		if($user->id != Auth::user()->id){
-// 			return "please login";
-// 		}
+	//reactant (reactable instance)
+	$post = Post::find(1); 
 
-// 		// user model instance of the Reacterable interface
-// 		$userReactionInterface = $user->viaLoveReacter(); 
-// 		// post model instance of the Reactable interface
-// 		$postReactionInterface = $post->viaLoveReactant();
-// 		$userNotReacted = $userReactionInterface->hasNotReactedTo($post, $type); 
+	// user model instance of the Reacterable interface
+	$userReactionInterface = $user->viaLoveReacter(); 
+	// post model instance of the Reactable interface
+	$postReactionInterface = $post->viaLoveReactant(); 
+	
+	//$userReactionInterface->reactTo($post, 'funny'); // reacts to a post
+	// $userReactionInterface->unreactTo($post, 'funny'); // unreact to a post
 
-// 		if($userNotReacted){
-// 			$userReactionInterface->reactTo($post, $type);
-// 			return 'reacted';
-// 		}else{
-// 			$userReactionInterface->unreactTo($post, $type);
-// 			return 'unreacted';
-// 		}
-//     	//return $request->post_id;
-//     });
-    
-// });
+
+	// Determine if Reacter reacted to Reactant with any type of reaction.
+	//bool to specify if a user instance has reacted to the post
+	$userReacted = $userReactionInterface->hasReactedTo($post);
+	$userNotReacted = $userReactionInterface->hasNotReactedTo($post);
+	// $userReacted = $reacter->hasReactedTo($reactant, 'madoh' ); //determine if user has reacted with a type
+	// $userNotReacted = $reacter->hasNotReactedTo($reactant, 'funny');
+
+	//Get Reactions Which Reacter Has Made
+	$userReactions = $userReactionInterface->getReactions(); 
+
+	//Get all post reactions and counters (array)
+	$allReactionCounters = $postReactionInterface->getReactionCounters();
+	// Total is sum of counters of all reaction types.
+	$reactionTotal = $postReactionInterface->getReactionTotal(); 
+
+	//get counter for specified reaction type for a given post (reactable item)
+	$funnyReactionCounters = $postReactionInterface->getReactionCounterOfType('funny'); 
+	$madohReactionCounter = $postReactionInterface->getReactionCounterOfType('madoh');
+	$funnyReactionCount = $postReactionInterface->getReactionCounterOfType('funny')->getCount(); // get integer count
+
+
+	$isReactedBy = $postReactionInterface->isReactedBy($user);
+
+	return response()->json(['userReactions' => $allReactionCounters[0]->getReactionType()]);
+});

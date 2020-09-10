@@ -42,14 +42,14 @@
             </div>
             <div class="post-meta" style="display:block">
                 <div class="post-reaction-meta">
-                    <span class="" v-if="post.reactions.total >= 2">{{post.reactions.total}} people reacted this</span>
+                    <!-- <span class="" v-if="post.reactions.total >= 2">{{post.reactions.total}} people reacted this</span>
                     <span v-if="post.reactions.total == 1">{{post.reactions.total}} person reacted this</span>
-                    <span class="" v-if="post.reactions.total == 0">Be the first to react</span>
+                    <span class="" v-if="post.reactions.total == 0">Be the first to react</span> -->
                     <ul class="comment-share-meta float-right">
                         <li>
                             <button class="post-comment">
                                 <i class="bi bi-chat-bubble"></i>
-                                <span>4 {{type}}</span>
+                                <span>{{post.reactions.total}}</span>
                             </button>
                         </li>
                         <li>
@@ -59,41 +59,61 @@
                             </button>
                         </li>
                     </ul>
-                </div>
+             
                 
 
-                <div class="app" style="margin: 20px 0px; text-align:center">
-                    <button class="post-meta-like" @click="react(post, index, 'lol', reactionRate.lol)" title="Lol" style="margin: 0px 10px">
-                        <i v-if="post.user_reactions.lol == true"><img v-bind:src="'/assets/emoticons/excellent_active.png'" style="max-width: 1.5em"></i> 
-                        <i v-if="post.user_reactions.lol !=true"><img v-bind:src="'/assets/emoticons/excellent_inactive.png'" style="max-width: 1.5em"></i>   
+                
+                    <button class="post-meta-like" @click="react(post.id, index, 'lol', reactionRate.lol)" title="Lol" style="margin: 0px 1px">
+                        <i v-if="post.user_reactions.lol == true"><img v-bind:src="'/assets/emoticons/excellent_active.png'" class="emoji"></i> 
+                        <i v-if="post.user_reactions.lol !=true"><img v-bind:src="'/assets/emoticons/excellent_inactive.png'" class="emoji"></i>   
                     </button>
 
-                    <button class="post-meta-like" @click="react(post, index, 'notfunny', reactionRate.notfunny)" title="Not Funny" style="margin: 0px 10px">
-                        <!-- <i ><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.5em"></i> -->
-                        <i v-if="post.user_reactions.notfunny == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" style="max-width: 1.5em"></i> 
-                        <i v-if="post.user_reactions.notfunny !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.5em"></i> 
+                    <!-- <button class="post-meta-like" @click="react(post.id, index, 'lwkmd', reactionRate.lwkmd)" title="lwkmd" style="margin: 0px 10px">
+                        <i v-if="post.user_reactions.lwkmd == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" style="max-width: 1.2em"></i> 
+                        <i v-if="post.user_reactions.lwkmd !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.2em"></i> 
+                    </button> -->
+
+                    <button class="post-meta-like" @click="react(post.id, index, 'insidelife', reactionRate.insidelife)" title="insidelife" style="margin: 0px 1px">
+                        <i v-if="post.user_reactions.insidelife == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                        <i v-if="post.user_reactions.insidelife !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
                     </button>
 
-                    <button class="post-meta-like" @click="react(post, index, 'asin', reactionRate.asin)" title="Asin Eh" style="margin: 0px 10px">
-                        <!-- <i ><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.5em"></i> -->
-                        <i v-if="post.user_reactions.asin == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" style="max-width: 1.5em"></i> 
-                        <i v-if="post.user_reactions.asin !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.5em"></i> 
+                    <button class="post-meta-like" @click="react(post.id, index, 'omo', reactionRate.omo)" title="omo" style="margin: 0px 1px">
+                        <i v-if="post.user_reactions.omo == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                        <i v-if="post.user_reactions.omo !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
                     </button>
 
-                    <button class="post-meta-like" @click="react(post, index, 'madoh', reactionRate.madoh)" title="Mad Oh" style="margin: 0px 10px">
-                        <!-- <i ><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.5em"></i> -->
-                        <i v-if="post.user_reactions.madoh == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" style="max-width: 1.5em"></i> 
-                        <i v-if="post.user_reactions.madoh !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.5em"></i> 
+                    <button class="post-meta-like" @click="react(post.id, index, 'asin', reactionRate.asin)" title="asin" style="margin: 0px 1px">
+                        <i v-if="post.user_reactions.asin == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                        <i v-if="post.user_reactions.asin !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
                     </button>
 
-                    <button class="post-meta-like" @click="react(post, index, 'smh', reactionRate.smh)" title="SMH" style="margin: 0px 10px">
-                        <!-- <i ><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.5em"></i> -->
-                        <i v-if="post.user_reactions.smh == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" style="max-width: 1.5em"></i> 
-                        <i v-if="post.user_reactions.smh !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.5em"></i> 
+                    <button class="post-meta-like" @click="react(post.id, index, 'smh', reactionRate.smh)" title="smh" style="margin: 0px 1px">
+                        <i v-if="post.user_reactions.smh == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                        <i v-if="post.user_reactions.smh !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
                     </button>
+
+                    <!-- <button class="post-meta-like" @click="react(post.id, index, 'yfmh', reactionRate.yfmh)" title="yfmh" style="margin: 0px 1px">
+                        <i v-if="post.user_reactions.yfmh == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" style="max-width: 1.2em"></i> 
+                        <i v-if="post.user_reactions.yfmh !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.2em"></i> 
+                    </button> -->
+
+                    <button class="post-meta-like" @click="react(post.id, index, 'mtcheew', reactionRate.mtcheew)" title="mtcheew" style="margin: 0px 1px">
+                        <i v-if="post.user_reactions.mtcheew == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                        <i v-if="post.user_reactions.mtcheew !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                    </button>
+
+                    <button class="post-meta-like" @click="react(post.id, index, 'nfdl', reactionRate.nfdl)" title="nfdl" style="margin: 0px 1px">
+                        <i v-if="post.user_reactions.nfdl == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                        <i v-if="post.user_reactions.nfdl !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                    </button>
+
                 </div>
             </div>
         </div>
+    </div>
+    <div class="card">
+        <H3>Loading</H3>
     </div>
 </div>
 </template>
@@ -115,17 +135,17 @@
                 ],
 
                 load_more: true,
-                auth: [],
                 reactionRate: {
-                    lol:2, //change funny
-                    lwkmd:5, //-5 negative not funny didnt laugh
-                    insidelife:3,
-                    omo:2,
-                    asin:2,
-                    omo:1,
-                    yfmh:3, //-3 negative
-                    smh:1, //positive
-                    nfdl:1
+                    lol:3, // positve - laugh out loud
+                    lwkmd:3, // positive - laugh wan kii me die
+                    insidelife:1, //positive
+                    omo:1, //positive
+                    asin:2, //positive
+                    smh:3, //negative
+                    mtcheew:2, //negative
+                    nfdl:2, //negative
+                    yfmh:2, // negative
+                    
                 }
             }
         },
@@ -142,24 +162,17 @@
                     }); 
             },
 
-
-            getAuth () {
-                var user = new Auth();
-                return user.getAuth()
-                    .then(response => {
-                        this.auth = response.data;
-                    }); 
-            },
-
-            loadMore () {
+            scroll () {
                 window.onscroll = () => {
-                    let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+                let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight >= document.documentElement.offsetHeight;
+
                   
-                    if (bottomOfWindow && this.load_more ) {
+                    if (bottomOfWindow && this.load_more) {
                         this.post.loadMore(this.options['next_page_url'], this.auth_user)
                             .then(response => {
                                 this.posts = this.posts.concat(response.data);
                                 this.options['next_page_url'] = response.links.next;
+                                //console.log(this.posts);
                             }).catch(err => {
                                 console.log(err);
                             });
@@ -171,83 +184,116 @@
                 };
             },
 
-            react(post, index, type, rate){
-                return axios.get(`api/post/react/?auth_user_id=${this.auth_user}&post_id=${post.id}&type=${type}&rate=${rate}`, {
+            react(post_id, index, type, rate){
+                return axios.get(`post/react/?auth_user_id=${this.auth_user}&post_id=${post_id}&type=${type}&rate=${rate}`, {
                 })
                 .then(response => {
-                    //console.log(response.data);
+
                     let userReactions = this.posts[index].user_reactions;
                     let postReaction = this.posts[index].reactions;
-                    let totalReaction = this.posts[index].reactions.total;
-                    console.log(userReactions);
-                    
-                    // for(let r in userReactions){
-                    //     if(r == type){
-                    //         console.log(type);
-                    //         if(userReactions.funny == true){
-                    //             return userReactions.funny = false;
-                    //         }
-                    //         return userReactions.funny = true;
-                            
-                    //     }
-                    // }
 
+                     //response payload contains current post points and total reactions
+                    let reactionResponse = response.data;
+                    
                     switch(type){
                         case "lol":
                             if(userReactions.lol == true){
-                                postReaction.points = postReaction.points-rate;
-                                totalReaction = totalReaction-rate;
+                                postReaction.points = reactionResponse.points;
+                                postReaction.total = reactionResponse.total;
                                 return userReactions.lol = false;
                             }
-                            postReaction.points = postReaction.points+rate;
+                            postReaction.points = reactionResponse.points;
+                            postReaction.total = reactionResponse.total;
                             return userReactions.lol = true;
                         break;
 
-                        case "notfunny":
-                            if(userReactions.notfunny == true){
-                                postReaction.points = postReaction.points+rate;
-                                return userReactions.notfunny = false;
+                        case "lwkmd":
+                            if(userReactions.lwkmd == true){
+                                postReaction.points = reactionResponse.points;
+                                postReaction.total = reactionResponse.total;
+                                return userReactions.lwkmd = false;
                             }
-                            postReaction.points = postReaction.points-rate;
-                            return userReactions.notfunny = true;
+                            postReaction.points = reactionResponse.points;
+                            postReaction.total = reactionResponse.total;
+                            return userReactions.lwkmd = true;
                         break;
 
-                        case "madoh":
-                            if(userReactions.madoh == true){
-                                postReaction.points = postReaction.points-rate;
-                                return userReactions.madoh = false;
+                        case "insidelife":
+                            if(userReactions.insidelife == true){
+                                postReaction.points = reactionResponse.points;
+                                postReaction.total = reactionResponse.total;
+                                return userReactions.insidelife = false;
                             }
-                            postReaction.points = postReaction.points+rate;
-                            return userReactions.madoh = true;
+                            postReaction.points = reactionResponse.points;
+                            postReaction.total = reactionResponse.total;
+                            return userReactions.insidelife = true;
+                        break;
+
+                        case "omo":
+                            if(userReactions.omo == true){
+                                postReaction.points = reactionResponse.points;
+                                postReaction.total = reactionResponse.total;
+                                return userReactions.omo = false;
+                            }
+                            postReaction.points = reactionResponse.points;
+                            postReaction.total = reactionResponse.total;
+                            return userReactions.omo = true;
                         break;
 
                         case "asin":
                             if(userReactions.asin == true){
-                                postReaction.points = postReaction.points-rate;
+                                postReaction.points = reactionResponse.points;
+                                postReaction.total = reactionResponse.total;
                                 return userReactions.asin = false;
                             }
-                            postReaction.points = postReaction.points+rate;
+                            postReaction.points = reactionResponse.points;
+                            postReaction.total = reactionResponse.total;
                             return userReactions.asin = true;
                         break;
 
                         case "smh":
                             if(userReactions.smh == true){
-                                postReaction.points = postReaction.points+rate;
+                                postReaction.points = reactionResponse.points;
+                                postReaction.total = reactionResponse.total;
                                 return userReactions.smh = false;
                             }
-                            postReaction.points = postReaction.points-rate;
+                            postReaction.points = reactionResponse.points;
+                            postReaction.total = reactionResponse.total;
                             return userReactions.smh = true;
                         break;
 
-                        case "ewo":
-                            if(userReactions.smh == true){
-                                postReaction.points = postReaction.points+rate;
-                                return userReactions.smh = false;
+                        case "mtcheew":
+                            if(userReactions.mtcheew == true){
+                                postReaction.points = reactionResponse.points;
+                                postReaction.total = reactionResponse.total;
+                                return userReactions.mtcheew = false;
                             }
-                            postReaction.points = postReaction.points-rate;
-                            return userReactions.smh = true;
+                            postReaction.points = reactionResponse.points;
+                            postReaction.total = reactionResponse.total;
+                            return userReactions.mtcheew = true;
                         break;
 
+                        case "nfdl":
+                            if(userReactions.nfdl == true){
+                                postReaction.points = reactionResponse.points;
+                                postReaction.total = reactionResponse.total;
+                                return userReactions.nfdl = false;
+                            }
+                            postReaction.points = reactionResponse.points;
+                            postReaction.total = reactionResponse.total;
+                            return userReactions.nfdl = true;
+                        break;
+
+                        case "yfmh":
+                            if(userReactions.yfmh == true){
+                                postReaction.points = reactionResponse.points;
+                                postReaction.total = reactionResponse.total;
+                                return userReactions.yfmh = false;
+                            }
+                            postReaction.points = reactionResponse.points;
+                            postReaction.total = reactionResponse.total;
+                            return userReactions.yfmh = true;
+                        break;
 
                     }
                 })
@@ -262,12 +308,14 @@
 
         },
         mounted() {
-            this.getAuth();
-            this.getPost();
-            this.loadMore();  
+            // this.getPost();
+            this.scroll();  
         },
 
         created(){
+
+            this.getPost();
+            //this.loadMore();  
 
         }
     }
@@ -285,7 +333,18 @@
         border: thin solid #efe5e5;
         margin: -10px;
         color: gray;
-}
+    }
+
+    .post-reaction-meta  .emoji{
+        max-width: 1.5em;
+
+    }
+
+    @media only screen and (max-width: 600px){
+        .post-reaction-meta .emoji{
+            max-width: 1.2em;
+        }
+    }
 </style>
 
 

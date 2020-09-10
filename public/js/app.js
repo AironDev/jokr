@@ -1943,8 +1943,26 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_PostService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/PostService */ "./resources/js/services/PostService.js");
 /* harmony import */ var _services_AuthService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/AuthService */ "./resources/js/services/AuthService.js");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2050,23 +2068,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['profile', 'auth_user'],
   data: function data() {
-    var _reactionRate;
-
     return {
       post: new _services_PostService__WEBPACK_IMPORTED_MODULE_0__["default"](),
       posts: [],
       options: ['current_page_url', 'last_page_url', 'next_page_url', 'total'],
       load_more: true,
-      auth: [],
-      reactionRate: (_reactionRate = {
-        lol: 2,
-        //change funny
-        lwkmd: 5,
-        //-5 negative not funny didnt laugh
-        insidelife: 3,
-        omo: 2,
-        asin: 2
-      }, _defineProperty(_reactionRate, "omo", 1), _defineProperty(_reactionRate, "yfmh", 3), _defineProperty(_reactionRate, "smh", 1), _defineProperty(_reactionRate, "nfdl", 1), _reactionRate)
+      reactionRate: {
+        lol: 3,
+        // positve - laugh out loud
+        lwkmd: 3,
+        // positive - laugh wan kii me die
+        insidelife: 1,
+        //positive
+        omo: 1,
+        //positive
+        asin: 2,
+        //positive
+        smh: 3,
+        //negative
+        mtcheew: 2,
+        //negative
+        nfdl: 2,
+        //negative
+        yfmh: 2 // negative
+
+      }
     };
   },
   methods: {
@@ -2081,113 +2107,143 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.options['current_page_url'] = response.links.first;
       });
     },
-    getAuth: function getAuth() {
+    scroll: function scroll() {
       var _this2 = this;
 
-      var user = new _services_AuthService__WEBPACK_IMPORTED_MODULE_1__["default"]();
-      return user.getAuth().then(function (response) {
-        _this2.auth = response.data;
-      });
-    },
-    loadMore: function loadMore() {
-      var _this3 = this;
-
       window.onscroll = function () {
-        var bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+        var bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight >= document.documentElement.offsetHeight;
 
-        if (bottomOfWindow && _this3.load_more) {
-          _this3.post.loadMore(_this3.options['next_page_url'], _this3.auth_user).then(function (response) {
-            _this3.posts = _this3.posts.concat(response.data);
-            _this3.options['next_page_url'] = response.links.next;
+        if (bottomOfWindow && _this2.load_more) {
+          _this2.post.loadMore(_this2.options['next_page_url'], _this2.auth_user).then(function (response) {
+            _this2.posts = _this2.posts.concat(response.data);
+            _this2.options['next_page_url'] = response.links.next; //console.log(this.posts);
           })["catch"](function (err) {
             console.log(err);
           });
 
-          if (_this3.options['last_page_url'] == _this3.options['next_page_url']) {
-            _this3.load_more = false;
+          if (_this2.options['last_page_url'] == _this2.options['next_page_url']) {
+            _this2.load_more = false;
             console.log('last page loaded');
           }
         }
       };
     },
-    react: function react(post, index, type, rate) {
-      var _this4 = this;
+    react: function react(post_id, index, type, rate) {
+      var _this3 = this;
 
-      return axios.get("api/post/react/?auth_user_id=".concat(this.auth_user, "&post_id=").concat(post.id, "&type=").concat(type, "&rate=").concat(rate), {}).then(function (response) {
-        //console.log(response.data);
-        var userReactions = _this4.posts[index].user_reactions;
-        var postReaction = _this4.posts[index].reactions;
-        var totalReaction = _this4.posts[index].reactions.total;
-        console.log(userReactions); // for(let r in userReactions){
-        //     if(r == type){
-        //         console.log(type);
-        //         if(userReactions.funny == true){
-        //             return userReactions.funny = false;
-        //         }
-        //         return userReactions.funny = true;
-        //     }
-        // }
+      return axios.get("post/react/?auth_user_id=".concat(this.auth_user, "&post_id=").concat(post_id, "&type=").concat(type, "&rate=").concat(rate), {}).then(function (response) {
+        var userReactions = _this3.posts[index].user_reactions;
+        var postReaction = _this3.posts[index].reactions; //response payload contains current post points and total reactions
+
+        var reactionResponse = response.data;
 
         switch (type) {
           case "lol":
             if (userReactions.lol == true) {
-              postReaction.points = postReaction.points - rate;
-              totalReaction = totalReaction - rate;
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
               return userReactions.lol = false;
             }
 
-            postReaction.points = postReaction.points + rate;
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
             return userReactions.lol = true;
             break;
 
-          case "notfunny":
-            if (userReactions.notfunny == true) {
-              postReaction.points = postReaction.points + rate;
-              return userReactions.notfunny = false;
+          case "lwkmd":
+            if (userReactions.lwkmd == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.lwkmd = false;
             }
 
-            postReaction.points = postReaction.points - rate;
-            return userReactions.notfunny = true;
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.lwkmd = true;
             break;
 
-          case "madoh":
-            if (userReactions.madoh == true) {
-              postReaction.points = postReaction.points - rate;
-              return userReactions.madoh = false;
+          case "insidelife":
+            if (userReactions.insidelife == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.insidelife = false;
             }
 
-            postReaction.points = postReaction.points + rate;
-            return userReactions.madoh = true;
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.insidelife = true;
+            break;
+
+          case "omo":
+            if (userReactions.omo == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.omo = false;
+            }
+
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.omo = true;
             break;
 
           case "asin":
             if (userReactions.asin == true) {
-              postReaction.points = postReaction.points - rate;
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
               return userReactions.asin = false;
             }
 
-            postReaction.points = postReaction.points + rate;
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
             return userReactions.asin = true;
             break;
 
           case "smh":
             if (userReactions.smh == true) {
-              postReaction.points = postReaction.points + rate;
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
               return userReactions.smh = false;
             }
 
-            postReaction.points = postReaction.points - rate;
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
             return userReactions.smh = true;
             break;
 
-          case "ewo":
-            if (userReactions.smh == true) {
-              postReaction.points = postReaction.points + rate;
-              return userReactions.smh = false;
+          case "mtcheew":
+            if (userReactions.mtcheew == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.mtcheew = false;
             }
 
-            postReaction.points = postReaction.points - rate;
-            return userReactions.smh = true;
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.mtcheew = true;
+            break;
+
+          case "nfdl":
+            if (userReactions.nfdl == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.nfdl = false;
+            }
+
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.nfdl = true;
+            break;
+
+          case "yfmh":
+            if (userReactions.yfmh == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.yfmh = false;
+            }
+
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.yfmh = true;
             break;
         }
       })["catch"](function (err) {
@@ -2197,11 +2253,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: {},
   mounted: function mounted() {
-    this.getAuth();
-    this.getPost();
-    this.loadMore();
+    // this.getPost();
+    this.scroll();
   },
-  created: function created() {}
+  created: function created() {
+    this.getPost(); //this.loadMore();  
+  }
 });
 
 /***/ }),
@@ -2277,6 +2334,68 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.userReactions();
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UserNotificationComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UserNotificationComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['profile', 'auth_user'],
+  data: function data() {
+    return {
+      notifications: []
+    };
+  },
+  methods: {
+    getNotifications: function getNotifications() {
+      var _this = this;
+
+      return axios.get("notifications/?user_id=".concat(this.auth_user), {}).then(function (response) {
+        _this.notifications = response.data; //console.log(this.notifications);
+      });
+    }
+  },
+  computed: {},
+  mounted: function mounted() {
+    this.getNotifications();
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -6713,7 +6832,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.post-desc video, iframe, img {\n        max-width: 100%;\n        max-height: 100%;\n}\n.post-reaction-meta {\n        background: #e8e8e8;\n        padding: 10px;\n        border: thin solid #efe5e5;\n        margin: -10px;\n        color: gray;\n}\n", ""]);
+exports.push([module.i, "\n.post-desc video, iframe, img {\n    max-width: 100%;\n    max-height: 100%;\n}\n.post-reaction-meta {\n    background: #e8e8e8;\n    padding: 10px;\n    border: thin solid #efe5e5;\n    margin: -10px;\n    color: gray;\n}\n.post-reaction-meta  .emoji{\n    max-width: 1.5em;\n}\n@media only screen and (max-width: 600px){\n.post-reaction-meta .emoji{\n        max-width: 1.2em;\n}\n}\n", ""]);
 
 // exports
 
@@ -41736,103 +41855,76 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.posts, function(post, index) {
-      return _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "post-title d-flex align-items-center" }, [
-          _c("div", { staticClass: "profile-thumb" }, [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("figure", { staticClass: "profile-thumb-middle" }, [
-                _c("img", {
-                  attrs: { src: post.user.photo, alt: "profile picture" }
-                })
+    [
+      _vm._l(_vm.posts, function(post, index) {
+        return _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "post-title d-flex align-items-center" }, [
+            _c("div", { staticClass: "profile-thumb" }, [
+              _c("a", { attrs: { href: "#" } }, [
+                _c("figure", { staticClass: "profile-thumb-middle" }, [
+                  _c("img", {
+                    attrs: { src: post.user.photo, alt: "profile picture" }
+                  })
+                ])
               ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "posted-author" }, [
-            _c("h6", { staticClass: "author" }, [
-              _c(
-                "a",
-                { attrs: { href: _vm.profile + "/" + post.user.username } },
-                [_vm._v(_vm._s(post.user.display_name))]
-              )
             ]),
             _vm._v(" "),
-            _c("span", { staticClass: "post-time" }, [_vm._v("40 min ago")])
+            _c("div", { staticClass: "posted-author" }, [
+              _c("h6", { staticClass: "author" }, [
+                _c(
+                  "a",
+                  { attrs: { href: _vm.profile + "/" + post.user.username } },
+                  [_vm._v(_vm._s(post.user.display_name))]
+                )
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "post-time" }, [_vm._v("40 min ago")])
+            ]),
+            _vm._v(" "),
+            _vm._m(0, true)
           ]),
           _vm._v(" "),
-          _vm._m(0, true)
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "post-content" }, [
-          _c("div", {
-            staticClass: "post-desc",
-            domProps: { innerHTML: _vm._s(post.content) }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "post-thumb-gallery" }),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "post-meta", staticStyle: { display: "block" } },
-            [
-              _c("div", { staticClass: "post-reaction-meta" }, [
-                post.reactions.total >= 2
-                  ? _c("span", {}, [
-                      _vm._v(
-                        _vm._s(post.reactions.total) + " people reacted this"
-                      )
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                post.reactions.total == 1
-                  ? _c("span", [
-                      _vm._v(
-                        _vm._s(post.reactions.total) + " person reacted this"
-                      )
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                post.reactions.total == 0
-                  ? _c("span", {}, [_vm._v("Be the first to react")])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("ul", { staticClass: "comment-share-meta float-right" }, [
-                  _c("li", [
-                    _c("button", { staticClass: "post-comment" }, [
-                      _c("i", { staticClass: "bi bi-chat-bubble" }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("4 " + _vm._s(_vm.type))])
+          _c("div", { staticClass: "post-content" }, [
+            _c("div", {
+              staticClass: "post-desc",
+              domProps: { innerHTML: _vm._s(post.content) }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "post-thumb-gallery" }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "post-meta", staticStyle: { display: "block" } },
+              [
+                _c("div", { staticClass: "post-reaction-meta" }, [
+                  _c("ul", { staticClass: "comment-share-meta float-right" }, [
+                    _c("li", [
+                      _c("button", { staticClass: "post-comment" }, [
+                        _c("i", { staticClass: "bi bi-chat-bubble" }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(post.reactions.total))])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c("button", { staticClass: "post-share" }, [
+                        _c("i", { staticClass: "bi bi-share" }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(post.reactions.points))])
+                      ])
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("li", [
-                    _c("button", { staticClass: "post-share" }, [
-                      _c("i", { staticClass: "bi bi-share" }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v(_vm._s(post.reactions.points))])
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "app",
-                  staticStyle: { margin: "20px 0px", "text-align": "center" }
-                },
-                [
                   _c(
                     "button",
                     {
                       staticClass: "post-meta-like",
-                      staticStyle: { margin: "0px 10px" },
+                      staticStyle: { margin: "0px 1px" },
                       attrs: { title: "Lol" },
                       on: {
                         click: function($event) {
                           return _vm.react(
-                            post,
+                            post.id,
                             index,
                             "lol",
                             _vm.reactionRate.lol
@@ -41844,7 +41936,7 @@ var render = function() {
                       post.user_reactions.lol == true
                         ? _c("i", [
                             _c("img", {
-                              staticStyle: { "max-width": "1.5em" },
+                              staticClass: "emoji",
                               attrs: {
                                 src: "/assets/emoticons/excellent_active.png"
                               }
@@ -41855,7 +41947,7 @@ var render = function() {
                       post.user_reactions.lol != true
                         ? _c("i", [
                             _c("img", {
-                              staticStyle: { "max-width": "1.5em" },
+                              staticClass: "emoji",
                               attrs: {
                                 src: "/assets/emoticons/excellent_inactive.png"
                               }
@@ -41869,24 +41961,24 @@ var render = function() {
                     "button",
                     {
                       staticClass: "post-meta-like",
-                      staticStyle: { margin: "0px 10px" },
-                      attrs: { title: "Not Funny" },
+                      staticStyle: { margin: "0px 1px" },
+                      attrs: { title: "insidelife" },
                       on: {
                         click: function($event) {
                           return _vm.react(
-                            post,
+                            post.id,
                             index,
-                            "notfunny",
-                            _vm.reactionRate.notfunny
+                            "insidelife",
+                            _vm.reactionRate.insidelife
                           )
                         }
                       }
                     },
                     [
-                      post.user_reactions.notfunny == true
+                      post.user_reactions.insidelife == true
                         ? _c("i", [
                             _c("img", {
-                              staticStyle: { "max-width": "1.5em" },
+                              staticClass: "emoji",
                               attrs: {
                                 src: "/assets/emoticons/hate_active.png"
                               }
@@ -41894,10 +41986,10 @@ var render = function() {
                           ])
                         : _vm._e(),
                       _vm._v(" "),
-                      post.user_reactions.notfunny != true
+                      post.user_reactions.insidelife != true
                         ? _c("i", [
                             _c("img", {
-                              staticStyle: { "max-width": "1.5em" },
+                              staticClass: "emoji",
                               attrs: {
                                 src: "/assets/emoticons/hate_inactive.png"
                               }
@@ -41911,12 +42003,54 @@ var render = function() {
                     "button",
                     {
                       staticClass: "post-meta-like",
-                      staticStyle: { margin: "0px 10px" },
-                      attrs: { title: "Asin Eh" },
+                      staticStyle: { margin: "0px 1px" },
+                      attrs: { title: "omo" },
                       on: {
                         click: function($event) {
                           return _vm.react(
-                            post,
+                            post.id,
+                            index,
+                            "omo",
+                            _vm.reactionRate.omo
+                          )
+                        }
+                      }
+                    },
+                    [
+                      post.user_reactions.omo == true
+                        ? _c("i", [
+                            _c("img", {
+                              staticClass: "emoji",
+                              attrs: {
+                                src: "/assets/emoticons/hate_active.png"
+                              }
+                            })
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      post.user_reactions.omo != true
+                        ? _c("i", [
+                            _c("img", {
+                              staticClass: "emoji",
+                              attrs: {
+                                src: "/assets/emoticons/hate_inactive.png"
+                              }
+                            })
+                          ])
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "post-meta-like",
+                      staticStyle: { margin: "0px 1px" },
+                      attrs: { title: "asin" },
+                      on: {
+                        click: function($event) {
+                          return _vm.react(
+                            post.id,
                             index,
                             "asin",
                             _vm.reactionRate.asin
@@ -41928,7 +42062,7 @@ var render = function() {
                       post.user_reactions.asin == true
                         ? _c("i", [
                             _c("img", {
-                              staticStyle: { "max-width": "1.5em" },
+                              staticClass: "emoji",
                               attrs: {
                                 src: "/assets/emoticons/hate_active.png"
                               }
@@ -41939,7 +42073,7 @@ var render = function() {
                       post.user_reactions.asin != true
                         ? _c("i", [
                             _c("img", {
-                              staticStyle: { "max-width": "1.5em" },
+                              staticClass: "emoji",
                               attrs: {
                                 src: "/assets/emoticons/hate_inactive.png"
                               }
@@ -41953,54 +42087,12 @@ var render = function() {
                     "button",
                     {
                       staticClass: "post-meta-like",
-                      staticStyle: { margin: "0px 10px" },
-                      attrs: { title: "Mad Oh" },
+                      staticStyle: { margin: "0px 1px" },
+                      attrs: { title: "smh" },
                       on: {
                         click: function($event) {
                           return _vm.react(
-                            post,
-                            index,
-                            "madoh",
-                            _vm.reactionRate.madoh
-                          )
-                        }
-                      }
-                    },
-                    [
-                      post.user_reactions.madoh == true
-                        ? _c("i", [
-                            _c("img", {
-                              staticStyle: { "max-width": "1.5em" },
-                              attrs: {
-                                src: "/assets/emoticons/hate_active.png"
-                              }
-                            })
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      post.user_reactions.madoh != true
-                        ? _c("i", [
-                            _c("img", {
-                              staticStyle: { "max-width": "1.5em" },
-                              attrs: {
-                                src: "/assets/emoticons/hate_inactive.png"
-                              }
-                            })
-                          ])
-                        : _vm._e()
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "post-meta-like",
-                      staticStyle: { margin: "0px 10px" },
-                      attrs: { title: "SMH" },
-                      on: {
-                        click: function($event) {
-                          return _vm.react(
-                            post,
+                            post.id,
                             index,
                             "smh",
                             _vm.reactionRate.smh
@@ -42012,7 +42104,7 @@ var render = function() {
                       post.user_reactions.smh == true
                         ? _c("i", [
                             _c("img", {
-                              staticStyle: { "max-width": "1.5em" },
+                              staticClass: "emoji",
                               attrs: {
                                 src: "/assets/emoticons/hate_active.png"
                               }
@@ -42023,7 +42115,91 @@ var render = function() {
                       post.user_reactions.smh != true
                         ? _c("i", [
                             _c("img", {
-                              staticStyle: { "max-width": "1.5em" },
+                              staticClass: "emoji",
+                              attrs: {
+                                src: "/assets/emoticons/hate_inactive.png"
+                              }
+                            })
+                          ])
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "post-meta-like",
+                      staticStyle: { margin: "0px 1px" },
+                      attrs: { title: "mtcheew" },
+                      on: {
+                        click: function($event) {
+                          return _vm.react(
+                            post.id,
+                            index,
+                            "mtcheew",
+                            _vm.reactionRate.mtcheew
+                          )
+                        }
+                      }
+                    },
+                    [
+                      post.user_reactions.mtcheew == true
+                        ? _c("i", [
+                            _c("img", {
+                              staticClass: "emoji",
+                              attrs: {
+                                src: "/assets/emoticons/hate_active.png"
+                              }
+                            })
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      post.user_reactions.mtcheew != true
+                        ? _c("i", [
+                            _c("img", {
+                              staticClass: "emoji",
+                              attrs: {
+                                src: "/assets/emoticons/hate_inactive.png"
+                              }
+                            })
+                          ])
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "post-meta-like",
+                      staticStyle: { margin: "0px 1px" },
+                      attrs: { title: "nfdl" },
+                      on: {
+                        click: function($event) {
+                          return _vm.react(
+                            post.id,
+                            index,
+                            "nfdl",
+                            _vm.reactionRate.nfdl
+                          )
+                        }
+                      }
+                    },
+                    [
+                      post.user_reactions.nfdl == true
+                        ? _c("i", [
+                            _c("img", {
+                              staticClass: "emoji",
+                              attrs: {
+                                src: "/assets/emoticons/hate_active.png"
+                              }
+                            })
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      post.user_reactions.nfdl != true
+                        ? _c("i", [
+                            _c("img", {
+                              staticClass: "emoji",
                               attrs: {
                                 src: "/assets/emoticons/hate_inactive.png"
                               }
@@ -42032,14 +42208,16 @@ var render = function() {
                         : _vm._e()
                     ]
                   )
-                ]
-              )
-            ]
-          )
+                ])
+              ]
+            )
+          ])
         ])
-      ])
-    }),
-    0
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "card" }, [_c("H3", [_vm._v("Loading")])], 1)
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -42261,6 +42439,99 @@ var render = function() {
   )
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UserNotificationComponent.vue?vue&type=template&id=156ec1ec&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UserNotificationComponent.vue?vue&type=template&id=156ec1ec& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "card widget-item",
+      staticStyle: { "max-height": "420px", overflow: "scroll" }
+    },
+    [
+      _c("h4", { staticClass: "widget-title" }, [
+        _vm._v("Recent Notifications")
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "widget-body" },
+        _vm._l(_vm.notifications, function(notification) {
+          return _c("ul", { staticClass: "like-page-list-wrapper" }, [
+            _c(
+              "li",
+              {
+                staticClass: "unorder-list",
+                staticStyle: { "margin-bottom": "20px" }
+              },
+              [
+                _vm._m(0, true),
+                _vm._v(" "),
+                _c("div", { staticClass: "unorder-list-info" }, [
+                  _c("h3", { staticClass: "list-title" }, [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v(
+                        _vm._s(
+                          notification.user_id +
+                            " and " +
+                            notification.reaction_count +
+                            " others, reacted to your post " +
+                            notification.post_id
+                        )
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "list-subtitle" }, [
+                    _vm._v("5 min ago")
+                  ])
+                ])
+              ]
+            )
+          ])
+        }),
+        0
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "profile-thumb" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("figure", { staticClass: "profile-thumb-small" }, [
+          _c("img", {
+            attrs: {
+              src: "assets/images/profile/profile-small-9.jpg",
+              alt: "profile picture"
+            }
+          })
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -54457,6 +54728,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('post-feed', __webpack_require__(/*! ./components/PostFeedComponent.vue */ "./resources/js/components/PostFeedComponent.vue")["default"]);
 Vue.component('post-reaction', __webpack_require__(/*! ./components/PostReactionComponent.vue */ "./resources/js/components/PostReactionComponent.vue")["default"]);
+Vue.component('user-notification', __webpack_require__(/*! ./components/UserNotificationComponent.vue */ "./resources/js/components/UserNotificationComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -54739,6 +55011,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/UserNotificationComponent.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/UserNotificationComponent.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _UserNotificationComponent_vue_vue_type_template_id_156ec1ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserNotificationComponent.vue?vue&type=template&id=156ec1ec& */ "./resources/js/components/UserNotificationComponent.vue?vue&type=template&id=156ec1ec&");
+/* harmony import */ var _UserNotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserNotificationComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/UserNotificationComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _UserNotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UserNotificationComponent_vue_vue_type_template_id_156ec1ec___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _UserNotificationComponent_vue_vue_type_template_id_156ec1ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/UserNotificationComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/UserNotificationComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/UserNotificationComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserNotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./UserNotificationComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UserNotificationComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserNotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/UserNotificationComponent.vue?vue&type=template&id=156ec1ec&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/UserNotificationComponent.vue?vue&type=template&id=156ec1ec& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserNotificationComponent_vue_vue_type_template_id_156ec1ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./UserNotificationComponent.vue?vue&type=template&id=156ec1ec& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UserNotificationComponent.vue?vue&type=template&id=156ec1ec&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserNotificationComponent_vue_vue_type_template_id_156ec1ec___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserNotificationComponent_vue_vue_type_template_id_156ec1ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/services/AuthService.js":
 /*!**********************************************!*\
   !*** ./resources/js/services/AuthService.js ***!
@@ -54800,7 +55141,7 @@ var PostService = /*#__PURE__*/function () {
   _createClass(PostService, [{
     key: "getPost",
     value: function getPost(auth_user) {
-      return axios.get("http://jokr.air/api/posts?auth_user_id=".concat(auth_user), {}).then(function (response) {
+      return axios.get("http://jokr.air/posts?auth_user_id=".concat(auth_user), {}).then(function (response) {
         return response.data;
       })["catch"](function (err) {
         console.log(err);
