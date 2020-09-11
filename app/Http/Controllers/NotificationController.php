@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\NotificationResource;
+use Illuminate\Support\Facades\DB;
 
 class NotificationController extends Controller
 {   //all calls to this controller must carry an auth_user_id
@@ -13,11 +15,6 @@ class NotificationController extends Controller
 
     public function __construct(Request $request){
         $this->middleware('auth');
-    }
-
-    public function authUser(){
-        return $this->auth_user;
-
     }
 
     public function checkAuth(Request $request){
@@ -29,16 +26,28 @@ class NotificationController extends Controller
 
     public function userNotifications(Request $request){
         $this->checkAuth($request);
-        $notifications = $this->user->notifications;
-        //$unreadNotifications = $user->unreadNotifications
-        $notification = [];
-        $data = [];
-        foreach ($notifications as $key => $value) {
-            array_push($notification, $value->data);
+        //$user = User::find(1);
+        $user = $this->user;
+        $userNotifications = $user->unreadNotifications;
+
+        $notifications = collect($userNotifications)->unique(function($item){
+            return $item->data['post_id'];
+        })->values()->all();
+        
+        //return ($notifications);
+        return NotificationResource::collection($notifications);
+    }
+
+// Mark all notifications on a post as read
+    public function markAsRead(Request $request){
+        $this->checkAuth($request);
+        $post_id = $request->post_id;
+        $unreadNotifications = $this->user->unreadNotifications;
+
+        //$noty = DB::table('notifications')->where('data->post_id', 25);
+        foreach ($unreadNotifications as $notifications) {
+           $notifications->where('data->post_id', $post_id)->get()->markAsRead();
         }
-        foreach ($notification as $value) {
-           array_push($data, $value[0]);
-        }
-        return response()->json( $data);
+
     }
 }

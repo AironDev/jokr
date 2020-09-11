@@ -145,6 +145,7 @@ class PostController extends Controller
                 'reaction_type' => $type, 
                 'verb' => 'reacted',
                 'reaction_count' => $reactions['total'],
+                'date' => Carbon::now(),
             ];
             $post->first()->user->notify(new PostReaction($notifyData));
             return $reactions;

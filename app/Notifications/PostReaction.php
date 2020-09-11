@@ -54,8 +54,10 @@ class PostReaction extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            $this->data
-        ];
+        // return [
+        //     $this->data
+        // ];
+        $dat = ($this->data);
+        return $dat;
     }
 }

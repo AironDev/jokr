@@ -5,19 +5,19 @@
         <div class="widget-body">
             <ul class="like-page-list-wrapper" v-for="notification in notifications">
                 <li class="unorder-list" style="margin-bottom: 20px">
-                    <!-- profile picture end -->
+                    
                     <div class="profile-thumb">
                         <a href="#">
                             <figure class="profile-thumb-small">
-                                <img src="assets/images/profile/profile-small-9.jpg" alt="profile picture">
+                                <img :src="notification.photo" alt="profile picture">
                             </figure>
                         </a>
                     </div>
-                    <!-- profile picture end -->
+                    
 
                     <div class="unorder-list-info">
-                        <h3 class="list-title"><a href="#">{{`${notification.user_id} and ${notification.reaction_count} others, reacted to your post ${notification.post_id}`}}</a></h3>
-                        <p class="list-subtitle">5 min ago</p>
+                        <h3 class="list-title"><a href="#">{{`${notification.username} and ${notification.reaction_count} others, reacted to your post ${notification.post_id}`}}</a></h3>
+                        <p class="list-subtitle">{{notification.date}}</p>
                     </div>
                 </li>
             </ul>
@@ -41,8 +41,8 @@
 
                 })
                     .then(response => {
-                        this.notifications = response.data;
-                        //console.log(this.notifications);
+                        this.notifications = response.data.data;
+                        console.log(this.notifications);
                         
                     }); 
             },

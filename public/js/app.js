@@ -2387,7 +2387,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       return axios.get("notifications/?user_id=".concat(this.auth_user), {}).then(function (response) {
-        _this.notifications = response.data; //console.log(this.notifications);
+        _this.notifications = response.data.data;
+        console.log(_this.notifications);
       });
     }
   },
@@ -42483,14 +42484,25 @@ var render = function() {
                 staticStyle: { "margin-bottom": "20px" }
               },
               [
-                _vm._m(0, true),
+                _c("div", { staticClass: "profile-thumb" }, [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _c("figure", { staticClass: "profile-thumb-small" }, [
+                      _c("img", {
+                        attrs: {
+                          src: notification.photo,
+                          alt: "profile picture"
+                        }
+                      })
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "unorder-list-info" }, [
                   _c("h3", { staticClass: "list-title" }, [
                     _c("a", { attrs: { href: "#" } }, [
                       _vm._v(
                         _vm._s(
-                          notification.user_id +
+                          notification.username +
                             " and " +
                             notification.reaction_count +
                             " others, reacted to your post " +
@@ -42501,7 +42513,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("p", { staticClass: "list-subtitle" }, [
-                    _vm._v("5 min ago")
+                    _vm._v(_vm._s(notification.date))
                   ])
                 ])
               ]
@@ -42513,25 +42525,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "profile-thumb" }, [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("figure", { staticClass: "profile-thumb-small" }, [
-          _c("img", {
-            attrs: {
-              src: "assets/images/profile/profile-small-9.jpg",
-              alt: "profile picture"
-            }
-          })
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

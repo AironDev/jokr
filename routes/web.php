@@ -35,8 +35,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 
 // Notifications Endpoints
-Route::group(['middleware' => ['auth', 'web']], function(){
+Route::group(['middleware' => [ 'web']], function(){
 	 Route::get('/notifications', 'NotificationController@userNotifications');
+	 Route::get('/read', 'NotificationController@markAsRead');
 });
 
 
