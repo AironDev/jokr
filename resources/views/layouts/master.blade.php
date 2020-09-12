@@ -37,6 +37,16 @@
 </head>
 
 <body>
-    <!-- header area start -->
-        @include('partials.header')
+    @include('partials.header')
+
+    @yield('content')
+
+    @include('partials.footer')
+    
+    @yield('js')
+
+<script type="text/javascript"  src="{{asset('js/app.js')}}"></script>
+</body>
+
+</html>
 
