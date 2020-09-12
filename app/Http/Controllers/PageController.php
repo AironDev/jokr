@@ -9,8 +9,7 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     public function index(){
-        $posts = Post::orderBy('created_at', 'desc')->get();
-    	return view('index')->with(['posts' => $posts]);
+    	return view('index');
     }
 
     public function friends(){

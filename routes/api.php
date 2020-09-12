@@ -27,7 +27,7 @@ Route::get('/react', function(){
 	$user = User::find(2); 
 
 	//reactant (reactable instance)
-	$post = Post::find(1); 
+	$post = Post::find(25); 
 
 	// user model instance of the Reacterable interface
 	$userReactionInterface = $user->viaLoveReacter(); 
@@ -54,12 +54,23 @@ Route::get('/react', function(){
 	$reactionTotal = $postReactionInterface->getReactionTotal(); 
 
 	//get counter for specified reaction type for a given post (reactable item)
-	$funnyReactionCounters = $postReactionInterface->getReactionCounterOfType('funny'); 
-	$madohReactionCounter = $postReactionInterface->getReactionCounterOfType('madoh');
-	$funnyReactionCount = $postReactionInterface->getReactionCounterOfType('funny')->getCount(); // get integer count
+	$funnyReactionCounters = $postReactionInterface->getReactionCounterOfType('lol'); 
+	$madohReactionCounter = $postReactionInterface->getReactionCounterOfType('smh');
+	$funnyReactionCount = $postReactionInterface->getReactionCounterOfType('lol')->getCount(); // get integer count
 
 
 	$isReactedBy = $postReactionInterface->isReactedBy($user);
 
-	return response()->json(['userReactions' => $allReactionCounters[0]->getReactionType()]);
+	$reacters = $postReactionInterface->getReactions()->unique(function($item){
+		return $item['reacter_id'];
+	})->values()->all();
+
+	$reactions = [
+                'total' => $postReactionInterface->getReactionTotal()->getCount(),
+                'points' => $postReactionInterface->getReactionTotal()->getWeight(),
+                'reacters' => count($reacters),
+                'status' => 'reacted',
+            ];
+
+	return response()->json(['userReactions' => $reactions['reacters']]);
 });

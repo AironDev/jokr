@@ -16,7 +16,7 @@
                     
 
                     <div class="unorder-list-info">
-                        <h3 class="list-title"><a href="#">{{`${notification.username} and ${notification.reaction_count} others, reacted to your post ${notification.post_id}`}}</a></h3>
+                        <h3 class="list-title"><a href="#">{{notification.message}}</a></h3>
                         <p class="list-subtitle">{{notification.date}}</p>
                     </div>
                 </li>

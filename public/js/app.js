@@ -42500,15 +42500,7 @@ var render = function() {
                 _c("div", { staticClass: "unorder-list-info" }, [
                   _c("h3", { staticClass: "list-title" }, [
                     _c("a", { attrs: { href: "#" } }, [
-                      _vm._v(
-                        _vm._s(
-                          notification.username +
-                            " and " +
-                            notification.reaction_count +
-                            " others, reacted to your post " +
-                            notification.post_id
-                        )
-                      )
+                      _vm._v(_vm._s(notification.message))
                     ])
                   ]),
                   _vm._v(" "),

@@ -18,8 +18,6 @@ class NotificationResource extends JsonResource
     public function toArray($request)
     {
         $user = User::where('id', $this->data['user_id'])->with('profile:user_id,photo')->first();
-        $date = Carbon::create($this['date']);
-
         return [
             'id' => $this->id,
             'username' => $user->name,
@@ -27,6 +25,7 @@ class NotificationResource extends JsonResource
             'post_id' => $this->data['post_id'],
             'date' => $this->created_at->diffForHumans(),
             'reaction_count' => $this->data['reaction_count'],
+            'message' => $this->data['message'],
         ];
     }
 }

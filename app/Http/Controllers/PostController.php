@@ -132,9 +132,14 @@ class PostController extends Controller
         if($userNotReacted){
             $userReactionInterface->reactTo($post, $type, $rate);
 
+            $reacters = $postReactionInterface->getReactions()->unique(function($item){
+                return $item['reacter_id'];
+            })->values()->all();
+
             $reactions = [
                 'total' => $postReactionInterface->getReactionTotal()->getCount(),
                 'points' => $postReactionInterface->getReactionTotal()->getWeight(),
+                'reacters' => count($reacters),
                 'status' => 'reacted',
             ];
 
@@ -143,9 +148,8 @@ class PostController extends Controller
                 'post_id' => $post->id,
                 'user_id' => $user->id,
                 'reaction_type' => $type, 
-                'verb' => 'reacted',
-                'reaction_count' => $reactions['total'],
-                'date' => Carbon::now(),
+                'reaction_count' => $reactions['reacters'],
+                'message' => $user->name . ' and ' . $reactions['reacters'] . ' others reacted to your post ',
             ];
             $post->first()->user->notify(new PostReaction($notifyData));
             return $reactions;

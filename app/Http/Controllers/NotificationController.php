@@ -24,6 +24,7 @@ class NotificationController extends Controller
         $this->user = Auth::user();
     }
 
+    // Get user notifications - unique for each post
     public function userNotifications(Request $request){
         $this->checkAuth($request);
         //$user = User::find(1);

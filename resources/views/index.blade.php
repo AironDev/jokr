@@ -13,15 +13,15 @@
                                 <div class="profile-banner">
                                     <figure class="profile-banner-small">
                                         <a href="profile.html">
-                                            <img src="assets/images/banner/banner-small.jpg" alt="">
+                                            <img src="{{Auth::user()->profile->cover_photo}}" alt="">
                                         </a>
                                         <a href="profile.html" class="profile-thumb-2">
-                                            <img src="assets/images/profile/profile-midle-1.jpg" alt="">
+                                            <img src="{{Auth::user()->profile->photo}}" alt="">
                                         </a>
                                     </figure>
                                     <div class="profile-desc text-center">
-                                        <h6 class="author"><a href="{{route('profile')}}">Dimbel Lebmid</a></h6>
-                                        <p>Any one can join with but Social network us if you want Any one can join with us if you want</p>
+                                        <h6 class="author"><a href="{{route('profile')}}">{{Auth::user()->name}}</a></h6>
+                                        <p>{{Auth::user()->profile->bio}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -29,7 +29,7 @@
 
                             <!-- widget single item start -->
                             <div class="card widget-item">
-                                <h4 class="widget-title">page you may like</h4>
+                                <h4 class="widget-title">Top Channels</h4>
                                 <div class="widget-body">
                                     <ul class="like-page-list-wrapper">
                                         <li class="unorder-list">
@@ -44,8 +44,8 @@
                                             <!-- profile picture end -->
 
                                             <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Travel The World</a></h3>
-                                                <p class="list-subtitle"><a href="#">adventure</a></p>
+                                                <h3 class="list-title"><a href="#">#EB Things</a></h3>
+                                                <p class="list-subtitle"><a href="#">4530 posts</a></p>
                                             </div>
                                             <button class="like-button active">
                                                 <img class="heart" src="assets/images/icons/heart.png" alt="">
@@ -64,8 +64,8 @@
                                             <!-- profile picture end -->
 
                                             <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Foodcort Nirala</a></h3>
-                                                <p class="list-subtitle"><a href="#">food</a></p>
+                                                <h3 class="list-title"><a href="#">Premium Cruise</a></h3>
+                                                <p class="list-subtitle"><a href="#">4109 posts</a></p>
                                             </div>
                                             <button class="like-button">
                                                 <img class="heart" src="assets/images/icons/heart.png" alt="">
@@ -84,8 +84,8 @@
                                             <!-- profile picture end -->
 
                                             <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Rolin Theitar</a></h3>
-                                                <p class="list-subtitle"><a href="#">drama</a></p>
+                                                <h3 class="list-title"><a href="#">Akpors TV</a></h3>
+                                                <p class="list-subtitle"><a href="#">3802 posts</a></p>
                                             </div>
                                             <button class="like-button">
                                                 <img class="heart" src="assets/images/icons/heart.png" alt="">
@@ -104,8 +104,8 @@
                                             <!-- profile picture end -->
 
                                             <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Active Mind</a></h3>
-                                                <p class="list-subtitle"><a href="#">fitness</a></p>
+                                                <h3 class="list-title"><a href="#">Savage TV</a></h3>
+                                                <p class="list-subtitle"><a href="#">2609 posts</a></p>
                                             </div>
                                             <button class="like-button">
                                                 <img class="heart" src="assets/images/icons/heart.png" alt="">
@@ -272,22 +272,10 @@
                             <!-- user notification -->
                             <user-notification auth_user="{{Auth::user()->id}}"></user-notification>
 
-                            <!-- widget single item start -->
-                            <div class="card widget-item">
-                                <h4 class="widget-title">Advertizement</h4>
-                                <div class="widget-body">
-                                    <div class="add-thumb">
-                                        <a href="#">
-                                            <img src="assets/images/banner/advertise.jpg" alt="advertisement">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- widget single item end -->
 
                             <!-- widget single item start -->
                             <div class="card widget-item">
-                                <h4 class="widget-title">Friends Zone</h4>
+                                <h4 class="widget-title">Games Zone</h4>
                                 <div class="widget-body">
                                     <ul class="like-page-list-wrapper">
                                         <li class="unorder-list">
@@ -302,8 +290,8 @@
                                             <!-- profile picture end -->
 
                                             <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Ammeya Jakson</a></h3>
-                                                <p class="list-subtitle"><a href="#">10 mutual</a></p>
+                                                <h3 class="list-title"><a href="#">Tell-a#Joke</a></h3>
+                                                <p class="list-subtitle"><a href="#">Play</a></p>
                                             </div>
                                             <button class="like-button">
                                                 <img class="heart" src="assets/images/icons/heart.png" alt="">
@@ -322,8 +310,8 @@
                                             <!-- profile picture end -->
 
                                             <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Jashon Muri</a></h3>
-                                                <p class="list-subtitle"><a href="#">2 mutual</a></p>
+                                                <h3 class="list-title"><a href="#">Funny Acronyms</a></h3>
+                                                <p class="list-subtitle"><a href="#">Play</a></p>
                                             </div>
                                             <button class="like-button active">
                                                 <img class="heart" src="assets/images/icons/heart.png" alt="">
@@ -342,8 +330,8 @@
                                             <!-- profile picture end -->
 
                                             <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Rolin Theitar</a></h3>
-                                                <p class="list-subtitle"><a href="#">drama</a></p>
+                                                <h3 class="list-title"><a href="#">Puzzles</a></h3>
+                                                <p class="list-subtitle"><a href="#">Join</a></p>
                                             </div>
                                             <button class="like-button">
                                                 <img class="heart" src="assets/images/icons/heart.png" alt="">
@@ -362,8 +350,8 @@
                                             <!-- profile picture end -->
 
                                             <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Active Mind</a></h3>
-                                                <p class="list-subtitle"><a href="#">fitness</a></p>
+                                                <h3 class="list-title"><a href="#">Quiz</a></h3>
+                                                <p class="list-subtitle"><a href="#">Play</a></p>
                                             </div>
                                             <button class="like-button">
                                                 <img class="heart" src="assets/images/icons/heart.png" alt="">
@@ -374,6 +362,22 @@
                                 </div>
                             </div>
                             <!-- widget single item end -->
+
+                            <!-- widget single item start -->
+                            <div class="card widget-item">
+                                <h4 class="widget-title">Advertizement</h4>
+                                <div class="widget-body">
+                                    <div class="add-thumb">
+                                        <a href="#">
+                                            <img src="assets/images/banner/advertise.jpg" alt="advertisement">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- widget single item end -->
+
+
+
                         </aside>
                     </div>
                 </div>
