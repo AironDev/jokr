@@ -55127,7 +55127,7 @@ var PostService = /*#__PURE__*/function () {
   _createClass(PostService, [{
     key: "getPost",
     value: function getPost(auth_user) {
-      return axios.get("http://jokr.air/posts?auth_user_id=".concat(auth_user), {}).then(function (response) {
+      return axios.get("posts?auth_user_id=".concat(auth_user), {}).then(function (response) {
         return response.data;
       })["catch"](function (err) {
         console.log(err);
