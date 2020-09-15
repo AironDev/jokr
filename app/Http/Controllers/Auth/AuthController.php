@@ -31,9 +31,9 @@ class AuthController extends Controller
 
     	$profile = Profile::create([
     		'user_id' => $user->id,
-    		'gender' => $request->bio,
-            'age' => $request->bio,
-            'location' => $request->bio,
+    		'gender' => $request->gender,
+            'age' => $request->age,
+            'location' => $request->location,
             'photo' => $avatar,
     	]);
     	return Auth::attempt($user);
