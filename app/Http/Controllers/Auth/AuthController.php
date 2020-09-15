@@ -12,8 +12,13 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
     public function signUp(SignUpRequest $request){
+        if(isset($request->first_name) && isset($request->last_name)){
+            $name = $request->first_name . ' ' . $request->last_name;
+        }
+
     	$user = User::create([
-    		'name' => $request->name,
+    		'name' => $name,
+            'display_name' => $request->display_name,
     		'email' => $request->email,
     		'password' => $request->password,
     	]);

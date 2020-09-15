@@ -98,16 +98,16 @@
                                                 </div>
 
                                                 <div class="col-md-6">
-                                                    <input type="text" name="first-name" id="first-name" class="single-field" placeholder="First Name">
-                                                    @error('first-name')
+                                                    <input type="text" name="first_name" id="first-name" class="single-field" placeholder="First Name">
+                                                    @error('first_name')
                                                     <span class="validation-error" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                     @enderror
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="last-name" id="last-name" class="single-field" placeholder="Last Name">
-                                                    @error('last-name')
+                                                    <input type="text" name="last_name" id="last-name" class="single-field" placeholder="Last Name">
+                                                    @error('last_name')
                                                     <span class="validation-error" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -120,7 +120,7 @@
                                                 
 
                                                 <div class="col-md-12">
-                                                    <input type="text" name="display-name" id="display-name" class="single-field" placeholder="Display Name">
+                                                    <input type="text" name="display_name" id="display-name" class="single-field" placeholder="Display Name">
                                                     @error('display-name')
                                                     <span class="validation-error" role="alert">
                                                         <strong>{{ $message }}</strong>
