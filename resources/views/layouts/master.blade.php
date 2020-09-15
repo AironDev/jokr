@@ -33,6 +33,9 @@
     <link rel="stylesheet" href="{{asset('assets/css/plugins/lightgallery.min.css')}}">
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    <!-- Font-awesome -->
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/all.css') }}" rel="stylesheet" />
 
 </head>
 

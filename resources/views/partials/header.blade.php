@@ -243,10 +243,24 @@
     <header>
         <div class="mobile-header-wrapper sticky d-block d-lg-none">
             <div class="mobile-header position-relative ">
-                <div class="mobile-logo">
-                    <a href="index.html">
+                <div class="mobile-logo mobile-main-nav" >
+
+                    <a href="javascript:void(0)" class="mobile-nav-triger">
                         <img src="assets/images/logo/logo-white.png" alt="logo">
                     </a>
+                    <div class="mobile-nav-dropdown text-left">
+                        <div class="dropdown-body">
+                            <ul>
+                                <li><a href="profile.html"><i class="fa fa-home fa-lg"></i>Home</a></li>
+                                <li><a href="#"><i class="fa fa-tags fa-lg"></i>Games Zone</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-tasks"></i>Top Channels</a></li>
+                                <li><a href="signup.html"><i class="far fa-kiss"></i>Latest Site News</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="mobile-menu w-100">
                     <ul>

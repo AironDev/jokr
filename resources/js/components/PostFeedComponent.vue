@@ -322,9 +322,11 @@
 </script>
 
 <style>
-    .post-desc video, iframe, img {
+    .post-desc video, .post-desc iframe, .post-desc img {
         max-width: 100%;
         max-height: 100%;
+        width:95%;
+        text-align:center;
     }
 
     .post-reaction-meta {

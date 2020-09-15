@@ -6833,7 +6833,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.post-desc video, iframe, img {\n    max-width: 100%;\n    max-height: 100%;\n}\n.post-reaction-meta {\n    background: #e8e8e8;\n    padding: 10px;\n    border: thin solid #efe5e5;\n    margin: -10px;\n    color: gray;\n}\n.post-reaction-meta  .emoji{\n    max-width: 1.5em;\n}\n@media only screen and (max-width: 600px){\n.post-reaction-meta .emoji{\n        max-width: 1.2em;\n}\n}\n", ""]);
+exports.push([module.i, "\n.post-desc video, .post-desc iframe, .post-desc img {\n    max-width: 100%;\n    max-height: 100%;\n    width:95%;\n    text-align:center;\n}\n.post-reaction-meta {\n    background: #e8e8e8;\n    padding: 10px;\n    border: thin solid #efe5e5;\n    margin: -10px;\n    color: gray;\n}\n.post-reaction-meta  .emoji{\n    max-width: 1.5em;\n}\n@media only screen and (max-width: 600px){\n.post-reaction-meta .emoji{\n        max-width: 1.2em;\n}\n}\n", ""]);
 
 // exports
 

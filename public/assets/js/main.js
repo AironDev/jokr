@@ -123,6 +123,12 @@
         $(".profile-dropdown").slideToggle();
 	})
 
+	// mobile nav dropdown triger js
+	$('.mobile-nav-triger').on('click', function(event){
+		event.stopPropagation();
+        $(".mobile-nav-dropdown").slideToggle();
+	})
+
 	//Close When Click Outside
 	$('body').on('click', function(e){
 		var $target = e.target;

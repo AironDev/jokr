@@ -29,23 +29,14 @@
         },
 
         methods: {
-            getNotifications () {
-                return axios.get(`notifications/?user_id=${this.auth_user}`, {
-
-                })
-                    .then(response => {
-                        this.notifications = response.data.data;
-                        console.log(this.notifications);
-                        
-                    }); 
-            },
+            
         },
 
         computed: {
 
         },
         mounted() {
-            this.getNotifications();
+            
         },
 
         created() {

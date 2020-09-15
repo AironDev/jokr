@@ -6,7 +6,7 @@
         <div class="main-wrapper pt-80">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 order-2 order-lg-1">
+                    <div class="col-lg-3 d-none d-lg-block order-2 order-lg-1">
                         <aside class="widget-area">
                             <!-- widget single item start -->
                             <div class="card card-profile widget-item p-0">
@@ -267,7 +267,7 @@
                         <!-- post feed end -->
                     </div>
 
-                    <div class="col-lg-3 order-3">
+                    <div class="col-lg-3 d-none d-lg-block order-3">
                         <aside class="widget-area">
                             <!-- user notification -->
                             <user-notification auth_user="{{Auth::user()->id}}"></user-notification>
