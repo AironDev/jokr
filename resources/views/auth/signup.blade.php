@@ -142,9 +142,9 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <select class="nice-select" name="sortby">
-                                                        <option value="trending">Gender</option>
-                                                        <option value="sales">Male</option>
-                                                        <option value="sales">Female</option>
+                                                        <option value="null">Gender</option>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
                                                     </select>
                                                     
                                                 </div>

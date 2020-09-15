@@ -18,11 +18,19 @@ class AuthController extends Controller
     		'password' => $request->password,
     	]);
 
+        if($request->gender == 'male'){
+            $avatar = "/uploads/avatar/default_avatar_male.jpg";
+        }elseif ($request->gender == 'female') {
+           $avatar = "/uploads/avatar/default_avatar_female1.jpg";
+        }
+
     	$profile = Profile::create([
     		'user_id' => $user->id,
-    		'bio' => $request->bio
+    		'gender' => $request->bio,
+            'age' => $request->bio,
+            'location' => $request->bio,
+            'photo' => $avatar,
     	]);
-
-    	return $user;
+    	return Auth::attempt($user);
     }
 }
