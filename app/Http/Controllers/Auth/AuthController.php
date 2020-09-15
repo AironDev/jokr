@@ -36,6 +36,6 @@ class AuthController extends Controller
             'location' => $request->location,
             'photo' => $avatar,
     	]);
-    	return Auth::attempt($user);
+    	$user;
     }
 }
