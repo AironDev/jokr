@@ -78,7 +78,7 @@
                     <div class="container-fluid p-0">
                         <div class="row no-gutters">
                             
-                            <div class="col-lg-10 offset-1 order-1 order-lg-1 d-flex align-items-center justify-content-center">
+                            <div class="col-lg-10 d-flex align-items-center justify-content-center">
                                 <div class="signup-form-wrapper">
                                     <h1 class="create-acc text-center">Create An Account</h1>
                                     <div class="signup-inner text-center">
