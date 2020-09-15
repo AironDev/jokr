@@ -23,6 +23,8 @@ Route::get('/user', function(){
 	return Auth::user();
 });
 
+Route::get('/signup', 'PageController@signup')->name('signup');
+
 // Page Controller Endpoints
 Route::group(['middleware' => ['web', 'auth']], function () {
 	Route::get('/', 'PageController@index')->name('index');;

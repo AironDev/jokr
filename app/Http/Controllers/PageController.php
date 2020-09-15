@@ -24,6 +24,10 @@ class PageController extends Controller
     	return view('photos');
     }
 
+    public function signup(){
+        return view('auth.signup');
+    }
+
     public function profile($username = null){
         $user = User::where('username', $username)->with('profile')->first();
     	return view('profile')->with(['user' => $user]);
