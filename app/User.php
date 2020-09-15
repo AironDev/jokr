@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
 use App\Profile;
+use Illuminate\Support\Facades\Hash;  // Import Hash facade
 
 class User extends Authenticatable implements ReacterableContract
 {
@@ -41,11 +42,18 @@ class User extends Authenticatable implements ReacterableContract
         'email_verified_at' => 'datetime',
     ];
 
-    public function profile(){
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+    }
+
+    public function profile()
+    {
         return $this->hasOne('App\Profile', 'user_id');
     }
 
-    public function post(){
+    public function post()
+    {
         return $this->hasMany('App\Post', 'user_id');
     }
 }

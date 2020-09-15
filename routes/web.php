@@ -23,7 +23,12 @@ Route::get('/user', function(){
 	return Auth::user();
 });
 
-Route::get('/signup', 'PageController@signup')->name('signup');
+// Auth/Guest Routes
+Route::group(['middleware'=>['web']], function(){
+	Route::get('/signup', 'PageController@signup')->name('signup.create');
+	Route::post('/signup', 'Auth\AuthController@signup')->name('signup.store');
+});
+
 
 // Page Controller Endpoints
 Route::group(['middleware' => ['web', 'auth']], function () {
