@@ -76,7 +76,7 @@
                                         </a>
                                     </div>
                                     <div class="timeline-tagline">
-                                        <h6 class="tagline">It’s helps you to connect and share with the people in your life</h6>
+                                        <h6 class="tagline">Found somthing funny? <br>Share it on #Jokr</h6>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="timeline-page-wrapper">
                     <div class="container-fluid p-0">
-                        <div class="row no-gutters bg-img" data-bg="assets/images/timeline/connect0.jpg">
+                        <div class="row no-gutters bg-img" data-bg="assets/images/timeline/network.jpg">
                             <div class="col-xs-12 mx-auto col-md-8 " >
                                 <div class="col-md-12">
                                     <div class="timeline-bg-content">
