@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
     public function signUp(SignUpRequest $request){
+
         if(isset($request->first_name) && isset($request->last_name)){
             $name = $request->first_name . ' ' . $request->last_name;
         }
@@ -29,13 +30,18 @@ class AuthController extends Controller
            $avatar = "/uploads/avatar/default_avatar_female1.jpg";
         }
 
-    	$profile = Profile::create([
+    	Profile::create([
     		'user_id' => $user->id,
     		'gender' => $request->gender,
             'age' => $request->age,
             'location' => $request->location,
             'photo' => $avatar,
     	]);
-    	$user;
+
+    	if($user){
+           auth()->loginUsingId($user->id);
+        }
+        
+        return route('index');
     }
 }

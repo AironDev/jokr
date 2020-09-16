@@ -225,7 +225,19 @@
                                             </ul>
                                             <ul>
                                                 <li><a href="#"><i class="flaticon-settings"></i>Setting</a></li>
-                                                <li><a href="signup.html"><i class="flaticon-unlock"></i>Sing out</a></li>
+                                                <li>
+                                                    <!-- <a href="signup.html"><i class="flaticon-unlock"></i>Sing out
+                                                    </a> -->
+                                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                                       onclick="event.preventDefault();
+                                                                     document.getElementById('logout-form').submit();">
+                                                        <i class="flaticon-unlock"></i>{{ __('Sign out') }}
+                                                    </a>
+
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                    </form>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>

@@ -11,6 +11,7 @@ trait AuthTrait
             'email'     => $fields->email,
             'password'  => $fields->password
         ]);
+        
         return $user;
     }
 

@@ -141,7 +141,7 @@
                                                     <input type="password" name="password_confirmation" class="single-field" placeholder="Confirm Password">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <select class="nice-select" name="sortby">
+                                                    <select class="nice-select" name="gender">
                                                         <option value="null">Gender</option>
                                                         <option value="male">Male</option>
                                                         <option value="female">Female</option>
@@ -149,10 +149,10 @@
                                                     
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <select class="nice-select" name="sortby">
+                                                    <select class="nice-select" name="age">
                                                         <option value="trending">Age</option>
-                                                        <option value="sales">18+</option>
-                                                        <option value="sales">18-</option>
+                                                        <option value="18+">18+</option>
+                                                        <option value="18-">18-</option>
                                                     </select>
                                                     
                                                 </div>
