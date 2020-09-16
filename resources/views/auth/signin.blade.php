@@ -39,7 +39,24 @@
             background-color: #5a737e;
             padding: 100px 30px;
             border-radius: 5%;
+            margin: 50px auto;
         }
+
+        .login-area .single-field {
+            width: 100%;
+            border: none;
+            background-color: transparent;
+            border-bottom: 1px solid #ddd;
+            padding: 5px 10px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        @media only screen and (min-width: 768px){
+        .login-area{
+            width: 520px;
+        }
+    }
     </style>
 </head>
 
@@ -68,19 +85,19 @@
                 </div>
                 <div class="timeline-page-wrapper">
                     <div class="container-fluid p-0">
-                        <div class="row no-gutters bg-img" data-bg="assets/images/timeline/community.png">
-                            <div class="col-xs-12 offset-2 col-md-8 " >
+                        <div class="row no-gutters bg-img" data-bg="assets/images/timeline/connect0.jpg">
+                            <div class="col-xs-12 mx-auto col-md-8 " >
                                 <div class="col-md-12">
                                     <div class="timeline-bg-content">
                                         <div class="login-area">
                                             <div class="row align-items-center">
-                                                <div class="col-12 col-sm">
+                                                <div class="col-sm-12">
                                                     <input type="text" placeholder="Email or Userame" class="single-field">
                                                 </div>
-                                                <div class="col-12 col-sm">
+                                                <div class="col-sm-12">
                                                     <input type="password" placeholder="Password" class="single-field">
                                                 </div>
-                                                <div class="col-12 col-sm-auto">
+                                                <div class="col-sm-auto mx-auto">
                                                     <button class="login-btn">Login</button>
                                                 </div>
                                             </div>

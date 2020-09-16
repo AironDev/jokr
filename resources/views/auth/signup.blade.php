@@ -37,6 +37,15 @@
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/all.css') }}" rel="stylesheet" />
 
+    <style type="text/css">
+        .timeline-logo-area .tagline {
+            color: #5a737e;
+            font-size: 16px;
+            font-weight: 800;
+            padding-left: 70px;
+}
+    </style>
+
 </head>
 
 <body class="bg-transparent">
@@ -54,7 +63,7 @@
                                         </a>
                                     </div>
                                     <div class="timeline-tagline">
-                                        <h6 class="tagline">Found something funny? - share it on Jokr !!!</h6>
+                                        <h6 class="tagline">Enjoy premium cruise, share funny memes, play games and win cool prizes</h6>
                                     </div>
                                 </div>
                             </div>
@@ -80,11 +89,11 @@
                     <div class="container-fluid p-0">
                         <div class="row no-gutters">
                             
-                            <div class="col-lg-10 d-flex align-items-center justify-content-center">
+                            <div class="col-lg-10 mx-auto d-flex align-items-center justify-content-center">
                                 <div class="signup-form-wrapper">
                                     <h1 class="create-acc text-center">Create An Account</h1>
                                     <div class="signup-inner text-center">
-                                        <h3 class="title">Welcome to JOKR</h3>
+                                        <h3 class="title" style="background: #5a737e">Welcome to JOKR</h3>
                                         <form class="signup-inner--form" method="POST" action="{{route('signup.store')}}">
                                             @csrf
                                             <div class="row">
@@ -166,7 +175,7 @@
                                                     @enderror
                                                 </div>
                                                 <div class="col-12">
-                                                    <button class="submit-btn">Create Account</button>
+                                                    <button class="submit-btn" style="background: #5a737e">Create Account</button>
                                                 </div>
                                             </div>
                                             <h6 class="terms-condition">I have read & accepted the <a href="#">terms of use</a></h6>
