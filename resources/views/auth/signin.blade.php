@@ -107,7 +107,9 @@
                                                     </div>
                                                     <div class="col-sm-auto mx-auto">
                                                         <button type="submit" class="login-btn">Login</button>
-                                                        <button class="login-btn">Sign Up</button>
+                                                    </div>
+                                                    <div class="col-sm-auto mx-auto">
+                                                        <a class="text-white float-right" href="{{route('signup')}}">Don't have account ?</a>
                                                     </div>
                                                 </form>
                                             </div>
