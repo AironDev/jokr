@@ -25,8 +25,9 @@ Route::get('/user', function(){
 
 // Auth/Guest Routes
 Route::group(['middleware'=>['web', 'guest']], function(){
-	Route::get('/signup', 'PageController@signup')->name('signup.create');
-	Route::get('/signin', 'PageController@signin')->name('signin.create');
+	Route::get('/signup', 'PageController@signup')->name('signup');
+	Route::get('/signin', 'PageController@signin')->name('signin');
+	Route::post('/signin', 'Auth\AuthController@signIn')->name('signin.store');
 	Route::post('/signup', 'Auth\AuthController@signup')->name('signup.store');
 });
 

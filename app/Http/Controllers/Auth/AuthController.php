@@ -42,6 +42,16 @@ class AuthController extends Controller
            auth()->loginUsingId($user->id);
         }
         
-        return route('index');
+        return redirect()->route('index');
+    }
+
+    public function signIn(Request $request){
+        $user = $request->only(['email', 'password']);
+
+        $auth =  auth()->attempt($user);
+        if($auth){
+            return redirect()->route('index');
+        }
+        return redirect()->back();
     }
 }

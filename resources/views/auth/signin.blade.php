@@ -53,14 +53,20 @@
         }
 
         @media only screen and (min-width: 768px){
-        .login-area{
-            width: 520px;
+            .login-area{
+                width: 520px;
+            }
         }
-    }
+
+        .bg-img{
+            background-size:cover;
+            background-position:center;
+            background-repeat: repeat;
+        }
     </style>
 </head>
 
-<body class="">
+<body class=" bg-img" data-bg="assets/images/timeline/connect.jpg">
 
     <main class="">
         <div class="main-wrapper pb-0 mb-0">
@@ -76,7 +82,7 @@
                                         </a>
                                     </div>
                                     <div class="timeline-tagline">
-                                        <h6 class="tagline">Found somthing funny? <br>Share it on #Jokr</h6>
+                                        <h6 class="tagline">Found something funny? <br>Share it on #JOKR</h6>
                                     </div>
                                 </div>
                             </div>
@@ -85,21 +91,25 @@
                 </div>
                 <div class="timeline-page-wrapper">
                     <div class="container-fluid p-0">
-                        <div class="row no-gutters bg-img" data-bg="assets/images/timeline/network.jpg">
+                        <div class="row no-gutters ">
                             <div class="col-xs-12 mx-auto col-md-8 " >
                                 <div class="col-md-12">
                                     <div class="timeline-bg-content">
                                         <div class="login-area">
                                             <div class="row align-items-center">
-                                                <div class="col-sm-12">
-                                                    <input type="text" placeholder="Email or Userame" class="single-field">
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <input type="password" placeholder="Password" class="single-field">
-                                                </div>
-                                                <div class="col-sm-auto mx-auto">
-                                                    <button class="login-btn">Login</button>
-                                                </div>
+                                                <form class="col-md-12 form" method="POST" action="{{route('signin.store')}}">
+                                                @csrf
+                                                    <div class="col-sm-12">
+                                                        <input type="text" name="email" placeholder="Email" class="single-field">
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <input type="password" name="password" placeholder="Password" class="single-field">
+                                                    </div>
+                                                    <div class="col-sm-auto mx-auto">
+                                                        <button type="submit" class="login-btn">Login</button>
+                                                        <button class="login-btn">Sign Up</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
