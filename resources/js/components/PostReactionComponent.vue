@@ -33,14 +33,14 @@
 </template>
 
 <script>
-  import { VueFeedbackReaction } from 'vue-feedback-reaction';
+  // import { VueFeedbackReaction } from 'vue-feedback-reaction';
 
   export default {
 
     name: 'demo',
 
     components: {
-      VueFeedbackReaction
+      //VueFeedbackReaction
     },
 
     props: ['labels', 'user_reactions'],

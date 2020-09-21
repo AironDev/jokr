@@ -45,68 +45,69 @@
                     <!-- <span class="" v-if="post.reactions.total >= 2">{{post.reactions.total}} people reacted this</span>
                     <span v-if="post.reactions.total == 1">{{post.reactions.total}} person reacted this</span>
                     <span class="" v-if="post.reactions.total == 0">Be the first to react</span> -->
-                    <ul class="comment-share-meta float-right">
-                        <li>
-                            <button class="post-comment">
-                                <i class="bi bi-chat-bubble"></i>
-                                <span>{{post.reactions.total}}</span>
-                            </button>
-                        </li>
-                        <li>
-                            <button class="post-share">
-                                <i class="bi bi-share"></i>
-                                <span>{{post.reactions.points}}</span>
-                            </button>
-                        </li>
-                    </ul>
-             
-                
+                    <div class="reaction-stats float-right">
+                        <ul class="comment-share-meta">
+                            <li>
+                                <button class="post-comment">
+                                    <i class="bi bi-chat-bubble"></i>
+                                    <span>{{post.reactions.total}}</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="post-share">
+                                    <i class="bi bi-share"></i>
+                                    <span>{{post.reactions.points}}</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="post-reaction-buttons">
+                        <button class="post-meta-like" @click="react(post.id, index, 'lol', reactionRate.lol)" title="Lol" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.lol == true"><img v-bind:src="'/assets/emoticons/excellent_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.lol !=true"><img v-bind:src="'/assets/emoticons/excellent_inactive.png'" class="emoji"></i>   
+                        </button>
 
-                
-                    <button class="post-meta-like" @click="react(post.id, index, 'lol', reactionRate.lol)" title="Lol" style="margin: 0px 1px">
-                        <i v-if="post.user_reactions.lol == true"><img v-bind:src="'/assets/emoticons/excellent_active.png'" class="emoji"></i> 
-                        <i v-if="post.user_reactions.lol !=true"><img v-bind:src="'/assets/emoticons/excellent_inactive.png'" class="emoji"></i>   
-                    </button>
+                        <!-- <button class="post-meta-like" @click="react(post.id, index, 'lwkmd', reactionRate.lwkmd)" title="lwkmd" style="margin: 0px 10px">
+                            <i v-if="post.user_reactions.lwkmd == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" style="max-width: 1.2em"></i> 
+                            <i v-if="post.user_reactions.lwkmd !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.2em"></i> 
+                        </button> -->
 
-                    <!-- <button class="post-meta-like" @click="react(post.id, index, 'lwkmd', reactionRate.lwkmd)" title="lwkmd" style="margin: 0px 10px">
-                        <i v-if="post.user_reactions.lwkmd == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" style="max-width: 1.2em"></i> 
-                        <i v-if="post.user_reactions.lwkmd !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.2em"></i> 
-                    </button> -->
+                        <button class="post-meta-like" @click="react(post.id, index, 'insidelife', reactionRate.insidelife)" title="insidelife" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.insidelife == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.insidelife !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                        </button>
 
-                    <button class="post-meta-like" @click="react(post.id, index, 'insidelife', reactionRate.insidelife)" title="insidelife" style="margin: 0px 1px">
-                        <i v-if="post.user_reactions.insidelife == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
-                        <i v-if="post.user_reactions.insidelife !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
-                    </button>
+                        <button class="post-meta-like" @click="react(post.id, index, 'omo', reactionRate.omo)" title="omo" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.omo == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.omo !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                        </button>
 
-                    <button class="post-meta-like" @click="react(post.id, index, 'omo', reactionRate.omo)" title="omo" style="margin: 0px 1px">
-                        <i v-if="post.user_reactions.omo == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
-                        <i v-if="post.user_reactions.omo !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
-                    </button>
+                        <button class="post-meta-like" @click="react(post.id, index, 'asin', reactionRate.asin)" title="asin" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.asin == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.asin !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                        </button>
 
-                    <button class="post-meta-like" @click="react(post.id, index, 'asin', reactionRate.asin)" title="asin" style="margin: 0px 1px">
-                        <i v-if="post.user_reactions.asin == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
-                        <i v-if="post.user_reactions.asin !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
-                    </button>
+                        <button class="post-meta-like" @click="react(post.id, index, 'smh', reactionRate.smh)" title="smh" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.smh == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.smh !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                        </button>
 
-                    <button class="post-meta-like" @click="react(post.id, index, 'smh', reactionRate.smh)" title="smh" style="margin: 0px 1px">
-                        <i v-if="post.user_reactions.smh == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
-                        <i v-if="post.user_reactions.smh !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
-                    </button>
+                        <!-- <button class="post-meta-like" @click="react(post.id, index, 'yfmh', reactionRate.yfmh)" title="yfmh" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.yfmh == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" style="max-width: 1.2em"></i> 
+                            <i v-if="post.user_reactions.yfmh !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.2em"></i> 
+                        </button> -->
 
-                    <!-- <button class="post-meta-like" @click="react(post.id, index, 'yfmh', reactionRate.yfmh)" title="yfmh" style="margin: 0px 1px">
-                        <i v-if="post.user_reactions.yfmh == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" style="max-width: 1.2em"></i> 
-                        <i v-if="post.user_reactions.yfmh !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.2em"></i> 
-                    </button> -->
+                        <button class="post-meta-like" @click="react(post.id, index, 'mtcheew', reactionRate.mtcheew)" title="mtcheew" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.mtcheew == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.mtcheew !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                        </button>
 
-                    <button class="post-meta-like" @click="react(post.id, index, 'mtcheew', reactionRate.mtcheew)" title="mtcheew" style="margin: 0px 1px">
-                        <i v-if="post.user_reactions.mtcheew == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
-                        <i v-if="post.user_reactions.mtcheew !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
-                    </button>
-
-                    <button class="post-meta-like" @click="react(post.id, index, 'nfdl', reactionRate.nfdl)" title="nfdl" style="margin: 0px 1px">
-                        <i v-if="post.user_reactions.nfdl == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
-                        <i v-if="post.user_reactions.nfdl !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
-                    </button>
+                        <button class="post-meta-like" @click="react(post.id, index, 'nfdl', reactionRate.nfdl)" title="nfdl" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.nfdl == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.nfdl !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                        </button>
+                    </div>
 
                 </div>
             </div>
@@ -346,6 +347,28 @@
         .post-reaction-meta .emoji{
             max-width: 1.2em;
         }
+    }
+
+    @media only screen and (max-width: 420px){
+        .post-reaction-meta .post-reaction-buttons {
+            overflow-x: scroll;
+            display: inline-flex;
+            width: 100px;
+        }
+
+        .post-meta .comment-share-meta li {
+            display: inline-block;
+            margin-left: 4px;
+        }
+
+
+        .post-meta-like i, .post-comment i, .post-share i {
+            font-size: 16px;
+            color: #333333;
+            vertical-align: baseline;
+        }
+
+
     }
 </style>
 
