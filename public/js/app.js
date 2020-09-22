@@ -2384,7 +2384,7 @@ __webpack_require__.r(__webpack_exports__);
     getNotifications: function getNotifications() {
       var _this = this;
 
-      return axios.get("notifications/?user_id=".concat(this.auth_user), {}).then(function (response) {
+      return axios.get("/notifications/?user_id=".concat(this.auth_user), {}).then(function (response) {
         _this.notifications = response.data.data;
         console.log(_this.notifications);
       });
@@ -51951,7 +51951,7 @@ var PostService = /*#__PURE__*/function () {
   _createClass(PostService, [{
     key: "getPost",
     value: function getPost(auth_user) {
-      return axios.get("posts?auth_user_id=".concat(auth_user), {}).then(function (response) {
+      return axios.get("/posts?auth_user_id=".concat(auth_user), {}).then(function (response) {
         return response.data;
       })["catch"](function (err) {
         console.log(err);

@@ -37,7 +37,7 @@
 
         methods: {
             getNotifications () {
-                return axios.get(`notifications/?user_id=${this.auth_user}`, {
+                return axios.get(`/notifications/?user_id=${this.auth_user}`, {
 
                 })
                     .then(response => {

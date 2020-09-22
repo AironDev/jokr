@@ -6,7 +6,7 @@ class PostService{
  
      
      getPost(auth_user){
-        return axios.get(`posts?auth_user_id=${auth_user}`, {
+        return axios.get(`/posts?auth_user_id=${auth_user}`, {
         })
         .then(response => {
             return response.data;

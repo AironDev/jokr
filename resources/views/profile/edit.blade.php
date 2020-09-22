@@ -15,12 +15,12 @@
                                         <a href="profile.html">
                                             <img src="{{Auth::user()->profile->cover_photo}}" alt="">
                                         </a>
-                                        <a href="{{route('profile')}}" class="profile-thumb-2">
+                                        <a href="profile.html" class="profile-thumb-2">
                                             <img src="{{Auth::user()->profile->photo}}" alt="">
                                         </a>
                                     </figure>
                                     <div class="profile-desc text-center">
-                                        <h6 class="author"><a href="/profile">{{Auth::user()->name}}</a></h6>
+                                        <h6 class="author"><a href="{{route('profile')}}">{{Auth::user()->name}}</a></h6>
                                         <p>{{Auth::user()->profile->bio}}</p>
                                     </div>
                                 </div>
@@ -116,163 +116,144 @@
                                 </div>
                             </div>
                             <!-- widget single item end -->
-
-                            <!-- widget single item start -->
-                            <div class="card widget-item">
-                                <h4 class="widget-title">latest top news</h4>
-                                <div class="widget-body">
-                                    <ul class="like-page-list-wrapper">
-                                        <li class="unorder-list">
-                                            <!-- profile picture end -->
-                                            <div class="profile-thumb">
-                                                <a href="#">
-                                                    <figure class="profile-thumb-small">
-                                                        <img src="assets/images/profile/profile-small-28.jpg" alt="profile picture">
-                                                    </figure>
-                                                </a>
-                                            </div>
-                                            <!-- profile picture end -->
-
-                                            <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Any one can join with us if you want</a></h3>
-                                                <p class="list-subtitle">2 min ago</p>
-                                            </div>
-                                        </li>
-                                        <li class="unorder-list">
-                                            <!-- profile picture end -->
-                                            <div class="profile-thumb">
-                                                <a href="#">
-                                                    <figure class="profile-thumb-small">
-                                                        <img src="assets/images/profile/profile-small-31.jpg" alt="profile picture">
-                                                    </figure>
-                                                </a>
-                                            </div>
-                                            <!-- profile picture end -->
-
-                                            <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Any one can join with us if you want</a></h3>
-                                                <p class="list-subtitle">20 min ago</p>
-                                            </div>
-                                        </li>
-                                        <li class="unorder-list">
-                                            <!-- profile picture end -->
-                                            <div class="profile-thumb">
-                                                <a href="#">
-                                                    <figure class="profile-thumb-small">
-                                                        <img src="assets/images/profile/profile-small-27.jpg" alt="profile picture">
-                                                    </figure>
-                                                </a>
-                                            </div>
-                                            <!-- profile picture end -->
-
-                                            <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Any one can join with us if you want</a></h3>
-                                                <p class="list-subtitle">30 min ago</p>
-                                            </div>
-                                        </li>
-                                        <li class="unorder-list">
-                                            <!-- profile picture end -->
-                                            <div class="profile-thumb">
-                                                <a href="#">
-                                                    <figure class="profile-thumb-small">
-                                                        <img src="assets/images/profile/profile-small-34.jpg" alt="profile picture">
-                                                    </figure>
-                                                </a>
-                                            </div>
-                                            <!-- profile picture end -->
-
-                                            <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Any one can join with us if you want</a></h3>
-                                                <p class="list-subtitle">40 min ago</p>
-                                            </div>
-                                        </li>
-                                        <li class="unorder-list">
-                                            <!-- profile picture end -->
-                                            <div class="profile-thumb">
-                                                <a href="#">
-                                                    <figure class="profile-thumb-small">
-                                                        <img src="assets/images/profile/profile-small-32.jpg" alt="profile picture">
-                                                    </figure>
-                                                </a>
-                                            </div>
-                                            <!-- profile picture end -->
-
-                                            <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Any one can join with us if you want</a></h3>
-                                                <p class="list-subtitle">39 min ago</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- widget single item end -->
                         </aside>
                     </div>
 
                     <div class="col-lg-6 order-1 order-lg-2">
-                        <!-- share box start -->
+                        <!-- Page Title -->
                         <div class="card card-small">
-                            <div class="share-box-inner">
-                                <!-- profile picture end -->
-                                <div class="profile-thumb">
-                                    <a href="#">
-                                        <figure class="profile-thumb-middle">
-                                            <img src="{{Auth::user()->profile->photo}}" alt="profile picture">
-                                        </figure>
-                                    </a>
-                                </div>
-                                <!-- profile picture end -->
+                            <h3>Update Profile</h3>
+                            @include('partials.flash')
+                        </div>
+                        <!-- Page Title -->
 
-                                <!-- share content box start -->
-                                <div class="share-content-box w-100">
-                                    <form class="share-text-box">
-                                        <textarea name="share" class="share-text-field" aria-disabled="true" placeholder="What's funny?" data-toggle="modal" data-target="#textbox" id="email"></textarea>
-                                        <button class="btn-share" type="submit">share</button>
-                                    </form>
-                                </div>
-                                <!-- share content box end -->
-
-                                <!-- Modal start -->
-                                <div class="modal fade" id="textbox" aria-labelledby="textbox">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <form method="POST" action="{{route('posts.store')}}">
-                                                {{ csrf_field() }}
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Share</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body custom-scroll">
-                                                    <textarea name="content" class="share-field-big custom-scroll" placeholder="Say Something" id="share"></textarea>
-                                                    <input type="text" name="tags">
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="post-share-btn" data-dismiss="modal">cancel</button>
-                                                    <button type="submit" class="post-share-btn">post</button>
-                                                </div>
-                                            </form>
+                        
+                        <div class="card">
+                            <form class="form" method="post" action="{{route('profile.update')}}" enctype="multipart/form-data">
+                                @csrf
+                                @method('patch')
+                                <div class="card card-small bg-img" data-bg ={{$profile->cover_photo}}>
+                                    <figure class="mx-auto mb-3 profile-thumb-large">
+                                        <img src="{{asset('storage/avatar/'. $profile->photo)}}" alt="profile picture">
+                                    </figure>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="btn btn-primary" >
+                                                <i class="fa fa-image"></i>Change Photo<input type="file" style="display: none; "  name="photo">
+                                            </label>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <label class="btn btn-primary" >
+                                                <i class="fa fa-image"></i>Change Cover<input type="file" style="display: none; "  name="cover_photo">
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Modal end -->
-                            </div>
-                        </div>
-                        <!-- share box end -->
 
-                        <!-- post feed start -->
-                            
-                        <post-feed profile="{{route('profile')}}" auth_user="{{Auth::user()->id}}"></post-feed>
-                        <!-- post feed end -->
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon3">Display Name</span>
+                                        </div>
+                                        <input type="text" readonly class="form-control" name="display_name" value="{{auth()->user()->display_name}}">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon3">Bio</span>
+                                        </div>
+                                        <textarea name="bio" class="form-control">{{$profile->bio}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon3">Location</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="location" value="{{$profile->location}}">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon3">Job Title</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="job_title" value="{{$profile->job_title}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon3">Gender</span>
+                                        </div>
+                                        <select name="gender" class="form-control">
+                                            @isset($profile->gender)
+                                                <option value="{{$profile->gender}}"  style="display:none !important">{{$profile->gender}}</option>
+                                            @endisset
+                                            @empty($profile->gender)
+                                                <option value=""  style="display:none !important">Select Gender</option>
+                                            @endempty
+                                                <option value="{{'male'}}">{{'Male'}}</option>
+                                                <option value="{{'female'}}">{{'Female'}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon3">Facebook</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="facebook" value="{{$profile->facebook}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon3">Twitter</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="twitter" value="{{$profile->twitter}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon3">Linkedin</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="linkedin" value="{{$profile->linkedin}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon3">Instagram</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="instagram" value="{{$profile->instagram}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button style="color: white; padding: 10px; background: gray" type="submit" class="btn btn-secondary">Update Profile</button>
+                                </div>
+                            </form>
+                        </div>
+
+    
                     </div>
 
                     <div class="col-lg-3 d-none d-lg-block order-3">
                         <aside class="widget-area">
-                            <!-- user notification -->
-                            <user-notification auth_user="{{Auth::user()->id}}"></user-notification>
-
-
+                           
                             <!-- widget single item start -->
                             <div class="card widget-item">
                                 <h4 class="widget-title">Games Zone</h4>
@@ -390,46 +371,6 @@
 
 <!-- JS   ================== -->
 @section('js')
-    @Include('partials.js')
-    <script src="https://cdn.tiny.cloud/1/bqjnseimjjp05nmtsdy3zl6tne4hdpgf3zbsvlzs7rjfx51a/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-    <script>
-            var editor_config = {
-                path_absolute : "/",
-                selector: "textarea#share",
-                height: 400,
-                menubar:false,
-                statusbar: false,
-                plugins: [
-                  "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-                  "searchreplace wordcount visualblocks visualchars code fullscreen",
-                  "insertdatetime media nonbreaking save table directionality",
-                  "emoticons template paste textpattern"
-                ],
-                toolbar: "insertfile undo redo | styleselect | bold italic code | alignleft aligncenter alignright alignjustify | emoticons bullist numlist outdent indent | link image media",
-                relative_urls: false,
-
-                file_picker_callback: function (callback, value, meta) {
-                    let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-                    let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
-
-                    let type = 'image' === meta.filetype ? 'Images' : 'Files',
-                    url  = editor_config.path_absolute + 'laravel-filemanager?editor=tinymce5&type=' + type;
-
-                    tinymce.activeEditor.windowManager.openUrl({
-                        url : url,
-                        title : 'Filemanager',
-                        width : x * 0.8,
-                        height : y * 0.8,
-                        onMessage: (api, message) => {
-                            callback(message.content);
-                        }
-                    });
-                }
-            };
-    tinymce.init(editor_config);
-    </script>
-
-    
+    <!-- @Include('partials.js') -->
 @endsection
 

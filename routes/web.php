@@ -23,6 +23,13 @@ Route::get('/user', function(){
 	return Auth::user();
 });
 
+// Profile Controller Endpoints
+Route::group(['middleware'=>['web', 'auth']], function(){
+	Route::get('/profile/settings', 'ProfileController@edit')->name('profile.edit');
+	Route::patch('/profile/settings', 'ProfileController@update')->name('profile.update');
+});
+
+
 // Auth/Guest Routes
 Route::group(['middleware'=>['web', 'guest']], function(){
 	Route::get('/signup', 'PageController@signup')->name('signup');

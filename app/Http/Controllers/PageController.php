@@ -34,6 +34,6 @@ class PageController extends Controller
 
     public function profile($username = null){
         $user = User::where('username', $username)->with('profile')->first();
-    	return view('profile')->with(['user' => $user]);
+    	return view('profile.index')->with(['user' => $user]);
     }
 }
