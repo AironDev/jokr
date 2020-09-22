@@ -6,6 +6,7 @@ use App\Notifications\PostReaction;
 use App\Post;
 use App\User;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType;
+// use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,13 @@ use Cog\Contracts\Love\ReactionType\Models\ReactionType;
 // Return curent auth user - called from vue components
 Route::get('/user', function(){
 	return Auth::user();
+});
+
+Route::get('/slug/{id}', function($id){
+	$user = User::find($id);
+	$user->username = Str::slug($user->name, '-');
+	$user->save();
+	return $user;
 });
 
 // Profile Controller Endpoints

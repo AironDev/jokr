@@ -12,15 +12,15 @@
                             <div class="card card-profile widget-item p-0">
                                 <div class="profile-banner">
                                     <figure class="profile-banner-small">
-                                        <a href="profile.html">
+                                        <a href="{{route('profile',[Auth::user()->username])}}">
                                             <img src="{{'storage/covers/'.Auth::user()->profile->cover_photo}}" alt="">
                                         </a>
-                                        <a href="{{route('profile')}}" class="profile-thumb-2">
+                                        <a href="{{route('profile',[Auth::user()->username])}}" class="profile-thumb-2">
                                             <img src="{{'storage/avatars/'.Auth::user()->profile->photo}}" alt="">
                                         </a>
                                     </figure>
                                     <div class="profile-desc text-center">
-                                        <h6 class="author"><a href="/profile">{{Auth::user()->name}}</a></h6>
+                                        <h6 class="author"><a href="{{route('profile',[Auth::user()->username])}}">{{Auth::user()->name}}</a></h6>
                                         <p>{{Auth::user()->profile->bio}}</p>
                                     </div>
                                 </div>

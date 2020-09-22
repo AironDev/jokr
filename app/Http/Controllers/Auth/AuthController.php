@@ -8,6 +8,7 @@ use App\User;
 use App\Profile;
 use App\Http\Requests\SignUpRequest;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -19,12 +20,14 @@ class AuthController extends Controller
 
     	$user = User::create([
     		'name' => $name,
+            'username' => Str::slug($name, '-'),
             'display_name' => $request->display_name,
     		'email' => $request->email,
     		'password' => $request->password,
     	]);
 
-        $cover = 'default_cover' . rand(5)  . 'jpg';
+        // assign a random cover photo between 1-10 
+        $cover = 'default_cover' . rand(1, 10)  . '.jpg';
 
         if($request->gender == 'male'){
             $avatar = "default_avatar_male.jpg";
@@ -38,7 +41,7 @@ class AuthController extends Controller
             'age' => $request->age,
             'location' => $request->location,
             'photo' => $avatar,
-            'cover' => $cover,
+            'cover_photo' => $cover,
     	]);
 
     	if($user){

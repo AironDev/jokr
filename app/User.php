@@ -21,7 +21,7 @@ class User extends Authenticatable implements ReacterableContract
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'display_name', 'username'
     ];
 
     /**
