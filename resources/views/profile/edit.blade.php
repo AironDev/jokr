@@ -132,9 +132,9 @@
                             <form class="form" method="post" action="{{route('profile.update')}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('patch')
-                                <div class="card card-small bg-img" data-bg ={{$profile->cover_photo}}>
+                                <div class="card card-small bg-img" data-bg ="{{asset('storage/covers/'. $profile->cover_photo)}}">
                                     <figure class="mx-auto mb-3 profile-thumb-large">
-                                        <img src="{{asset('storage/avatar/'. $profile->photo)}}" alt="profile picture">
+                                        <img src="{{asset('storage/avatars/'. $profile->photo)}}" alt="profile picture">
                                     </figure>
                                     <div class="row">
                                         <div class="col-md-6">

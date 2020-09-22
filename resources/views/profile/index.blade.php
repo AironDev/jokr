@@ -3,7 +3,7 @@
 @section('content')
     <main id="app">
         <div class="main-wrapper">
-            <div class="profile-banner-large bg-img" data-bg="{{asset($user->profile->cover_photo)}}">
+            <div class="profile-banner-large bg-img" data-bg="{{asset('storage/covers/'.$user->profile->cover_photo)}}">
             </div>
             <div class="profile-menu-area bg-white">
                 <div class="container">
@@ -12,7 +12,7 @@
                             <div class="profile-picture-box">
                                 <figure class="profile-picture">
                                     <a href="profile.html">
-                                        <img src="{{asset($user->profile->photo)}}" alt="profile picture">
+                                        <img src="{{asset('storage/avatars/'.$user->profile->photo)}}" alt="profile picture">
                                     </a>
                                 </figure>
                             </div>

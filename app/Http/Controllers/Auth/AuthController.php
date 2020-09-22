@@ -24,10 +24,12 @@ class AuthController extends Controller
     		'password' => $request->password,
     	]);
 
+        $cover = 'default_cover' . rand(5)  . 'jpg';
+
         if($request->gender == 'male'){
-            $avatar = "/uploads/avatar/default_avatar_male.jpg";
+            $avatar = "default_avatar_male.jpg";
         }elseif ($request->gender == 'female') {
-           $avatar = "/uploads/avatar/default_avatar_female1.jpg";
+           $avatar = "default_avatar_female.jpg";
         }
 
     	Profile::create([
@@ -36,6 +38,7 @@ class AuthController extends Controller
             'age' => $request->age,
             'location' => $request->location,
             'photo' => $avatar,
+            'cover' => $cover,
     	]);
 
     	if($user){

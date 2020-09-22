@@ -33,6 +33,8 @@ class UpdateProfileRequest extends FormRequest
             'twitter' => 'string|nullable',
             'linkedin' => 'string|nullable',
             'instagram' => 'string|nullable',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
+            'cover_photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
         ];
     }
 }

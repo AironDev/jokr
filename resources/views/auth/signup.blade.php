@@ -233,9 +233,9 @@
         $(document).ready(function(){
             //console.log('init');
             $( "#last-name,#first-name" ).change(function() {
-                var lastName = $("#last-name").val().toLowerCase();
-                var firstName = $("#first-name").val().toLowerCase();
-                $('#name').val(firstName+ ' ' +lastName);
+                var lastName = $("#last-name").val();
+                var firstName = $("#first-name").val();
+                $('#display-name').val(firstName+ ' ' +lastName);
             });
         });
         

@@ -187,7 +187,7 @@
                         <!-- brand logo start -->
                         <div class="brand-logo text-center">
                             <a href="index.html">
-                                <img src="assets/images/logo/logo.png" alt="brand logo">
+                                <img src="{{asset('assets/images/logo/logo.png')}}" alt="brand logo">
                             </a>
                         </div>
                         <!-- brand logo end -->
@@ -209,7 +209,7 @@
                                 <div class="profile-thumb-small">
                                     <a href="javascript:void(0)" class="profile-triger">
                                         <figure>
-                                            <img src="{{Auth::user()->profile->photo}}" alt="profile picture">
+                                            <img src="{{'storage/avatars/' . Auth::user()->profile->photo}}" alt="profile picture">
                                         </figure>
                                     </a>
                                     <div class="profile-dropdown">

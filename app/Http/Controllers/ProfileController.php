@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Profile;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateProfileRequest;
+use Illuminate\Support\Facades\storage;
 
 class ProfileController extends Controller
 {
@@ -29,6 +30,8 @@ class ProfileController extends Controller
     {	
     	$user = auth()->user();
     	$profile = Profile::where('user_id', $user->id)->first();
+    	$avatarPath = '/public/avatars';
+    	$coverPath = '/public/covers';
     	
     	$data = $request->only([
     		'bio',
@@ -42,31 +45,48 @@ class ProfileController extends Controller
     		'instagram'
     	]);
 
-    	$user = auth()->user();
+
     	if($request->has('display_name')){
     		$user->display_name = $request->display_name;
     		$user->save();
     	}
 
     	if($request->hasFile('photo')){
+
+    		if($profile->photo){
+    			Storage::delete($avatarPath . '/' . $profile->photo);
+    			$profile->photo = null;
+    			$profile->save();
+    		}
+
     		$file = $request->file('photo');
     		$name = $user->username . uniqid() . '.' . $file->extension();
-    		$path = '/public/avatar/';
-    		$file->storePubliclyAs($path, $name);
+    		$file->storePubliclyAs($avatarPath, $name);
     		$data['photo'] =  $name;
+    		//return $data;
     	}
 
     	if($request->hasFile('cover_photo')){
+
+    		if($profile->cover_photo){
+    			Storage::delete($coverPath . '/' . $profile->cover_photo);
+    			$profile->cover_photo = null;
+    			$profile->save();
+    		}
+
     		$file = $request->file('cover_photo');
     		$name = $user->username . uniqid() . '.' . $file->extension();
-    		$path = '/public/cover/';
+    		$path = '/public/covers';
     		$file->storePubliclyAs($path, $name);
-    		$data['photo'] =  $name;
+    		$data['cover_photo'] =  $name;
+    		//return $data;
     	}
 
     	$profile->update($data);
-    	dd($profile);
+    	//dd($profile);
+    	return redirect()->back();
     }
+
 
     public function store()
     {
