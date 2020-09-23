@@ -209,7 +209,7 @@
                                 <div class="profile-thumb-small">
                                     <a href="javascript:void(0)" class="profile-triger">
                                         <figure>
-                                            <img src="{{'storage/avatars/' . Auth::user()->profile->photo}}" alt="profile picture">
+                                            <img src="{{'uploads/avatars/' . Auth::user()->profile->photo}}" alt="profile picture">
                                         </figure>
                                     </a>
                                     <div class="profile-dropdown">
@@ -418,7 +418,7 @@
                     <div class="profile-thumb profile-setting-box">
                         <a href="javascript:void(0)" class="profile-triger">
                             <figure class="profile-thumb-middle">
-                                <img src="{{Auth::user()->profile->photo}}" alt="profile picture">
+                                <img src="{{'uploads/avatars/'. Auth::user()->profile->photo}}" alt="profile picture">
                             </figure>
                         </a>
                         <div class="profile-dropdown text-left">

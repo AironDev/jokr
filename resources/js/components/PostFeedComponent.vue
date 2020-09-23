@@ -7,7 +7,7 @@
             <div class="profile-thumb">
                 <a href="#">
                     <figure class="profile-thumb-middle">
-                        <img v-bind:src="post.user.photo" alt="profile picture">
+                        <img v-bind:src="'uploads/avatars/' + post.user.photo" alt="profile picture">
                     </figure>
                 </a>
             </div>

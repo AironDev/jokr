@@ -9,7 +9,7 @@
                     <div class="profile-thumb">
                         <a href="#">
                             <figure class="profile-thumb-small">
-                                <img :src="notification.photo" alt="profile picture">
+                                <img :src="'uploads/avatars/' + notification.photo" alt="profile picture">
                             </figure>
                         </a>
                     </div>

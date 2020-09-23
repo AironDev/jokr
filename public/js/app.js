@@ -38683,7 +38683,10 @@ var render = function() {
               _c("a", { attrs: { href: "#" } }, [
                 _c("figure", { staticClass: "profile-thumb-middle" }, [
                   _c("img", {
-                    attrs: { src: post.user.photo, alt: "profile picture" }
+                    attrs: {
+                      src: "uploads/avatars/" + post.user.photo,
+                      alt: "profile picture"
+                    }
                   })
                 ])
               ])
@@ -39313,7 +39316,7 @@ var render = function() {
                     _c("figure", { staticClass: "profile-thumb-small" }, [
                       _c("img", {
                         attrs: {
-                          src: notification.photo,
+                          src: "uploads/avatars/" + notification.photo,
                           alt: "profile picture"
                         }
                       })
