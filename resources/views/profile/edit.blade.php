@@ -13,10 +13,10 @@
                                 <div class="profile-banner">
                                     <figure class="profile-banner-small">
                                         <a href="profile.html">
-                                            <img src="{{Auth::user()->profile->cover_photo}}" alt="">
+                                            <img src="{{asset('uploads/covers/' . Auth::user()->profile->cover_photo)}}" alt="">
                                         </a>
                                         <a href="profile.html" class="profile-thumb-2">
-                                            <img src="{{Auth::user()->profile->photo}}" alt="">
+                                            <img src="{{asset('uploads/avatars/' . Auth::user()->profile->photo)}}" alt="">
                                         </a>
                                     </figure>
                                     <div class="profile-desc text-center">
@@ -132,9 +132,9 @@
                             <form class="form" method="post" action="{{route('profile.update')}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('patch')
-                                <div class="card card-small bg-img" data-bg ="{{asset('storage/covers/'. $profile->cover_photo)}}">
+                                <div class="card card-small bg-img" data-bg ="{{asset('uploads/covers/'. $profile->cover_photo)}}">
                                     <figure class="mx-auto mb-3 profile-thumb-large">
-                                        <img src="{{asset('storage/avatars/'. $profile->photo)}}" alt="profile picture">
+                                        <img src="{{asset('uploads/avatars/'. $profile->photo)}}" alt="profile picture">
                                     </figure>
                                     <div class="row">
                                         <div class="col-md-6">
