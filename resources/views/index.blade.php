@@ -13,10 +13,10 @@
                                 <div class="profile-banner">
                                     <figure class="profile-banner-small">
                                         <a href="{{route('profile',[Auth::user()->username])}}">
-                                            <img src="{{asset('uploads/covers/'.Auth::user()->profile->cover_photo)}}" alt="">
+                                            <img src="{{asset('/uploads/covers/'.Auth::user()->profile->cover_photo)}}" alt="">
                                         </a>
                                         <a href="{{route('profile',[Auth::user()->username])}}" class="profile-thumb-2">
-                                            <img src="{{'uploads/avatars/'.Auth::user()->profile->photo}}" alt="">
+                                            <img src="{{'/uploads/avatars/'.Auth::user()->profile->photo}}" alt="">
                                         </a>
                                     </figure>
                                     <div class="profile-desc text-center">
@@ -217,7 +217,7 @@
                                 <div class="profile-thumb">
                                     <a href="#">
                                         <figure class="profile-thumb-middle">
-                                            <img src="{{asset('uploads/avatars/'.Auth::user()->profile->photo)}}" alt="profile picture">
+                                            <img src="{{asset('/uploads/avatars/'.Auth::user()->profile->photo)}}" alt="profile picture">
                                         </figure>
                                     </a>
                                 </div>

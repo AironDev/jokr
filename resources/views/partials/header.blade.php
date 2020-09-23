@@ -187,7 +187,7 @@
                         <!-- brand logo start -->
                         <div class="brand-logo text-center">
                             <a href="index.html">
-                                <img src="{{asset('assets/images/logo/logo.png')}}" alt="brand logo">
+                                <img src="{{asset('/assets/images/logo/logo.png')}}" alt="brand logo">
                             </a>
                         </div>
                         <!-- brand logo end -->
@@ -209,7 +209,7 @@
                                 <div class="profile-thumb-small">
                                     <a href="javascript:void(0)" class="profile-triger">
                                         <figure>
-                                            <img src="{{'uploads/avatars/' . Auth::user()->profile->photo}}" alt="profile picture">
+                                            <img src="{{'/uploads/avatars/' . Auth::user()->profile->photo}}" alt="profile picture">
                                         </figure>
                                     </a>
                                     <div class="profile-dropdown">
@@ -258,7 +258,7 @@
                 <div class="mobile-logo mobile-main-nav" >
 
                     <a href="javascript:void(0)" class="mobile-nav-triger">
-                        <img src="assets/images/logo/logo-white.png" alt="logo">
+                        <img src="{{asset('/assets/images/logo/logo-white.png')}}" alt="logo">
                     </a>
                     <div class="mobile-nav-dropdown text-left">
                         <div class="dropdown-body">
@@ -285,7 +285,7 @@
                                     <div class="frnd-request-member">
                                         <figure class="request-thumb">
                                             <a href="profile.html">
-                                                <img src="assets/images/profile/profile-midle-1.jpg" alt="proflie author">
+                                                <img src="/assets/images/profile/profile-midle-1.jpg" alt="proflie author">
                                             </a>
                                         </figure>
                                         <div class="frnd-content">
@@ -302,7 +302,7 @@
                                     <div class="frnd-request-member">
                                         <figure class="request-thumb">
                                             <a href="profile.html">
-                                                <img src="assets/images/profile/profile-midle-2.jpg" alt="proflie author">
+                                                <img src="/assets/images/profile/profile-midle-2.jpg" alt="proflie author">
                                             </a>
                                         </figure>
                                         <div class="frnd-content">
@@ -319,7 +319,7 @@
                                     <div class="frnd-request-member">
                                         <figure class="request-thumb">
                                             <a href="profile.html">
-                                                <img src="assets/images/profile/profile-midle-3.jpg" alt="proflie author">
+                                                <img src="/assets/images/profile/profile-midle-3.jpg" alt="proflie author">
                                             </a>
                                         </figure>
                                         <div class="frnd-content">
@@ -349,7 +349,7 @@
                                     <div class="profile-thumb">
                                         <a href="profile.html">
                                             <figure class="profile-thumb-small profile-active">
-                                                <img src="assets/images/profile/profile-small-15.jpg" alt="profile picture">
+                                                <img src="/assets/images/profile/profile-small-15.jpg" alt="profile picture">
                                             </figure>
                                         </a>
                                     </div>
@@ -418,7 +418,7 @@
                     <div class="profile-thumb profile-setting-box">
                         <a href="javascript:void(0)" class="profile-triger">
                             <figure class="profile-thumb-middle">
-                                <img src="{{'uploads/avatars/'. Auth::user()->profile->photo}}" alt="profile picture">
+                                <img src="{{'/uploads/avatars/'. Auth::user()->profile->photo}}" alt="profile picture">
                             </figure>
                         </a>
                         <div class="profile-dropdown text-left">

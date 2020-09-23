@@ -13,10 +13,10 @@
                                 <div class="profile-banner">
                                     <figure class="profile-banner-small">
                                         <a href="profile.html">
-                                            <img src="{{asset('uploads/covers/' . Auth::user()->profile->cover_photo)}}" alt="">
+                                            <img src="{{asset('/uploads/covers/' . Auth::user()->profile->cover_photo)}}" alt="">
                                         </a>
                                         <a href="profile.html" class="profile-thumb-2">
-                                            <img src="{{asset('uploads/avatars/' . Auth::user()->profile->photo)}}" alt="">
+                                            <img src="{{asset('/uploads/avatars/' . Auth::user()->profile->photo)}}" alt="">
                                         </a>
                                     </figure>
                                     <div class="profile-desc text-center">
@@ -132,9 +132,9 @@
                             <form class="form" method="post" action="{{route('profile.update')}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('patch')
-                                <div class="card card-small bg-img" data-bg ="{{asset('uploads/covers/'. $profile->cover_photo)}}">
+                                <div class="card card-small bg-img" data-bg ="{{asset('/uploads/covers/'. $profile->cover_photo)}}">
                                     <figure class="mx-auto mb-3 profile-thumb-large">
-                                        <img src="{{asset('uploads/avatars/'. $profile->photo)}}" alt="profile picture">
+                                        <img src="{{asset('/uploads/avatars/'. $profile->photo)}}" alt="profile picture">
                                     </figure>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -150,48 +150,48 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3">Display Name</span>
+                                            <span class="bg-white input-group-text" id="basic-addon3">Display Name</span>
                                         </div>
                                         <input type="text" readonly class="form-control" name="display_name" value="{{auth()->user()->display_name}}">
                                     </div>
                                 </div>
 
 
-                                <div class="col-md-12">
+                                <div class="">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3">Bio</span>
+                                            <span class="bg-white input-group-text" id="basic-addon3">Bio</span>
                                         </div>
                                         <textarea name="bio" class="form-control">{{$profile->bio}}</textarea>
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3">Location</span>
+                                            <span class="bg-white input-group-text" id="basic-addon3">Location</span>
                                         </div>
                                         <input type="text" class="form-control" name="location" value="{{$profile->location}}">
                                     </div>
                                 </div>
 
 
-                                <div class="col-md-12">
+                                <div class="">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3">Job Title</span>
+                                            <span class="bg-white input-group-text" id="basic-addon3">Job Title</span>
                                         </div>
                                         <input type="text" class="form-control" name="job_title" value="{{$profile->job_title}}">
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3">Gender</span>
+                                            <span class="bg-white input-group-text" id="basic-addon3">Gender</span>
                                         </div>
                                         <select name="gender" class="form-control">
                                             @isset($profile->gender)
@@ -206,43 +206,43 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3">Facebook</span>
+                                            <span class="bg-white input-group-text" id="basic-addon3">Facebook</span>
                                         </div>
                                         <input type="text" class="form-control" name="facebook" value="{{$profile->facebook}}">
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3">Twitter</span>
+                                            <span class="bg-white input-group-text" id="basic-addon3">Twitter</span>
                                         </div>
                                         <input type="text" class="form-control" name="twitter" value="{{$profile->twitter}}">
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3">Linkedin</span>
+                                            <span class="bg-white input-group-text" id="basic-addon3">Linkedin</span>
                                         </div>
                                         <input type="text" class="form-control" name="linkedin" value="{{$profile->linkedin}}">
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon3">Instagram</span>
+                                            <span class="bg-white input-group-text" id="basic-addon3">Instagram</span>
                                         </div>
                                         <input type="text" class="form-control" name="instagram" value="{{$profile->instagram}}">
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="">
                                     <button style="color: white; padding: 10px; background: gray" type="submit" class="btn btn-secondary">Update Profile</button>
                                 </div>
                             </form>

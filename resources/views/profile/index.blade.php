@@ -3,7 +3,7 @@
 @section('content')
     <main id="app">
         <div class="main-wrapper">
-            <div class="profile-banner-large bg-img" data-bg="{{asset('uploads/covers/'.$user->profile->cover_photo)}}">
+            <div class="profile-banner-large bg-img" data-bg="{{asset('/uploads/covers/'.$user->profile->cover_photo)}}">
             </div>
             <div class="profile-menu-area bg-white">
                 <div class="container">
@@ -12,7 +12,7 @@
                             <div class="profile-picture-box">
                                 <figure class="profile-picture">
                                     <a href="profile.html">
-                                        <img src="{{asset('uploads/avatars/'.$user->profile->photo)}}" alt="profile picture">
+                                        <img src="{{asset('/uploads/avatars/'.$user->profile->photo)}}" alt="profile picture">
                                     </a>
                                 </figure>
                             </div>
@@ -26,7 +26,7 @@
                                             <li><a href="{{route('about')}}">about</a></li>
                                             <li><a href="{{route('photos')}}">photos</a></li>
                                             <li><a href="{{route('friends')}}">friends</a></li>
-                                            <li class="d-inline-block d-md-none active"><a href="{{route('profile', 'username')}}">edit profile</a></li>
+                                            <li class="d-inline-block d-md-none active"><a href="{{route('profile.edit')}}">edit profile</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-lg-2 col-md-3 d-none d-md-block">
                             <div class="profile-edit-panel">
-                                <button class="edit-btn">edit profile</button>
+                                <a href="{{route('profile.edit')}}" class="edit-btn">edit profile</a>
                             </div>
                         </div>
                     </div>
