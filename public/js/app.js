@@ -1932,6 +1932,108 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostCommentComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PostCommentComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['profile', 'auth_user'],
+  data: function data() {
+    return {
+      comments: [{
+        id: 1,
+        post_id: 2,
+        user: {
+          id: 1,
+          name: 'Airon',
+          display_name: 'Airon Dev',
+          photo: 'airondev-avatar.jpg'
+        },
+        content: 'What in the name of God, is this guy talking',
+        privacy: ['public']
+      }]
+    };
+  },
+  methods: {},
+  computed: {},
+  mounted: function mounted() {
+    console.log("hello from post comment component");
+  },
+  created: function created() {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostFeedComponent.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PostFeedComponent.vue?vue&type=script&lang=js& ***!
@@ -1943,6 +2045,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_PostService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/PostService */ "./resources/js/services/PostService.js");
 /* harmony import */ var _services_AuthService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/AuthService */ "./resources/js/services/AuthService.js");
+/* harmony import */ var _PostReactionComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PostReactionComponent.vue */ "./resources/js/components/PostReactionComponent.vue");
+/* harmony import */ var _PostCommentComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PostCommentComponent.vue */ "./resources/js/components/PostCommentComponent.vue");
 //
 //
 //
@@ -2028,46 +2132,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['profile', 'auth_user'],
+  components: {
+    PostReactions: _PostReactionComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    PostComments: _PostCommentComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
   data: function data() {
     return {
       post: new _services_PostService__WEBPACK_IMPORTED_MODULE_0__["default"](),
@@ -2129,7 +2203,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
     },
-    react: function react(post_id, index, type, rate) {
+    reactOLD: function reactOLD(post_id, index, type, rate) {
       var _this3 = this;
 
       return axios.get("post/react/?auth_user_id=".concat(this.auth_user, "&post_id=").concat(post_id, "&type=").concat(type, "&rate=").concat(rate), {}).then(function (response) {
@@ -2307,30 +2381,179 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import { VueFeedbackReaction } from 'vue-feedback-reaction';
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'demo',
+  // name: 'post-reactions',
   components: {//VueFeedbackReaction
   },
-  props: ['labels', 'user_reactions'],
+  props: ['post', 'auth_user'],
   data: function data() {
     return {
-      feedback: '',
-      react: this.user_reactions,
-      emojiNames: ["not funny", "omo", "smh", "madoh", "asin-eh"],
-      emoji: {
-        funny: 'excellent_inactive',
-        funny1: 'excellent_active'
+      reactionRate: {
+        lol: 3,
+        // positve - laugh out loud
+        lwkmd: 3,
+        // positive - laugh wan kii me die
+        insidelife: 1,
+        //positive
+        omo: 1,
+        //positive
+        asin: 2,
+        //positive
+        smh: 3,
+        //negative
+        mtcheew: 2,
+        //negative
+        nfdl: 2,
+        //negative
+        yfmh: 2 // negative
+
       }
     };
   },
   methods: {
-    userReactions: function userReactions() {
-      console.log(this.react);
+    sayHi: function sayHi() {//console.log('hello from post reaction component');
+    },
+    react: function react(post_id, type, rate) {
+      var _this = this;
+
+      return axios.get("post/react/?auth_user_id=".concat(this.auth_user, "&post_id=").concat(post_id, "&type=").concat(type, "&rate=").concat(rate), {}).then(function (response) {
+        var userReactions = _this.post.user_reactions;
+        var postReaction = _this.post.reactions; //response payload contains current post points and total reactions
+
+        var reactionResponse = response.data;
+
+        switch (type) {
+          case "lol":
+            if (userReactions.lol == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.lol = false;
+            }
+
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.lol = true;
+            break;
+
+          case "lwkmd":
+            if (userReactions.lwkmd == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.lwkmd = false;
+            }
+
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.lwkmd = true;
+            break;
+
+          case "insidelife":
+            if (userReactions.insidelife == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.insidelife = false;
+            }
+
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.insidelife = true;
+            break;
+
+          case "omo":
+            if (userReactions.omo == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.omo = false;
+            }
+
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.omo = true;
+            break;
+
+          case "asin":
+            if (userReactions.asin == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.asin = false;
+            }
+
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.asin = true;
+            break;
+
+          case "smh":
+            if (userReactions.smh == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.smh = false;
+            }
+
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.smh = true;
+            break;
+
+          case "mtcheew":
+            if (userReactions.mtcheew == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.mtcheew = false;
+            }
+
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.mtcheew = true;
+            break;
+
+          case "nfdl":
+            if (userReactions.nfdl == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.nfdl = false;
+            }
+
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.nfdl = true;
+            break;
+
+          case "yfmh":
+            if (userReactions.yfmh == true) {
+              postReaction.points = reactionResponse.points;
+              postReaction.total = reactionResponse.total;
+              return userReactions.yfmh = false;
+            }
+
+            postReaction.points = reactionResponse.points;
+            postReaction.total = reactionResponse.total;
+            return userReactions.yfmh = true;
+            break;
+        }
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   },
   mounted: function mounted() {
-    this.userReactions();
+    this.sayHi();
   }
 });
 
@@ -6815,6 +7038,25 @@ __webpack_require__.r(__webpack_exports__);
 
 })));
 //# sourceMappingURL=bootstrap.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostCommentComponent.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PostCommentComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.comments .comment-content {\n        background: whitesmoke;\n        padding: 10px;\n        border-radius: 20px;\n}\n", ""]);
+
+// exports
 
 
 /***/ }),
@@ -37997,6 +38239,36 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostCommentComponent.vue?vue&type=style&index=0&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PostCommentComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./PostCommentComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostCommentComponent.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostFeedComponent.vue?vue&type=style&index=0&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PostFeedComponent.vue?vue&type=style&index=0&lang=css& ***!
@@ -38658,6 +38930,148 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostCommentComponent.vue?vue&type=template&id=6791d809&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PostCommentComponent.vue?vue&type=template&id=6791d809& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card-small comments" }, [
+    _c("h4", { staticClass: "widget-title" }, [_vm._v("Comments")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "widget-body" }, [
+      _c("ul", { staticClass: "like-page-list-wrapper" }, [
+        _c("li", { staticClass: "unorder-list" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "unorder-list-info" }, [
+            _c("h3", { staticClass: "list-title" }, [
+              _c("a", { attrs: { href: "#" } }, [
+                _vm._v(_vm._s(_vm.comments[0].user.display_name))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "list-subtitle comment-content" }, [
+              _c("a", { attrs: { href: "#" } }, [
+                _vm._v(_vm._s(_vm.comments[0].content))
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2)
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "profile-thumb" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("figure", { staticClass: "profile-thumb-small" }, [
+          _c("img", {
+            attrs: {
+              src: "assets/images/profile/profile-small-33.jpg",
+              alt: "profile picture"
+            }
+          })
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "unorder-list" }, [
+      _c("div", { staticClass: "profile-thumb" }, [
+        _c("a", { attrs: { href: "#" } }, [
+          _c("figure", { staticClass: "profile-thumb-small" }, [
+            _c("img", {
+              attrs: {
+                src: "assets/images/profile/profile-small-29.jpg",
+                alt: "profile picture"
+              }
+            })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "unorder-list-info" }, [
+        _c("h3", { staticClass: "list-title" }, [
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Kenneth")])
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "list-subtitle" }, [
+          _c("a", { attrs: { href: "#" } }, [
+            _vm._v(
+              "My brother the thing tire me oh, how do even explain the fact that this my comment actually says nothing"
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "share-box-inner" }, [
+      _c("div", { staticClass: "profile-thumb" }, [
+        _c("a", { attrs: { href: "#" } }, [
+          _c("figure", { staticClass: "profile-thumb-small" }, [
+            _c("img", {
+              attrs: {
+                src: "assets/images/profile/profile-small-29.jpg",
+                alt: "profile picture"
+              }
+            })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "share-content-box w-100" }, [
+        _c("form", { staticClass: "share-text-box" }, [
+          _c("textarea", {
+            staticClass: "share-text-field",
+            attrs: {
+              name: "comment",
+              "aria-disabled": "true",
+              placeholder: "What's funny?",
+              id: "comment"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn-share", attrs: { type: "submit" } },
+            [_vm._v("share")]
+          )
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostFeedComponent.vue?vue&type=template&id=c86e0c38&":
 /*!********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PostFeedComponent.vue?vue&type=template&id=c86e0c38& ***!
@@ -38719,325 +39133,46 @@ var render = function() {
               "div",
               { staticClass: "post-meta", staticStyle: { display: "block" } },
               [
-                _c("div", { staticClass: "post-reaction-meta" }, [
-                  _c("div", { staticClass: "reaction-stats float-right" }, [
-                    _c("ul", { staticClass: "comment-share-meta" }, [
-                      _c("li", [
-                        _c("button", { staticClass: "post-comment" }, [
-                          _c("i", { staticClass: "bi bi-chat-bubble" }),
-                          _vm._v(" "),
-                          _c("span", [_vm._v(_vm._s(post.reactions.total))])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("button", { staticClass: "post-share" }, [
-                          _c("i", { staticClass: "bi bi-share" }),
-                          _vm._v(" "),
-                          _c("span", [_vm._v(_vm._s(post.reactions.points))])
+                _c(
+                  "div",
+                  { staticClass: "post-reaction-meta" },
+                  [
+                    _c("div", { staticClass: "reaction-stats float-right" }, [
+                      _c("ul", { staticClass: "comment-share-meta" }, [
+                        _c("li", [
+                          _c("button", { staticClass: "post-comment" }, [
+                            _c("i", { staticClass: "bi bi-chat-bubble" }),
+                            _vm._v(" "),
+                            _c("span", [_vm._v(_vm._s(post.reactions.total))])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("button", { staticClass: "post-share" }, [
+                            _c("i", { staticClass: "bi bi-share" }),
+                            _vm._v(" "),
+                            _c("span", [_vm._v(_vm._s(post.reactions.points))])
+                          ])
                         ])
                       ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "post-reaction-buttons" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "post-meta-like",
-                        staticStyle: { margin: "0px 1px" },
-                        attrs: { title: "Lol" },
-                        on: {
-                          click: function($event) {
-                            return _vm.react(
-                              post.id,
-                              index,
-                              "lol",
-                              _vm.reactionRate.lol
-                            )
-                          }
-                        }
-                      },
-                      [
-                        post.user_reactions.lol == true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src: "/assets/emoticons/excellent_active.png"
-                                }
-                              })
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        post.user_reactions.lol != true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src:
-                                    "/assets/emoticons/excellent_inactive.png"
-                                }
-                              })
-                            ])
-                          : _vm._e()
-                      ]
-                    ),
+                    ]),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "post-meta-like",
-                        staticStyle: { margin: "0px 1px" },
-                        attrs: { title: "insidelife" },
-                        on: {
-                          click: function($event) {
-                            return _vm.react(
-                              post.id,
-                              index,
-                              "insidelife",
-                              _vm.reactionRate.insidelife
-                            )
-                          }
-                        }
-                      },
-                      [
-                        post.user_reactions.insidelife == true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src: "/assets/emoticons/hate_active.png"
-                                }
-                              })
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        post.user_reactions.insidelife != true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src: "/assets/emoticons/hate_inactive.png"
-                                }
-                              })
-                            ])
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "post-meta-like",
-                        staticStyle: { margin: "0px 1px" },
-                        attrs: { title: "omo" },
-                        on: {
-                          click: function($event) {
-                            return _vm.react(
-                              post.id,
-                              index,
-                              "omo",
-                              _vm.reactionRate.omo
-                            )
-                          }
-                        }
-                      },
-                      [
-                        post.user_reactions.omo == true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src: "/assets/emoticons/hate_active.png"
-                                }
-                              })
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        post.user_reactions.omo != true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src: "/assets/emoticons/hate_inactive.png"
-                                }
-                              })
-                            ])
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "post-meta-like",
-                        staticStyle: { margin: "0px 1px" },
-                        attrs: { title: "asin" },
-                        on: {
-                          click: function($event) {
-                            return _vm.react(
-                              post.id,
-                              index,
-                              "asin",
-                              _vm.reactionRate.asin
-                            )
-                          }
-                        }
-                      },
-                      [
-                        post.user_reactions.asin == true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src: "/assets/emoticons/hate_active.png"
-                                }
-                              })
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        post.user_reactions.asin != true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src: "/assets/emoticons/hate_inactive.png"
-                                }
-                              })
-                            ])
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "post-meta-like",
-                        staticStyle: { margin: "0px 1px" },
-                        attrs: { title: "smh" },
-                        on: {
-                          click: function($event) {
-                            return _vm.react(
-                              post.id,
-                              index,
-                              "smh",
-                              _vm.reactionRate.smh
-                            )
-                          }
-                        }
-                      },
-                      [
-                        post.user_reactions.smh == true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src: "/assets/emoticons/hate_active.png"
-                                }
-                              })
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        post.user_reactions.smh != true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src: "/assets/emoticons/hate_inactive.png"
-                                }
-                              })
-                            ])
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "post-meta-like",
-                        staticStyle: { margin: "0px 1px" },
-                        attrs: { title: "mtcheew" },
-                        on: {
-                          click: function($event) {
-                            return _vm.react(
-                              post.id,
-                              index,
-                              "mtcheew",
-                              _vm.reactionRate.mtcheew
-                            )
-                          }
-                        }
-                      },
-                      [
-                        post.user_reactions.mtcheew == true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src: "/assets/emoticons/hate_active.png"
-                                }
-                              })
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        post.user_reactions.mtcheew != true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src: "/assets/emoticons/hate_inactive.png"
-                                }
-                              })
-                            ])
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "post-meta-like",
-                        staticStyle: { margin: "0px 1px" },
-                        attrs: { title: "nfdl" },
-                        on: {
-                          click: function($event) {
-                            return _vm.react(
-                              post.id,
-                              index,
-                              "nfdl",
-                              _vm.reactionRate.nfdl
-                            )
-                          }
-                        }
-                      },
-                      [
-                        post.user_reactions.nfdl == true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src: "/assets/emoticons/hate_active.png"
-                                }
-                              })
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        post.user_reactions.nfdl != true
-                          ? _c("i", [
-                              _c("img", {
-                                staticClass: "emoji",
-                                attrs: {
-                                  src: "/assets/emoticons/hate_inactive.png"
-                                }
-                              })
-                            ])
-                          : _vm._e()
-                      ]
-                    )
-                  ])
-                ])
+                    _c("post-reactions", {
+                      attrs: { post: post, auth_user: _vm.auth_user }
+                    })
+                  ],
+                  1
+                )
               ]
+            ),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "post-comments" },
+              [_c("post-comments")],
+              1
             )
           ])
         ])
@@ -39093,178 +39228,242 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "app",
-      staticStyle: { margin: "20px 0px", "text-align": "center" }
-    },
-    [
-      _c(
-        "button",
-        {
-          staticClass: "post-meta-like",
-          staticStyle: { margin: "0px 10px" },
-          attrs: { title: "Funny" }
-        },
-        [
-          _vm.user_reactions.funny == true
-            ? _c("i", [
-                _c("img", {
-                  staticStyle: { "max-width": "1.5em" },
-                  attrs: { src: "/assets/emoticons/excellent_active.png" }
-                })
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.user_reactions.funny != true
-            ? _c("i", [
-                _c("img", {
-                  staticStyle: { "max-width": "1.5em" },
-                  attrs: { src: "/assets/emoticons/excellent_inactive.png" }
-                })
-              ])
-            : _vm._e()
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "post-meta-like",
-          staticStyle: { margin: "0px 10px" },
-          attrs: { title: "Not Funny" }
-        },
-        [
-          _c("i", [
-            _c("img", {
-              staticStyle: { "max-width": "1.5em" },
-              attrs: { src: "/assets/emoticons/hate_inactive.png" }
-            })
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "post-meta-like",
-          staticStyle: { margin: "0px 10px" },
-          attrs: { title: "SMH" }
-        },
-        [
-          _c("i", [
-            _c("img", {
-              staticStyle: { "max-width": "1.5em" },
-              attrs: { src: "/assets/emoticons/natural_inactive.png" }
-            })
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "post-meta-like",
-          staticStyle: { margin: "0px 10px" },
-          attrs: { title: "Mad Oh" }
-        },
-        [
-          _c("i", [
-            _c("img", {
-              staticStyle: { "max-width": "1.5em" },
-              attrs: { src: "/assets/emoticons/good_inactive.png" }
-            })
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "post-meta-like",
-          staticStyle: { margin: "0px 10px" },
-          attrs: { title: "Funny" }
-        },
-        [
-          _c("i", [
-            _c("img", {
-              staticStyle: { "max-width": "1.5em" },
-              attrs: { src: "/assets/emoticons/disappointed_inactive.png" }
-            })
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "post-meta-like",
-          staticStyle: { margin: "0px 10px" },
-          attrs: { title: "Funny" }
-        },
-        [
-          _c("i", [
-            _c("img", {
-              staticStyle: { "max-width": "1.5em" },
-              attrs: { src: "/assets/emoticons/disappointed_inactive.png" }
-            })
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "post-meta-like",
-          staticStyle: { margin: "0px 10px" },
-          attrs: { title: "Funny" }
-        },
-        [
-          _c("i", [
-            _c("img", {
-              staticStyle: { "max-width": "1.5em" },
-              attrs: { src: "/assets/emoticons/disappointed_inactive.png" }
-            })
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "post-meta-like",
-          staticStyle: { margin: "0px 10px" },
-          attrs: { title: "Funny" }
-        },
-        [
-          _c("i", [
-            _c("img", {
-              staticStyle: { "max-width": "1.5em" },
-              attrs: { src: "/assets/emoticons/disappointed_inactive.png" }
-            })
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "post-meta-like",
-          staticStyle: { margin: "0px 10px" },
-          attrs: { title: "Funny" }
-        },
-        [
-          _c("i", [
-            _c("img", {
-              staticStyle: { "max-width": "1.5em" },
-              attrs: { src: "/assets/emoticons/disappointed_inactive.png" }
-            })
-          ])
-        ]
-      )
-    ]
-  )
+  return _c("div", { staticClass: "post-reaction-buttons" }, [
+    _c(
+      "button",
+      {
+        staticClass: "post-meta-like",
+        staticStyle: { margin: "0px 1px" },
+        attrs: { title: "Lol" },
+        on: {
+          click: function($event) {
+            return _vm.react(_vm.post.id, "lol", _vm.reactionRate.lol)
+          }
+        }
+      },
+      [
+        _vm.post.user_reactions.lol == true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/excellent_active.png" }
+              })
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.post.user_reactions.lol != true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/excellent_inactive.png" }
+              })
+            ])
+          : _vm._e()
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "post-meta-like",
+        staticStyle: { margin: "0px 1px" },
+        attrs: { title: "insidelife" },
+        on: {
+          click: function($event) {
+            return _vm.react(
+              _vm.post.id,
+              "insidelife",
+              _vm.reactionRate.insidelife
+            )
+          }
+        }
+      },
+      [
+        _vm.post.user_reactions.insidelife == true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/hate_active.png" }
+              })
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.post.user_reactions.insidelife != true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/hate_inactive.png" }
+              })
+            ])
+          : _vm._e()
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "post-meta-like",
+        staticStyle: { margin: "0px 1px" },
+        attrs: { title: "omo" },
+        on: {
+          click: function($event) {
+            return _vm.react(_vm.post.id, "omo", _vm.reactionRate.omo)
+          }
+        }
+      },
+      [
+        _vm.post.user_reactions.omo == true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/hate_active.png" }
+              })
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.post.user_reactions.omo != true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/hate_inactive.png" }
+              })
+            ])
+          : _vm._e()
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "post-meta-like",
+        staticStyle: { margin: "0px 1px" },
+        attrs: { title: "asin" },
+        on: {
+          click: function($event) {
+            return _vm.react(_vm.post.id, "asin", _vm.reactionRate.asin)
+          }
+        }
+      },
+      [
+        _vm.post.user_reactions.asin == true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/hate_active.png" }
+              })
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.post.user_reactions.asin != true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/hate_inactive.png" }
+              })
+            ])
+          : _vm._e()
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "post-meta-like",
+        staticStyle: { margin: "0px 1px" },
+        attrs: { title: "smh" },
+        on: {
+          click: function($event) {
+            return _vm.react(_vm.post.id, "smh", _vm.reactionRate.smh)
+          }
+        }
+      },
+      [
+        _vm.post.user_reactions.smh == true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/hate_active.png" }
+              })
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.post.user_reactions.smh != true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/hate_inactive.png" }
+              })
+            ])
+          : _vm._e()
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "post-meta-like",
+        staticStyle: { margin: "0px 1px" },
+        attrs: { title: "mtcheew" },
+        on: {
+          click: function($event) {
+            return _vm.react(_vm.post.id, "mtcheew", _vm.reactionRate.mtcheew)
+          }
+        }
+      },
+      [
+        _vm.post.user_reactions.mtcheew == true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/hate_active.png" }
+              })
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.post.user_reactions.mtcheew != true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/hate_inactive.png" }
+              })
+            ])
+          : _vm._e()
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "post-meta-like",
+        staticStyle: { margin: "0px 1px" },
+        attrs: { title: "nfdl" },
+        on: {
+          click: function($event) {
+            return _vm.react(_vm.post.id, "nfdl", _vm.reactionRate.nfdl)
+          }
+        }
+      },
+      [
+        _vm.post.user_reactions.nfdl == true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/hate_active.png" }
+              })
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.post.user_reactions.nfdl != true
+          ? _c("i", [
+              _c("img", {
+                staticClass: "emoji",
+                attrs: { src: "/assets/emoticons/hate_inactive.png" }
+              })
+            ])
+          : _vm._e()
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -51539,8 +51738,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
-Vue.component('post-feed', __webpack_require__(/*! ./components/PostFeedComponent.vue */ "./resources/js/components/PostFeedComponent.vue")["default"]);
-Vue.component('post-reaction', __webpack_require__(/*! ./components/PostReactionComponent.vue */ "./resources/js/components/PostReactionComponent.vue")["default"]);
+Vue.component('post-feed', __webpack_require__(/*! ./components/PostFeedComponent.vue */ "./resources/js/components/PostFeedComponent.vue")["default"]); // Vue.component('post-reaction', require('./components/PostReactionComponent.vue').default);
+
 Vue.component('user-notification', __webpack_require__(/*! ./components/UserNotificationComponent.vue */ "./resources/js/components/UserNotificationComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -51663,6 +51862,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PostCommentComponent.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/PostCommentComponent.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PostCommentComponent_vue_vue_type_template_id_6791d809___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PostCommentComponent.vue?vue&type=template&id=6791d809& */ "./resources/js/components/PostCommentComponent.vue?vue&type=template&id=6791d809&");
+/* harmony import */ var _PostCommentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PostCommentComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/PostCommentComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _PostCommentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PostCommentComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/PostCommentComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _PostCommentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PostCommentComponent_vue_vue_type_template_id_6791d809___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PostCommentComponent_vue_vue_type_template_id_6791d809___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PostCommentComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PostCommentComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/PostCommentComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PostCommentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PostCommentComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostCommentComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PostCommentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PostCommentComponent.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/PostCommentComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PostCommentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./PostCommentComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostCommentComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PostCommentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PostCommentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PostCommentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PostCommentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PostCommentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PostCommentComponent.vue?vue&type=template&id=6791d809&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/PostCommentComponent.vue?vue&type=template&id=6791d809& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PostCommentComponent_vue_vue_type_template_id_6791d809___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PostCommentComponent.vue?vue&type=template&id=6791d809& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PostCommentComponent.vue?vue&type=template&id=6791d809&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PostCommentComponent_vue_vue_type_template_id_6791d809___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PostCommentComponent_vue_vue_type_template_id_6791d809___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

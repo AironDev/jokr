@@ -34,7 +34,8 @@
         </div>
         <!-- post title start -->
         <div class="post-content">
-            <div class="post-desc" v-html="post.content"> 
+            <div class="post-desc" v-html="post.content">
+                
             </div>
             <div class="post-thumb-gallery">
                 
@@ -61,20 +62,55 @@
                         </ul>
                     </div>
                     
-                    <!-- post reaction component -->
-                    <post-reactions
-                        :post="post"
-                        :auth_user="auth_user"
-                    />
+                    <div class="post-reaction-buttons">
+                        <button class="post-meta-like" @click="react(post.id, index, 'lol', reactionRate.lol)" title="Lol" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.lol == true"><img v-bind:src="'/assets/emoticons/excellent_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.lol !=true"><img v-bind:src="'/assets/emoticons/excellent_inactive.png'" class="emoji"></i>   
+                        </button>
+
+                        <!-- <button class="post-meta-like" @click="react(post.id, index, 'lwkmd', reactionRate.lwkmd)" title="lwkmd" style="margin: 0px 10px">
+                            <i v-if="post.user_reactions.lwkmd == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" style="max-width: 1.2em"></i> 
+                            <i v-if="post.user_reactions.lwkmd !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.2em"></i> 
+                        </button> -->
+
+                        <button class="post-meta-like" @click="react(post.id, index, 'insidelife', reactionRate.insidelife)" title="insidelife" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.insidelife == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.insidelife !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                        </button>
+
+                        <button class="post-meta-like" @click="react(post.id, index, 'omo', reactionRate.omo)" title="omo" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.omo == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.omo !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                        </button>
+
+                        <button class="post-meta-like" @click="react(post.id, index, 'asin', reactionRate.asin)" title="asin" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.asin == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.asin !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                        </button>
+
+                        <button class="post-meta-like" @click="react(post.id, index, 'smh', reactionRate.smh)" title="smh" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.smh == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.smh !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                        </button>
+
+                        <!-- <button class="post-meta-like" @click="react(post.id, index, 'yfmh', reactionRate.yfmh)" title="yfmh" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.yfmh == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" style="max-width: 1.2em"></i> 
+                            <i v-if="post.user_reactions.yfmh !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" style="max-width: 1.2em"></i> 
+                        </button> -->
+
+                        <button class="post-meta-like" @click="react(post.id, index, 'mtcheew', reactionRate.mtcheew)" title="mtcheew" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.mtcheew == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.mtcheew !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                        </button>
+
+                        <button class="post-meta-like" @click="react(post.id, index, 'nfdl', reactionRate.nfdl)" title="nfdl" style="margin: 0px 1px">
+                            <i v-if="post.user_reactions.nfdl == true"><img v-bind:src="'/assets/emoticons/hate_active.png'" class="emoji"></i> 
+                            <i v-if="post.user_reactions.nfdl !=true"><img v-bind:src="'/assets/emoticons/hate_inactive.png'" class="emoji"></i> 
+                        </button>
+                    </div>
 
                 </div>
             </div>
-
-            <hr/>
-            <div class="post-comments">
-                <post-comments />
-            </div>
-
         </div>
     </div>
     <div class="card">
@@ -86,16 +122,8 @@
 <script>
     import Post from '../services/PostService';
     import Auth from '../services/AuthService';
-    import PostReactions from './PostReactionComponent.vue';
-    import PostComments from './PostCommentComponent.vue';
     export default {
         props: ['profile', 'auth_user'],
-
-        components: {
-            PostReactions,
-            PostComments,
-        },
-
         data() {
             return {
                 post: new Post(),
@@ -157,7 +185,7 @@
                 };
             },
 
-            reactOLD(post_id, index, type, rate){
+            react(post_id, index, type, rate){
                 return axios.get(`post/react/?auth_user_id=${this.auth_user}&post_id=${post_id}&type=${type}&rate=${rate}`, {
                 })
                 .then(response => {

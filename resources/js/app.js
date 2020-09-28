@@ -21,7 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('post-feed', require('./components/PostFeedComponent.vue').default);
-Vue.component('post-reaction', require('./components/PostReactionComponent.vue').default);
+// Vue.component('post-reaction', require('./components/PostReactionComponent.vue').default);
 Vue.component('user-notification', require('./components/UserNotificationComponent.vue').default);
 
 /**

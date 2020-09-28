@@ -52,7 +52,7 @@ class User extends Authenticatable implements ReacterableContract
         return $this->hasOne('App\Profile', 'user_id');
     }
 
-    public function post()
+    public function posts()
     {
         return $this->hasMany('App\Post', 'user_id');
     }

@@ -17,4 +17,8 @@ class Post extends Model implements ReactableContract
     public function user(){
         return $this->belongsTo('App\User', 'id');
     }
+
+    public function comments(){
+    	return $this->hasMany('App\Comment', 'post_id');
+    }
 }
