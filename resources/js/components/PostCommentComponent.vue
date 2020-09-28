@@ -1,7 +1,7 @@
 <template>
 <!-- widget single item start -->
     <div class="card-small comments">
-        <h4 class="widget-title">Comments</h4>
+        <h4 class="widget-title">Comments <span class="ml-2"><i class="fa fa-caret-down"> </i></span></h4>
         <div class="widget-body">
             <ul class="like-page-list-wrapper" style="max-height: 200px; overflow-y:scroll">
                 <li class="unorder-list">

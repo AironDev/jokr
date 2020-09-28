@@ -298,7 +298,6 @@
         .post-reaction-meta .post-reaction-buttons {
             overflow-x: scroll;
             display: inline-flex;
-            width: 100%;
         }
 
         .post-meta .comment-share-meta li {

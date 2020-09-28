@@ -7068,7 +7068,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.post-desc video, .post-desc iframe, .post-desc img {\n    max-width: 100%;\n    max-height: 100%;\n    width:95%;\n    text-align:center;\n}\n.post-reaction-meta {\n    background: #e8e8e8;\n    padding: 10px;\n    border: thin solid #efe5e5;\n    margin: -10px;\n    color: gray;\n}\n.post-reaction-meta  .emoji{\n    max-width: 1.5em;\n}\n@media only screen and (max-width: 600px){\n.post-reaction-meta .emoji{\n        max-width: 1.2em;\n}\n}\n@media only screen and (max-width: 420px){\n.post-reaction-meta .post-reaction-buttons {\n        overflow-x: scroll;\n        display: inline-flex;\n        width: 100%;\n}\n.post-meta .comment-share-meta li {\n        display: inline-block;\n        margin-left: 4px;\n}\n.post-meta-like i, .post-comment i, .post-share i {\n        font-size: 16px;\n        color: #333333;\n        vertical-align: baseline;\n}\n}\n", ""]);
+exports.push([module.i, "\n.post-desc video, .post-desc iframe, .post-desc img {\n    max-width: 100%;\n    max-height: 100%;\n    width:95%;\n    text-align:center;\n}\n.post-reaction-meta {\n    background: #e8e8e8;\n    padding: 10px;\n    border: thin solid #efe5e5;\n    margin: -10px;\n    color: gray;\n}\n.post-reaction-meta  .emoji{\n    max-width: 1.5em;\n}\n@media only screen and (max-width: 600px){\n.post-reaction-meta .emoji{\n        max-width: 1.2em;\n}\n}\n@media only screen and (max-width: 420px){\n.post-reaction-meta .post-reaction-buttons {\n        overflow-x: scroll;\n        display: inline-flex;\n}\n.post-meta .comment-share-meta li {\n        display: inline-block;\n        margin-left: 4px;\n}\n.post-meta-like i, .post-comment i, .post-share i {\n        font-size: 16px;\n        color: #333333;\n        vertical-align: baseline;\n}\n}\n", ""]);
 
 // exports
 
@@ -38941,7 +38941,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card-small comments" }, [
-    _c("h4", { staticClass: "widget-title" }, [_vm._v("Comments")]),
+    _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "widget-body" }, [
       _c(
@@ -38952,7 +38952,7 @@ var render = function() {
         },
         [
           _c("li", { staticClass: "unorder-list" }, [
-            _vm._m(0),
+            _vm._m(1),
             _vm._v(" "),
             _c("div", { staticClass: "unorder-list-info" }, [
               _c("h3", { staticClass: "list-title" }, [
@@ -38969,15 +38969,26 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(2)
         ]
       ),
       _vm._v(" "),
-      _vm._m(2)
+      _vm._m(3)
     ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "widget-title" }, [
+      _vm._v("Comments "),
+      _c("span", { staticClass: "ml-2" }, [
+        _c("i", { staticClass: "fa fa-caret-down" })
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
