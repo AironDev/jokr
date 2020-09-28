@@ -70,8 +70,7 @@
                 </div>
             </div>
 
-            <hr/>
-            <div class="post-comments">
+            <div class="post-comments mt-3">
                 <post-comments />
             </div>
 

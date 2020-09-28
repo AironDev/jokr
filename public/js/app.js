@@ -2131,7 +2131,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -38949,29 +38948,36 @@ var render = function() {
     _c("h4", { staticClass: "widget-title" }, [_vm._v("Comments")]),
     _vm._v(" "),
     _c("div", { staticClass: "widget-body" }, [
-      _c("ul", { staticClass: "like-page-list-wrapper" }, [
-        _c("li", { staticClass: "unorder-list" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "unorder-list-info" }, [
-            _c("h3", { staticClass: "list-title" }, [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v(_vm._s(_vm.comments[0].user.display_name))
-              ])
-            ]),
+      _c(
+        "ul",
+        {
+          staticClass: "like-page-list-wrapper",
+          staticStyle: { "max-height": "200px", "overflow-y": "scroll" }
+        },
+        [
+          _c("li", { staticClass: "unorder-list" }, [
+            _vm._m(0),
             _vm._v(" "),
-            _c("p", { staticClass: "list-subtitle comment-content" }, [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v(_vm._s(_vm.comments[0].content))
+            _c("div", { staticClass: "unorder-list-info" }, [
+              _c("h3", { staticClass: "list-title" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _vm._v(_vm._s(_vm.comments[0].user.display_name))
+                ])
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "list-subtitle comment-content" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _vm._v(_vm._s(_vm.comments[0].content))
+                ])
               ])
             ])
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(1),
-        _vm._v(" "),
-        _vm._m(2)
-      ])
+          ]),
+          _vm._v(" "),
+          _vm._m(1)
+        ]
+      ),
+      _vm._v(" "),
+      _vm._m(2)
     ])
   ])
 }
@@ -39016,13 +39022,20 @@ var staticRenderFns = [
           _c("a", { attrs: { href: "#" } }, [_vm._v("Kenneth")])
         ]),
         _vm._v(" "),
-        _c("p", { staticClass: "list-subtitle" }, [
-          _c("a", { attrs: { href: "#" } }, [
-            _vm._v(
-              "My brother the thing tire me oh, how do even explain the fact that this my comment actually says nothing"
-            )
-          ])
-        ])
+        _c(
+          "p",
+          {
+            staticClass: "list-subtitle comment-content",
+            staticStyle: { "text-transform": "none" }
+          },
+          [
+            _c("a", { attrs: { href: "#" } }, [
+              _vm._v(
+                "My brother the thing tire me oh, how do even explain the fact that this my comment actually says nothing"
+              )
+            ])
+          ]
+        )
       ])
     ])
   },
@@ -39030,7 +39043,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "share-box-inner" }, [
+    return _c("div", { staticClass: "share-box-inner mt-4" }, [
       _c("div", { staticClass: "profile-thumb" }, [
         _c("a", { attrs: { href: "#" } }, [
           _c("figure", { staticClass: "profile-thumb-small" }, [
@@ -39051,7 +39064,7 @@ var staticRenderFns = [
             attrs: {
               name: "comment",
               "aria-disabled": "true",
-              placeholder: "What's funny?",
+              placeholder: "What's your reaction?",
               id: "comment"
             }
           }),
@@ -39059,7 +39072,7 @@ var staticRenderFns = [
           _c(
             "button",
             { staticClass: "btn-share", attrs: { type: "submit" } },
-            [_vm._v("share")]
+            [_vm._v("comment")]
           )
         ])
       ])
@@ -39166,11 +39179,9 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
             _c(
               "div",
-              { staticClass: "post-comments" },
+              { staticClass: "post-comments mt-3" },
               [_c("post-comments")],
               1
             )

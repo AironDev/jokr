@@ -3,7 +3,7 @@
     <div class="card-small comments">
         <h4 class="widget-title">Comments</h4>
         <div class="widget-body">
-            <ul class="like-page-list-wrapper">
+            <ul class="like-page-list-wrapper" style="max-height: 200px; overflow-y:scroll">
                 <li class="unorder-list">
                     <!-- profile picture end -->
                     <div class="profile-thumb">
@@ -33,10 +33,11 @@
 
                     <div class="unorder-list-info">
                         <h3 class="list-title"><a href="#">Kenneth</a></h3>
-                        <p class="list-subtitle"><a href="#">My brother the thing tire me oh, how do even explain the fact that this my comment actually says nothing</a></p>
+                        <p class="list-subtitle comment-content" style="text-transform:none"><a href="#">My brother the thing tire me oh, how do even explain the fact that this my comment actually says nothing</a></p>
                     </div>
                 </li>
-                <div class="share-box-inner">
+            </ul>
+            <div class="share-box-inner mt-4">
                     <!-- profile picture end -->
                     <div class="profile-thumb">
                         <a href="#">
@@ -50,14 +51,13 @@
                     <!-- share content box start -->
                     <div class="share-content-box w-100">
                         <form class="share-text-box">
-                            <textarea name="comment" class="share-text-field" aria-disabled="true" placeholder="What's funny?"  id="comment"></textarea>
-                            <button class="btn-share" type="submit">share</button>
+                            <textarea name="comment" class="share-text-field" aria-disabled="true" placeholder="What's your reaction?"  id="comment"></textarea>
+                            <button class="btn-share" type="submit">comment</button>
                         </form>
                     </div>
                     <!-- share content box end -->
 
                 </div>
-            </ul>
         </div>
     </div>
 <!-- widget single item start -->
