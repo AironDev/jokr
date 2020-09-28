@@ -36,38 +36,12 @@
         <div class="post-content">
             <div class="post-desc" v-html="post.content"> 
             </div>
-            <div class="post-thumb-gallery">
-                
-            </div>
             <div class="post-meta" style="display:block">
-                <div class="post-reaction-meta">
-                    <!-- <span class="" v-if="post.reactions.total >= 2">{{post.reactions.total}} people reacted this</span>
-                    <span v-if="post.reactions.total == 1">{{post.reactions.total}} person reacted this</span>
-                    <span class="" v-if="post.reactions.total == 0">Be the first to react</span> -->
-                    <div class="reaction-stats float-right">
-                        <ul class="comment-share-meta">
-                            <li>
-                                <button class="post-comment">
-                                    <i class="bi bi-chat-bubble"></i>
-                                    <span>{{post.reactions.total}}</span>
-                                </button>
-                            </li>
-                            <li>
-                                <button class="post-share">
-                                    <i class="bi bi-share"></i>
-                                    <span>{{post.reactions.points}}</span>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- post reaction component -->
-                    <post-reactions
-                        :post="post"
-                        :auth_user="auth_user"
-                    />
-
-                </div>
+                <!-- post reaction component -->
+                <post-reactions
+                    :post="post"
+                    :auth_user="auth_user"
+                />
             </div>
 
             <div class="post-comments mt-3">
@@ -324,7 +298,7 @@
         .post-reaction-meta .post-reaction-buttons {
             overflow-x: scroll;
             display: inline-flex;
-            width: 100px;
+            width: 100%;
         }
 
         .post-meta .comment-share-meta li {

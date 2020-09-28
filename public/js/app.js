@@ -2105,32 +2105,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2346,6 +2320,28 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7072,7 +7068,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.post-desc video, .post-desc iframe, .post-desc img {\n    max-width: 100%;\n    max-height: 100%;\n    width:95%;\n    text-align:center;\n}\n.post-reaction-meta {\n    background: #e8e8e8;\n    padding: 10px;\n    border: thin solid #efe5e5;\n    margin: -10px;\n    color: gray;\n}\n.post-reaction-meta  .emoji{\n    max-width: 1.5em;\n}\n@media only screen and (max-width: 600px){\n.post-reaction-meta .emoji{\n        max-width: 1.2em;\n}\n}\n@media only screen and (max-width: 420px){\n.post-reaction-meta .post-reaction-buttons {\n        overflow-x: scroll;\n        display: inline-flex;\n        width: 100px;\n}\n.post-meta .comment-share-meta li {\n        display: inline-block;\n        margin-left: 4px;\n}\n.post-meta-like i, .post-comment i, .post-share i {\n        font-size: 16px;\n        color: #333333;\n        vertical-align: baseline;\n}\n}\n", ""]);
+exports.push([module.i, "\n.post-desc video, .post-desc iframe, .post-desc img {\n    max-width: 100%;\n    max-height: 100%;\n    width:95%;\n    text-align:center;\n}\n.post-reaction-meta {\n    background: #e8e8e8;\n    padding: 10px;\n    border: thin solid #efe5e5;\n    margin: -10px;\n    color: gray;\n}\n.post-reaction-meta  .emoji{\n    max-width: 1.5em;\n}\n@media only screen and (max-width: 600px){\n.post-reaction-meta .emoji{\n        max-width: 1.2em;\n}\n}\n@media only screen and (max-width: 420px){\n.post-reaction-meta .post-reaction-buttons {\n        overflow-x: scroll;\n        display: inline-flex;\n        width: 100%;\n}\n.post-meta .comment-share-meta li {\n        display: inline-block;\n        margin-left: 4px;\n}\n.post-meta-like i, .post-comment i, .post-share i {\n        font-size: 16px;\n        color: #333333;\n        vertical-align: baseline;\n}\n}\n", ""]);
 
 // exports
 
@@ -39140,43 +39136,15 @@ var render = function() {
               domProps: { innerHTML: _vm._s(post.content) }
             }),
             _vm._v(" "),
-            _c("div", { staticClass: "post-thumb-gallery" }),
-            _vm._v(" "),
             _c(
               "div",
               { staticClass: "post-meta", staticStyle: { display: "block" } },
               [
-                _c(
-                  "div",
-                  { staticClass: "post-reaction-meta" },
-                  [
-                    _c("div", { staticClass: "reaction-stats float-right" }, [
-                      _c("ul", { staticClass: "comment-share-meta" }, [
-                        _c("li", [
-                          _c("button", { staticClass: "post-comment" }, [
-                            _c("i", { staticClass: "bi bi-chat-bubble" }),
-                            _vm._v(" "),
-                            _c("span", [_vm._v(_vm._s(post.reactions.total))])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("li", [
-                          _c("button", { staticClass: "post-share" }, [
-                            _c("i", { staticClass: "bi bi-share" }),
-                            _vm._v(" "),
-                            _c("span", [_vm._v(_vm._s(post.reactions.points))])
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("post-reactions", {
-                      attrs: { post: post, auth_user: _vm.auth_user }
-                    })
-                  ],
-                  1
-                )
-              ]
+                _c("post-reactions", {
+                  attrs: { post: post, auth_user: _vm.auth_user }
+                })
+              ],
+              1
             ),
             _vm._v(" "),
             _c(
@@ -39239,241 +39207,255 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "post-reaction-buttons" }, [
-    _c(
-      "button",
-      {
-        staticClass: "post-meta-like",
-        staticStyle: { margin: "0px 1px" },
-        attrs: { title: "Lol" },
-        on: {
-          click: function($event) {
-            return _vm.react(_vm.post.id, "lol", _vm.reactionRate.lol)
-          }
-        }
-      },
-      [
-        _vm.post.user_reactions.lol == true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/excellent_active.png" }
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.post.user_reactions.lol != true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/excellent_inactive.png" }
-              })
-            ])
-          : _vm._e()
-      ]
-    ),
+  return _c("div", { staticClass: "post-reaction-meta" }, [
+    _c("div", { staticClass: "reaction-stats float-right" }, [
+      _c("ul", { staticClass: "comment-share-meta" }, [
+        _c("li", [
+          _c("button", { staticClass: "post-share" }, [
+            _c("i", { staticClass: "bi bi-share" }),
+            _vm._v(" "),
+            _c("span", [_vm._v(_vm._s(_vm.post.reactions.points))])
+          ])
+        ])
+      ])
+    ]),
     _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "post-meta-like",
-        staticStyle: { margin: "0px 1px" },
-        attrs: { title: "insidelife" },
-        on: {
-          click: function($event) {
-            return _vm.react(
-              _vm.post.id,
-              "insidelife",
-              _vm.reactionRate.insidelife
-            )
+    _c("div", { staticClass: "post-reaction-buttons" }, [
+      _c(
+        "button",
+        {
+          staticClass: "post-meta-like",
+          staticStyle: { margin: "0px 1px" },
+          attrs: { title: "Lol" },
+          on: {
+            click: function($event) {
+              return _vm.react(_vm.post.id, "lol", _vm.reactionRate.lol)
+            }
           }
-        }
-      },
-      [
-        _vm.post.user_reactions.insidelife == true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/hate_active.png" }
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.post.user_reactions.insidelife != true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/hate_inactive.png" }
-              })
-            ])
-          : _vm._e()
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "post-meta-like",
-        staticStyle: { margin: "0px 1px" },
-        attrs: { title: "omo" },
-        on: {
-          click: function($event) {
-            return _vm.react(_vm.post.id, "omo", _vm.reactionRate.omo)
+        },
+        [
+          _vm.post.user_reactions.lol == true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/excellent_active.png" }
+                })
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.post.user_reactions.lol != true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/excellent_inactive.png" }
+                })
+              ])
+            : _vm._e()
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "post-meta-like",
+          staticStyle: { margin: "0px 1px" },
+          attrs: { title: "insidelife" },
+          on: {
+            click: function($event) {
+              return _vm.react(
+                _vm.post.id,
+                "insidelife",
+                _vm.reactionRate.insidelife
+              )
+            }
           }
-        }
-      },
-      [
-        _vm.post.user_reactions.omo == true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/hate_active.png" }
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.post.user_reactions.omo != true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/hate_inactive.png" }
-              })
-            ])
-          : _vm._e()
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "post-meta-like",
-        staticStyle: { margin: "0px 1px" },
-        attrs: { title: "asin" },
-        on: {
-          click: function($event) {
-            return _vm.react(_vm.post.id, "asin", _vm.reactionRate.asin)
+        },
+        [
+          _vm.post.user_reactions.insidelife == true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/hate_active.png" }
+                })
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.post.user_reactions.insidelife != true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/hate_inactive.png" }
+                })
+              ])
+            : _vm._e()
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "post-meta-like",
+          staticStyle: { margin: "0px 1px" },
+          attrs: { title: "omo" },
+          on: {
+            click: function($event) {
+              return _vm.react(_vm.post.id, "omo", _vm.reactionRate.omo)
+            }
           }
-        }
-      },
-      [
-        _vm.post.user_reactions.asin == true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/hate_active.png" }
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.post.user_reactions.asin != true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/hate_inactive.png" }
-              })
-            ])
-          : _vm._e()
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "post-meta-like",
-        staticStyle: { margin: "0px 1px" },
-        attrs: { title: "smh" },
-        on: {
-          click: function($event) {
-            return _vm.react(_vm.post.id, "smh", _vm.reactionRate.smh)
+        },
+        [
+          _vm.post.user_reactions.omo == true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/hate_active.png" }
+                })
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.post.user_reactions.omo != true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/hate_inactive.png" }
+                })
+              ])
+            : _vm._e()
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "post-meta-like",
+          staticStyle: { margin: "0px 1px" },
+          attrs: { title: "asin" },
+          on: {
+            click: function($event) {
+              return _vm.react(_vm.post.id, "asin", _vm.reactionRate.asin)
+            }
           }
-        }
-      },
-      [
-        _vm.post.user_reactions.smh == true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/hate_active.png" }
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.post.user_reactions.smh != true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/hate_inactive.png" }
-              })
-            ])
-          : _vm._e()
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "post-meta-like",
-        staticStyle: { margin: "0px 1px" },
-        attrs: { title: "mtcheew" },
-        on: {
-          click: function($event) {
-            return _vm.react(_vm.post.id, "mtcheew", _vm.reactionRate.mtcheew)
+        },
+        [
+          _vm.post.user_reactions.asin == true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/hate_active.png" }
+                })
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.post.user_reactions.asin != true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/hate_inactive.png" }
+                })
+              ])
+            : _vm._e()
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "post-meta-like",
+          staticStyle: { margin: "0px 1px" },
+          attrs: { title: "smh" },
+          on: {
+            click: function($event) {
+              return _vm.react(_vm.post.id, "smh", _vm.reactionRate.smh)
+            }
           }
-        }
-      },
-      [
-        _vm.post.user_reactions.mtcheew == true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/hate_active.png" }
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.post.user_reactions.mtcheew != true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/hate_inactive.png" }
-              })
-            ])
-          : _vm._e()
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "post-meta-like",
-        staticStyle: { margin: "0px 1px" },
-        attrs: { title: "nfdl" },
-        on: {
-          click: function($event) {
-            return _vm.react(_vm.post.id, "nfdl", _vm.reactionRate.nfdl)
+        },
+        [
+          _vm.post.user_reactions.smh == true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/hate_active.png" }
+                })
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.post.user_reactions.smh != true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/hate_inactive.png" }
+                })
+              ])
+            : _vm._e()
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "post-meta-like",
+          staticStyle: { margin: "0px 1px" },
+          attrs: { title: "mtcheew" },
+          on: {
+            click: function($event) {
+              return _vm.react(_vm.post.id, "mtcheew", _vm.reactionRate.mtcheew)
+            }
           }
-        }
-      },
-      [
-        _vm.post.user_reactions.nfdl == true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/hate_active.png" }
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.post.user_reactions.nfdl != true
-          ? _c("i", [
-              _c("img", {
-                staticClass: "emoji",
-                attrs: { src: "/assets/emoticons/hate_inactive.png" }
-              })
-            ])
-          : _vm._e()
-      ]
-    )
+        },
+        [
+          _vm.post.user_reactions.mtcheew == true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/hate_active.png" }
+                })
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.post.user_reactions.mtcheew != true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/hate_inactive.png" }
+                })
+              ])
+            : _vm._e()
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "post-meta-like",
+          staticStyle: { margin: "0px 1px" },
+          attrs: { title: "nfdl" },
+          on: {
+            click: function($event) {
+              return _vm.react(_vm.post.id, "nfdl", _vm.reactionRate.nfdl)
+            }
+          }
+        },
+        [
+          _vm.post.user_reactions.nfdl == true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/hate_active.png" }
+                })
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.post.user_reactions.nfdl != true
+            ? _c("i", [
+                _c("img", {
+                  staticClass: "emoji",
+                  attrs: { src: "/assets/emoticons/hate_inactive.png" }
+                })
+              ])
+            : _vm._e()
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = []
