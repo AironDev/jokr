@@ -5,7 +5,12 @@ language: php
 
 php:
   - '7.4'
-  
+
+cache:
+  directories:
+    - node_modules
+    - vendor
+
 before_script:
   - composer self-update
   - composer install --no-interaction
@@ -19,7 +24,7 @@ before_script:
   - php artisan key:generate
   
 script:
-  - vendor/bin/phpunit --coverage-text
+  - vendor/bin/phpunit
   - phpcs --standard=PSR2 --ignore=app/Http/Controllers/Auth,app/Http/Controllers/Controller.php app/Http/Controllers
-  - npm run production
-  - jshint resources/js/*
+  # - npm run production
+  # - jshint resources/js/*
