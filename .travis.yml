@@ -26,5 +26,5 @@ before_script:
 script:
   - vendor/bin/phpunit
   - phpcs --standard=PSR2 --ignore=app/Http/Controllers/Auth,app/Http/Controllers/Controller.php app/Http/Controllers
-  - npm run production
-  - jshint resources/js/*
+  # - npm run production
+  # - jshint resources/js/*
