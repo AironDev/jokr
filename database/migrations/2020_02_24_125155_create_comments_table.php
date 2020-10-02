@@ -17,10 +17,8 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('post_id');
-            $table->bigInteger('owner_id');
-            $table->string('owner_type');
             $table->longText('content');
-            $table->string('privacy');
+            $table->string('privacy')->nullable()->default('public');
             $table->timestamps();
             $table->softDeletes();
 

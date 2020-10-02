@@ -1990,44 +1990,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['profile', 'auth_user'],
+  props: ['post', 'auth_user'],
   data: function data() {
     return {
-      comments: [{
-        id: 1,
-        post_id: 2,
-        user: {
-          id: 1,
-          name: 'Airon',
-          display_name: 'Airon Dev',
-          photo: 'airondev-avatar.jpg'
-        },
-        content: 'What in the name of God, is this guy talking',
-        privacy: ['public']
-      }]
+      newComment: '',
+      comments: []
     };
   },
-  methods: {},
+  methods: {
+    getComments: function getComments() {
+      var _this = this;
+
+      return axios.get("/posts/".concat(this.post.id, "/comments"), {}).then(function (response) {
+        //console.log(response.data.data);
+        _this.comments = response.data.data;
+      });
+    },
+    addComment: function addComment() {
+      var _this2 = this;
+
+      return axios.post("/posts/".concat(this.post.id, "/comment"), {
+        content: this.newComment,
+        auth_user: this.auth_user
+      }).then(function (response) {
+        //console.log(response.data.data);
+        _this2.comments.push(response.data.data);
+      });
+    }
+  },
   computed: {},
   mounted: function mounted() {
-    console.log("hello from post comment component");
+    // console.log("hello from post comment component");
+    this.getComments();
   },
   created: function created() {}
 });
@@ -2105,6 +2100,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2120,27 +2118,7 @@ __webpack_require__.r(__webpack_exports__);
       post: new _services_PostService__WEBPACK_IMPORTED_MODULE_0__["default"](),
       posts: [],
       options: ['current_page_url', 'last_page_url', 'next_page_url', 'total'],
-      load_more: true,
-      reactionRate: {
-        lol: 3,
-        // positve - laugh out loud
-        lwkmd: 3,
-        // positive - laugh wan kii me die
-        insidelife: 1,
-        //positive
-        omo: 1,
-        //positive
-        asin: 2,
-        //positive
-        smh: 3,
-        //negative
-        mtcheew: 2,
-        //negative
-        nfdl: 2,
-        //negative
-        yfmh: 2 // negative
-
-      }
+      load_more: true
     };
   },
   methods: {
@@ -2175,128 +2153,6 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       };
-    },
-    reactOLD: function reactOLD(post_id, index, type, rate) {
-      var _this3 = this;
-
-      return axios.get("post/react/?auth_user_id=".concat(this.auth_user, "&post_id=").concat(post_id, "&type=").concat(type, "&rate=").concat(rate), {}).then(function (response) {
-        var userReactions = _this3.posts[index].user_reactions;
-        var postReaction = _this3.posts[index].reactions; //response payload contains current post points and total reactions
-
-        var reactionResponse = response.data;
-
-        switch (type) {
-          case "lol":
-            if (userReactions.lol == true) {
-              postReaction.points = reactionResponse.points;
-              postReaction.total = reactionResponse.total;
-              return userReactions.lol = false;
-            }
-
-            postReaction.points = reactionResponse.points;
-            postReaction.total = reactionResponse.total;
-            return userReactions.lol = true;
-            break;
-
-          case "lwkmd":
-            if (userReactions.lwkmd == true) {
-              postReaction.points = reactionResponse.points;
-              postReaction.total = reactionResponse.total;
-              return userReactions.lwkmd = false;
-            }
-
-            postReaction.points = reactionResponse.points;
-            postReaction.total = reactionResponse.total;
-            return userReactions.lwkmd = true;
-            break;
-
-          case "insidelife":
-            if (userReactions.insidelife == true) {
-              postReaction.points = reactionResponse.points;
-              postReaction.total = reactionResponse.total;
-              return userReactions.insidelife = false;
-            }
-
-            postReaction.points = reactionResponse.points;
-            postReaction.total = reactionResponse.total;
-            return userReactions.insidelife = true;
-            break;
-
-          case "omo":
-            if (userReactions.omo == true) {
-              postReaction.points = reactionResponse.points;
-              postReaction.total = reactionResponse.total;
-              return userReactions.omo = false;
-            }
-
-            postReaction.points = reactionResponse.points;
-            postReaction.total = reactionResponse.total;
-            return userReactions.omo = true;
-            break;
-
-          case "asin":
-            if (userReactions.asin == true) {
-              postReaction.points = reactionResponse.points;
-              postReaction.total = reactionResponse.total;
-              return userReactions.asin = false;
-            }
-
-            postReaction.points = reactionResponse.points;
-            postReaction.total = reactionResponse.total;
-            return userReactions.asin = true;
-            break;
-
-          case "smh":
-            if (userReactions.smh == true) {
-              postReaction.points = reactionResponse.points;
-              postReaction.total = reactionResponse.total;
-              return userReactions.smh = false;
-            }
-
-            postReaction.points = reactionResponse.points;
-            postReaction.total = reactionResponse.total;
-            return userReactions.smh = true;
-            break;
-
-          case "mtcheew":
-            if (userReactions.mtcheew == true) {
-              postReaction.points = reactionResponse.points;
-              postReaction.total = reactionResponse.total;
-              return userReactions.mtcheew = false;
-            }
-
-            postReaction.points = reactionResponse.points;
-            postReaction.total = reactionResponse.total;
-            return userReactions.mtcheew = true;
-            break;
-
-          case "nfdl":
-            if (userReactions.nfdl == true) {
-              postReaction.points = reactionResponse.points;
-              postReaction.total = reactionResponse.total;
-              return userReactions.nfdl = false;
-            }
-
-            postReaction.points = reactionResponse.points;
-            postReaction.total = reactionResponse.total;
-            return userReactions.nfdl = true;
-            break;
-
-          case "yfmh":
-            if (userReactions.yfmh == true) {
-              postReaction.points = reactionResponse.points;
-              postReaction.total = reactionResponse.total;
-              return userReactions.yfmh = false;
-            }
-
-            postReaction.points = reactionResponse.points;
-            postReaction.total = reactionResponse.total;
-            return userReactions.yfmh = true;
-            break;
-        }
-      })["catch"](function (err) {
-        console.log(err);
-      });
     }
   },
   computed: {},
@@ -2427,7 +2283,7 @@ __webpack_require__.r(__webpack_exports__);
     react: function react(post_id, type, rate) {
       var _this = this;
 
-      return axios.get("post/react/?auth_user_id=".concat(this.auth_user, "&post_id=").concat(post_id, "&type=").concat(type, "&rate=").concat(rate), {}).then(function (response) {
+      return axios.get("/post/react/?auth_user_id=".concat(this.auth_user, "&post_id=").concat(post_id, "&type=").concat(type, "&rate=").concat(rate), {}).then(function (response) {
         var userReactions = _this.post.user_reactions;
         var postReaction = _this.post.reactions; //response payload contains current post points and total reactions
 
@@ -7049,7 +6905,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.comments .comment-content {\n        background: whitesmoke;\n        padding: 10px;\n        border-radius: 20px;\n}\n", ""]);
+exports.push([module.i, "\n.comments .comment-content {\n    padding:5px;\n}\n.comments .like-page-list-wrapper li{\n    border: thin solid whitesmoke;\n    padding:10px;\n}\n", ""]);
 
 // exports
 
@@ -38950,30 +38806,86 @@ var render = function() {
           staticClass: "like-page-list-wrapper",
           staticStyle: { "max-height": "200px", "overflow-y": "scroll" }
         },
-        [
-          _c("li", { staticClass: "unorder-list" }, [
-            _vm._m(1),
+        _vm._l(_vm.comments, function(comment, index) {
+          return _c("li", { staticClass: "unorder-list mb-3" }, [
+            _vm._m(1, true),
             _vm._v(" "),
-            _c("div", { staticClass: "unorder-list-info" }, [
-              _c("h3", { staticClass: "list-title" }, [
+            _c("div", { staticClass: "unorder-list-info w-100" }, [
+              _c("h5", { staticClass: "list-title" }, [
                 _c("a", { attrs: { href: "#" } }, [
-                  _vm._v(_vm._s(_vm.comments[0].user.display_name))
+                  _vm._v(_vm._s(comment.user.display_name))
                 ])
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "list-subtitle comment-content" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _vm._v(_vm._s(_vm.comments[0].content))
-                ])
+                _vm._v(_vm._s(comment.content) + " "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "text-muted float-right mt-3",
+                    staticStyle: { "font-size": "9px" }
+                  },
+                  [_vm._v(_vm._s(comment.date))]
+                )
               ])
             ])
-          ]),
-          _vm._v(" "),
-          _vm._m(2)
-        ]
+          ])
+        }),
+        0
       ),
       _vm._v(" "),
-      _vm._m(3)
+      _c("div", { staticClass: "share-box-inner mt-4" }, [
+        _vm._m(2),
+        _vm._v(" "),
+        _c("div", { staticClass: "share-content-box w-100" }, [
+          _c(
+            "form",
+            {
+              staticClass: "share-text-box",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.addComment()
+                }
+              }
+            },
+            [
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newComment,
+                    expression: "newComment"
+                  }
+                ],
+                staticClass: "share-text-field",
+                attrs: {
+                  name: "comment",
+                  "aria-disabled": "true",
+                  placeholder: "What's your reaction?",
+                  id: _vm.post.id
+                },
+                domProps: { value: _vm.newComment },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.newComment = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn-share", attrs: { type: "submit" } },
+                [_vm._v("send")]
+              )
+            ]
+          )
+        ])
+      ])
     ])
   ])
 }
@@ -39010,77 +38922,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "unorder-list" }, [
-      _c("div", { staticClass: "profile-thumb" }, [
-        _c("a", { attrs: { href: "#" } }, [
-          _c("figure", { staticClass: "profile-thumb-small" }, [
-            _c("img", {
-              attrs: {
-                src: "assets/images/profile/profile-small-29.jpg",
-                alt: "profile picture"
-              }
-            })
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "unorder-list-info" }, [
-        _c("h3", { staticClass: "list-title" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Kenneth")])
-        ]),
-        _vm._v(" "),
-        _c(
-          "p",
-          {
-            staticClass: "list-subtitle comment-content",
-            staticStyle: { "text-transform": "none" }
-          },
-          [
-            _c("a", { attrs: { href: "#" } }, [
-              _vm._v(
-                "My brother the thing tire me oh, how do even explain the fact that this my comment actually says nothing"
-              )
-            ])
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "share-box-inner mt-4" }, [
-      _c("div", { staticClass: "profile-thumb" }, [
-        _c("a", { attrs: { href: "#" } }, [
-          _c("figure", { staticClass: "profile-thumb-small" }, [
-            _c("img", {
-              attrs: {
-                src: "assets/images/profile/profile-small-29.jpg",
-                alt: "profile picture"
-              }
-            })
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "share-content-box w-100" }, [
-        _c("form", { staticClass: "share-text-box" }, [
-          _c("textarea", {
-            staticClass: "share-text-field",
+    return _c("div", { staticClass: "profile-thumb" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("figure", { staticClass: "profile-thumb-small" }, [
+          _c("img", {
             attrs: {
-              name: "comment",
-              "aria-disabled": "true",
-              placeholder: "What's your reaction?",
-              id: "comment"
+              src: "assets/images/profile/profile-small-29.jpg",
+              alt: "profile picture"
             }
-          }),
-          _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn-share", attrs: { type: "submit" } },
-            [_vm._v("comment")]
-          )
+          })
         ])
       ])
     ])
@@ -39161,7 +39011,11 @@ var render = function() {
             _c(
               "div",
               { staticClass: "post-comments mt-3" },
-              [_c("post-comments")],
+              [
+                _c("post-comments", {
+                  attrs: { post: post, auth_user: _vm.auth_user }
+                })
+              ],
               1
             )
           ])

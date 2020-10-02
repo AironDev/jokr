@@ -45,7 +45,10 @@
             </div>
 
             <div class="post-comments mt-3">
-                <post-comments />
+                <post-comments
+                    :post="post"
+                    :auth_user="auth_user"
+                 />
             </div>
 
         </div>
@@ -81,18 +84,6 @@
                 ],
 
                 load_more: true,
-                reactionRate: {
-                    lol:3, // positve - laugh out loud
-                    lwkmd:3, // positive - laugh wan kii me die
-                    insidelife:1, //positive
-                    omo:1, //positive
-                    asin:2, //positive
-                    smh:3, //negative
-                    mtcheew:2, //negative
-                    nfdl:2, //negative
-                    yfmh:2, // negative
-                    
-                }
             }
         },
 
@@ -128,124 +119,6 @@
                     }
                   }
                 };
-            },
-
-            reactOLD(post_id, index, type, rate){
-                return axios.get(`post/react/?auth_user_id=${this.auth_user}&post_id=${post_id}&type=${type}&rate=${rate}`, {
-                })
-                .then(response => {
-
-                    let userReactions = this.posts[index].user_reactions;
-                    let postReaction = this.posts[index].reactions;
-
-                     //response payload contains current post points and total reactions
-                    let reactionResponse = response.data;
-                    
-                    switch(type){
-                        case "lol":
-                            if(userReactions.lol == true){
-                                postReaction.points = reactionResponse.points;
-                                postReaction.total = reactionResponse.total;
-                                return userReactions.lol = false;
-                            }
-                            postReaction.points = reactionResponse.points;
-                            postReaction.total = reactionResponse.total;
-                            return userReactions.lol = true;
-                        break;
-
-                        case "lwkmd":
-                            if(userReactions.lwkmd == true){
-                                postReaction.points = reactionResponse.points;
-                                postReaction.total = reactionResponse.total;
-                                return userReactions.lwkmd = false;
-                            }
-                            postReaction.points = reactionResponse.points;
-                            postReaction.total = reactionResponse.total;
-                            return userReactions.lwkmd = true;
-                        break;
-
-                        case "insidelife":
-                            if(userReactions.insidelife == true){
-                                postReaction.points = reactionResponse.points;
-                                postReaction.total = reactionResponse.total;
-                                return userReactions.insidelife = false;
-                            }
-                            postReaction.points = reactionResponse.points;
-                            postReaction.total = reactionResponse.total;
-                            return userReactions.insidelife = true;
-                        break;
-
-                        case "omo":
-                            if(userReactions.omo == true){
-                                postReaction.points = reactionResponse.points;
-                                postReaction.total = reactionResponse.total;
-                                return userReactions.omo = false;
-                            }
-                            postReaction.points = reactionResponse.points;
-                            postReaction.total = reactionResponse.total;
-                            return userReactions.omo = true;
-                        break;
-
-                        case "asin":
-                            if(userReactions.asin == true){
-                                postReaction.points = reactionResponse.points;
-                                postReaction.total = reactionResponse.total;
-                                return userReactions.asin = false;
-                            }
-                            postReaction.points = reactionResponse.points;
-                            postReaction.total = reactionResponse.total;
-                            return userReactions.asin = true;
-                        break;
-
-                        case "smh":
-                            if(userReactions.smh == true){
-                                postReaction.points = reactionResponse.points;
-                                postReaction.total = reactionResponse.total;
-                                return userReactions.smh = false;
-                            }
-                            postReaction.points = reactionResponse.points;
-                            postReaction.total = reactionResponse.total;
-                            return userReactions.smh = true;
-                        break;
-
-                        case "mtcheew":
-                            if(userReactions.mtcheew == true){
-                                postReaction.points = reactionResponse.points;
-                                postReaction.total = reactionResponse.total;
-                                return userReactions.mtcheew = false;
-                            }
-                            postReaction.points = reactionResponse.points;
-                            postReaction.total = reactionResponse.total;
-                            return userReactions.mtcheew = true;
-                        break;
-
-                        case "nfdl":
-                            if(userReactions.nfdl == true){
-                                postReaction.points = reactionResponse.points;
-                                postReaction.total = reactionResponse.total;
-                                return userReactions.nfdl = false;
-                            }
-                            postReaction.points = reactionResponse.points;
-                            postReaction.total = reactionResponse.total;
-                            return userReactions.nfdl = true;
-                        break;
-
-                        case "yfmh":
-                            if(userReactions.yfmh == true){
-                                postReaction.points = reactionResponse.points;
-                                postReaction.total = reactionResponse.total;
-                                return userReactions.yfmh = false;
-                            }
-                            postReaction.points = reactionResponse.points;
-                            postReaction.total = reactionResponse.total;
-                            return userReactions.yfmh = true;
-                        break;
-
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                })
             },
 
         },

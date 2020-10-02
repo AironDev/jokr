@@ -106,7 +106,7 @@
         },
 
         react(post_id, type, rate){
-            return axios.get(`post/react/?auth_user_id=${this.auth_user}&post_id=${post_id}&type=${type}&rate=${rate}`, {
+            return axios.get(`/post/react/?auth_user_id=${this.auth_user}&post_id=${post_id}&type=${type}&rate=${rate}`, {
             })
             .then(response => {
 
