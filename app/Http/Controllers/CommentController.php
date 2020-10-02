@@ -27,7 +27,6 @@ class CommentController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -39,7 +38,8 @@ class CommentController extends Controller
     public function storeComment(Request $request)
     {
         //$user = User::where('id', $request->auth_user)->with('profile')->first();
-        $validate = Validator::make($request->all(),
+        $validate = Validator::make(
+            $request->all(),
             [
                 'content' => 'required',
                 // 'post_id' => 'required',

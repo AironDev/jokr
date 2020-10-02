@@ -10,28 +10,32 @@ use App\Http\Resources\NotificationResource;
 use Illuminate\Support\Facades\DB;
 
 class NotificationController extends Controller
-{   //all calls to this controller must carry an auth_user_id
-    private $user; 
+{
+   //all calls to this controller must carry an auth_user_id
+    private $user;
 
-    public function __construct(Request $request){
+    public function __construct(Request $request)
+    {
         $this->middleware('auth');
     }
 
-    public function checkAuth(Request $request){
-        if(Auth::user()->id != $request->user_id){
+    public function checkAuth(Request $request)
+    {
+        if (Auth::user()->id != $request->user_id) {
             die;
         }
         $this->user = Auth::user();
     }
 
     // Get user notifications - unique for each post
-    public function userNotifications(Request $request){
+    public function userNotifications(Request $request)
+    {
         $this->checkAuth($request);
         //$user = User::find(1);
         $user = $this->user;
         $userNotifications = $user->unreadNotifications;
 
-        $notifications = collect($userNotifications)->unique(function($item){
+        $notifications = collect($userNotifications)->unique(function ($item) {
             return $item->data['post_id'];
         })->values()->all();
         
@@ -40,15 +44,15 @@ class NotificationController extends Controller
     }
 
 // Mark all notifications on a post as read
-    public function markAsRead(Request $request){
+    public function markAsRead(Request $request)
+    {
         $this->checkAuth($request);
         $post_id = $request->post_id;
         $unreadNotifications = $this->user->unreadNotifications;
 
         //$noty = DB::table('notifications')->where('data->post_id', 25);
         foreach ($unreadNotifications as $notifications) {
-           $notifications->where('data->post_id', $post_id)->get()->markAsRead();
+            $notifications->where('data->post_id', $post_id)->get()->markAsRead();
         }
-
     }
 }

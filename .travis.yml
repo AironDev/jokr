@@ -5,25 +5,21 @@ language: php
 
 php:
   - '7.4'
-
-cache:
-  directories:
-    - node_modules
-    - vendor
-
+  
 before_script:
   - composer self-update
   - composer install --no-interaction
-  - cp .env.travis .env
   - pear install pear/PHP_CodeSniffer
   - phpenv rehash
-  - nvm install 7.7.1
+  - nvm install 12.16
   - npm install npm@latest -g
   - npm install -g jshint
   - npm install
+  - cp .env.travis .env
+  - php artisan key:generate
   
 script:
-  # - vendor/bin/phpunit
-  # - phpcs --ignore=app/Http/Controllers/Auth,app/Http/Controllers/Controller.php,app/Http/Controllers/ProfileController.php,app/Http/Controllers/PostController.php,app/Http/Controllers
-  # - npm run production
-  # - jshint resources/assets/js/modules/*
+  - vendor/bin/phpunit --coverage-text
+  - phpcs --standard=PSR2 --ignore=app/Http/Controllers/Auth,app/Http/Controllers/Controller.php app/Http/Controllers
+  - npm run production
+  - jshint resources/js/*
