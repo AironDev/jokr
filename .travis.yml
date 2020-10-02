@@ -4,8 +4,8 @@ os:
 language: php
 
 php:
-  -'7.0.21'
-
+  - '7.1'
+  
 before_script:
   - composer self-update
   - composer install --no-interaction
@@ -16,7 +16,7 @@ before_script:
   - npm install npm@latest -g
   - npm install -g jshint
   - npm install
-
+  
 script:
   - vendor/bin/phpunit --coverage-text
   - phpcs --ignore=app/Http/Controllers/Auth,app/Http/Controllers/Controller.php app/Http/Controllers
