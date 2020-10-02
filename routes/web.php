@@ -99,5 +99,9 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 // 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/test', function(){
+	return response()->json('hellp', 200);
+});
+
 // Web Authentication Endpoints
 Auth::routes();
