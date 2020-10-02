@@ -18,7 +18,8 @@ class PostController extends Controller
 
     private $model;
 
-    public function __construct(PostRepositoryInterface $postRepository){
+    public function __construct(PostRepositoryInterface $postRepository)
+    {
         $this->model = $postRepository;
     }
 
@@ -28,7 +29,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         //request()->request->add(['auth_user_id' => $request]);
         //return PostResource::collection($this->model->getAll($paginate = 20));
         $posts = Post::orderBy('created_at', 'desc')->paginate(20);
@@ -52,16 +53,16 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {	
-    	$posted_at = Carbon::now();
-    	$user_id = Auth::user()->id;
+    {
+        $posted_at = Carbon::now();
+        $user_id = Auth::user()->id;
 
-    	$data = [
-    		'content' => $request->content,
-    		'user_id' => $user_id,
-    		'privacy' => $request->privacy,
+        $data = [
+            'content' => $request->content,
+            'user_id' => $user_id,
+            'privacy' => $request->privacy,
             'tags' => $request->tags,
-    	];
+        ];
         Post::create($data);
         return redirect()->back();
     }
@@ -74,7 +75,6 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        
     }
 
     /**
@@ -112,27 +112,28 @@ class PostController extends Controller
     }
 
 
-    public function react(Request $request){
+    public function react(Request $request)
+    {
 
-        $user = User::find($request->auth_user_id); 
+        $user = User::find($request->auth_user_id);
         $post = Post::find($request->post_id);
         $type = $request->type;
         $rate = (int)$request->rate;
 
-        if($user->id != Auth::user()->id){
+        if ($user->id != Auth::user()->id) {
             return "are you a marlian ?";
         }
 
         // user model instance of the Reacterable interface
-        $userReactionInterface = $user->viaLoveReacter(); 
+        $userReactionInterface = $user->viaLoveReacter();
         // post model instance of the Reactable interface
         $postReactionInterface = $post->viaLoveReactant();
-        $userNotReacted = $userReactionInterface->hasNotReactedTo($post, $type); 
+        $userNotReacted = $userReactionInterface->hasNotReactedTo($post, $type);
 
-        if($userNotReacted){
+        if ($userNotReacted) {
             $userReactionInterface->reactTo($post, $type, $rate);
 
-            $reacters = $postReactionInterface->getReactions()->unique(function($item){
+            $reacters = $postReactionInterface->getReactions()->unique(function ($item) {
                 return $item['reacter_id'];
             })->values()->all();
 
@@ -147,14 +148,13 @@ class PostController extends Controller
             $notifyData = [
                 'post_id' => $post->id,
                 'user_id' => $user->id,
-                'reaction_type' => $type, 
+                'reaction_type' => $type,
                 'reaction_count' => $reactions['reacters'],
                 'message' => $user->name . ' and ' . $reactions['reacters'] . ' others reacted to your post ',
             ];
             $post->first()->user->notify(new PostReaction($notifyData));
             return $reactions;
-
-        }else{
+        } else {
             $userReactionInterface->unreactTo($post, $type, $rate);
             $reactions = [
                 'total' => $postReactionInterface->getReactionTotal()->getCount(),

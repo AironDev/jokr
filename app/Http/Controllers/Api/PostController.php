@@ -13,7 +13,8 @@ class PostController extends Controller
 {
     private $model;
 
-    public function __construct(PostRepositoryInterface $postRepository){
+    public function __construct(PostRepositoryInterface $postRepository)
+    {
         $this->model = $postRepository;
     }
 
@@ -24,7 +25,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         //request()->request->add(['auth_user_id' => $request]);
         //return PostResource::collection($this->model->getAll($paginate = 20));
         $posts = Post::orderBy('created_at', 'desc')->paginate(20);
