@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\CommentResource;
 
 class CommentController extends Controller
 {
@@ -12,9 +14,10 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getComments($id)
     {
-        //
+        $data = Comment::where('post_id', $id)->get();
+        return CommentResource::collection($data);
     }
 
     /**
@@ -24,7 +27,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -33,9 +36,27 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeComment(Request $request)
     {
-        //
+        //$user = User::where('id', $request->auth_user)->with('profile')->first();
+        $validate = Validator::make($request->all(),
+            [
+                'content' => 'required',
+                // 'post_id' => 'required',
+                // 'user_id' => 'required'
+            ]
+        );
+
+        $data = Comment::create([
+            'content' => $request->content,
+            'post_id' => $request->id,
+            'user_id' => $request->auth_user,
+        ]);
+
+         $validate->validate();
+
+        return new CommentResource($data);
+        //return response()->json($data);
     }
 
     /**

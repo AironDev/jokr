@@ -20,8 +20,14 @@ use Cog\Contracts\Love\ReactionType\Models\ReactionType;
 */
 
 // Return curent auth user - called from vue components
-Route::get('/user', function(){
-	return Auth::user();
+Route::get('/csrf', function(){
+	return csrf_token();
+});
+
+// Return curent auth user crsf token- called from vue components
+Route::get('/user/{id}', function($id){
+	$user = User::where('id', $id)->with('profile')->first();
+	return response()->json($user);
 });
 
 Route::get('/slug/{id}', function($id){
@@ -71,6 +77,16 @@ Route::group(['middleware' => ['auth', 'web']], function(){
     Route::get('/posts', 'PostController@index');
     Route::get('/post/react', 'PostController@react');
     Route::post('/posts', 'PostController@store')->name('posts.store');  
+   
+});
+
+
+// Comments Endpoints
+Route::group(['middleware' => [ 'web']], function(){
+    Route::post('/posts/{id}/comment', 'CommentController@storeComment')->name('post.comment.store');
+    Route::get('/posts/{id}/comments', 'CommentController@getComments')->name('post.comments.get');
+    // Route::get('/post/react', 'PostController@react');
+    // Route::post('/posts', 'PostController@store')->name('posts.store');  
    
 });
 

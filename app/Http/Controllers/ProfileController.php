@@ -30,8 +30,8 @@ class ProfileController extends Controller
     {	
     	$user = auth()->user();
     	$profile = Profile::where('user_id', $user->id)->first();
-    	$avatarPath = '/public/avatars';
-    	$coverPath = '/public/covers';
+    	$avatarPath = public_path('uploads/avatars/');
+    	$coverPath = public_path('uploads/covers/');
     	
     	$data = $request->only([
     		'bio',
@@ -53,31 +53,30 @@ class ProfileController extends Controller
 
     	if($request->hasFile('photo')){
 
-    		if($profile->photo){
-    			Storage::delete($avatarPath . '/' . $profile->photo);
+    		if($profile->photo &&  !(preg_match("/default/", $profile->photo)) ){
+    			unlink($avatarPath . $profile->photo);
     			$profile->photo = null;
     			$profile->save();
     		}
 
     		$file = $request->file('photo');
     		$name = $user->username . uniqid() . '.' . $file->extension();
-    		$file->storePubliclyAs($avatarPath, $name);
+    		$file->storeAs('avatars', $name, 'public_uploads');
     		$data['photo'] =  $name;
     		//return $data;
     	}
 
     	if($request->hasFile('cover_photo')){
 
-    		if($profile->cover_photo){
-    			Storage::delete($coverPath . '/' . $profile->cover_photo);
+    		if($profile->cover_photo &&  !(preg_match("/default/", $profile->cover_photo)) ){
+    			unlink($coverPath . $profile->cover_photo);
     			$profile->cover_photo = null;
     			$profile->save();
     		}
 
     		$file = $request->file('cover_photo');
     		$name = $user->username . uniqid() . '.' . $file->extension();
-    		$path = '/public/covers';
-    		$file->storePubliclyAs($path, $name);
+    		$file->storeAs('covers', $name, 'public_uploads');
     		$data['cover_photo'] =  $name;
     		//return $data;
     	}
