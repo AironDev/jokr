@@ -1,10 +1,10 @@
 <template>
 <!-- widget single item start -->
     <div class="card-small comments">
-        <h4 class="widget-title"><a href="#" @click.prevent="toggleComments()" style="color:#e8e8e8;">{{showComents}}Comments <span class="ml-1"><i class="fa fa-caret-down"> </i></span></a></h4>
-        <div class="widget-body">
-            <ul class="like-page-list-wrapper" style="max-height: 200px; overflow-y:scroll">
-                <li class="unorder-list mb-3" v-for="(comment, index) in comments">
+        <h4 class="widget-title"><a href="#" @click.prevent="toggleComments()" style="color:#e8e8e8;">Comments <span class="ml-1"><i class="fa fa-caret-down"> </i></span></a></h4>
+        <div class="widget-body" v-if="commentDisplay">
+            <ul class="like-page-list-wrapper"  id="comments" style="max-height: 200px; overflow-y:scroll">
+                <li class="unorder-list mb-3" v-for="(comment, index) in comments" v-bind:key="index">
                     <!-- profile picture end -->
                     <div class="profile-thumb">
                         <a href="#">
@@ -54,7 +54,7 @@
             return {
                 newComment: '',
                 comments: [],
-                showComents: true,
+                showComments: false,
             }
         },
 
@@ -84,20 +84,21 @@
 
             },
 
-            toggleComments(){
-                // if(this.showComments == false){
-                //     return this.showComments = true;
-                // }
-                
-                this.showComments = false;
-                console.log(this.showComments);
+            toggleComments(event){
+                if(this.showComments == false){
+                    return this.showComments = true;
+                }else{
+                    this.showComments = false;
+                }
+                console.log(this.showC);
             }
-            
             
         },
 
         computed: {
-
+            commentDisplay: function() {
+                return this.showComments;
+            }
         },
         mounted() {
            // console.log("hello from post comment component");
@@ -118,6 +119,10 @@
     .comments .like-page-list-wrapper li{
         border: thin solid whitesmoke;
         padding:10px;
+    }
+
+    .hidden{
+        display: none;
     }
 </style>
 

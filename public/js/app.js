@@ -1996,7 +1996,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       newComment: '',
       comments: [],
-      showComents: true
+      showComments: false
     };
   },
   methods: {
@@ -2019,15 +2019,21 @@ __webpack_require__.r(__webpack_exports__);
         _this2.comments.push(response.data.data);
       });
     },
-    toggleComments: function toggleComments() {
-      // if(this.showComments == false){
-      //     return this.showComments = true;
-      // }
-      this.showComments = false;
-      console.log(this.showComments);
+    toggleComments: function toggleComments(event) {
+      if (this.showComments == false) {
+        return this.showComments = true;
+      } else {
+        this.showComments = false;
+      }
+
+      console.log(this.showC);
     }
   },
-  computed: {},
+  computed: {
+    commentDisplay: function commentDisplay() {
+      return this.showComments;
+    }
+  },
   mounted: function mounted() {
     // console.log("hello from post comment component");
     this.getComments();
@@ -6913,7 +6919,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.comments .comment-content {\n    padding:5px;\n}\n.comments .like-page-list-wrapper li{\n    border: thin solid whitesmoke;\n    padding:10px;\n}\n", ""]);
+exports.push([module.i, "\n.comments .comment-content {\n    padding:5px;\n}\n.comments .like-page-list-wrapper li{\n    border: thin solid whitesmoke;\n    padding:10px;\n}\n.hidden{\n    display: none;\n}\n", ""]);
 
 // exports
 
@@ -38818,98 +38824,105 @@ var render = function() {
             }
           }
         },
-        [_vm._v(_vm._s(_vm.showComents) + "Comments "), _vm._m(0)]
+        [_vm._v("Comments "), _vm._m(0)]
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "widget-body" }, [
-      _c(
-        "ul",
-        {
-          staticClass: "like-page-list-wrapper",
-          staticStyle: { "max-height": "200px", "overflow-y": "scroll" }
-        },
-        _vm._l(_vm.comments, function(comment, index) {
-          return _c("li", { staticClass: "unorder-list mb-3" }, [
-            _vm._m(1, true),
+    _vm.commentDisplay
+      ? _c("div", { staticClass: "widget-body" }, [
+          _c(
+            "ul",
+            {
+              staticClass: "like-page-list-wrapper",
+              staticStyle: { "max-height": "200px", "overflow-y": "scroll" },
+              attrs: { id: "comments" }
+            },
+            _vm._l(_vm.comments, function(comment, index) {
+              return _c(
+                "li",
+                { key: index, staticClass: "unorder-list mb-3" },
+                [
+                  _vm._m(1, true),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "unorder-list-info w-100" }, [
+                    _c("h5", { staticClass: "list-title" }, [
+                      _c("a", { attrs: { href: "#" } }, [
+                        _vm._v(_vm._s(comment.user.display_name))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "list-subtitle comment-content" }, [
+                      _vm._v(_vm._s(comment.content) + " "),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "text-muted float-right mt-3",
+                          staticStyle: { "font-size": "9px" }
+                        },
+                        [_vm._v(_vm._s(comment.date))]
+                      )
+                    ])
+                  ])
+                ]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "share-box-inner mt-4" }, [
+            _vm._m(2),
             _vm._v(" "),
-            _c("div", { staticClass: "unorder-list-info w-100" }, [
-              _c("h5", { staticClass: "list-title" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _vm._v(_vm._s(comment.user.display_name))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "list-subtitle comment-content" }, [
-                _vm._v(_vm._s(comment.content) + " "),
-                _c(
-                  "span",
-                  {
-                    staticClass: "text-muted float-right mt-3",
-                    staticStyle: { "font-size": "9px" }
-                  },
-                  [_vm._v(_vm._s(comment.date))]
-                )
-              ])
+            _c("div", { staticClass: "share-content-box w-100" }, [
+              _c(
+                "form",
+                {
+                  staticClass: "share-text-box",
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.addComment()
+                    }
+                  }
+                },
+                [
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.newComment,
+                        expression: "newComment"
+                      }
+                    ],
+                    staticClass: "share-text-field",
+                    attrs: {
+                      name: "comment",
+                      "aria-disabled": "true",
+                      placeholder: "What's your reaction?",
+                      id: _vm.post.id
+                    },
+                    domProps: { value: _vm.newComment },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.newComment = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    { staticClass: "btn-share", attrs: { type: "submit" } },
+                    [_vm._v("send")]
+                  )
+                ]
+              )
             ])
           ])
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "share-box-inner mt-4" }, [
-        _vm._m(2),
-        _vm._v(" "),
-        _c("div", { staticClass: "share-content-box w-100" }, [
-          _c(
-            "form",
-            {
-              staticClass: "share-text-box",
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.addComment()
-                }
-              }
-            },
-            [
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.newComment,
-                    expression: "newComment"
-                  }
-                ],
-                staticClass: "share-text-field",
-                attrs: {
-                  name: "comment",
-                  "aria-disabled": "true",
-                  placeholder: "What's your reaction?",
-                  id: _vm.post.id
-                },
-                domProps: { value: _vm.newComment },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.newComment = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn-share", attrs: { type: "submit" } },
-                [_vm._v("send")]
-              )
-            ]
-          )
         ])
-      ])
-    ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
