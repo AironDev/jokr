@@ -1,7 +1,7 @@
 <template>
 <!-- widget single item start -->
     <div class="card-small comments">
-        <h4 class="widget-title">Comments <span class="ml-2"><i class="fa fa-caret-down"> </i></span></h4>
+        <h4 class="widget-title"><a href="#" @click.prevent="toggleComments()" style="color:#e8e8e8;">{{showComents}}Comments <span class="ml-1"><i class="fa fa-caret-down"> </i></span></a></h4>
         <div class="widget-body">
             <ul class="like-page-list-wrapper" style="max-height: 200px; overflow-y:scroll">
                 <li class="unorder-list mb-3" v-for="(comment, index) in comments">
@@ -53,7 +53,8 @@
         data: () => {
             return {
                 newComment: '',
-                comments: []
+                comments: [],
+                showComents: true,
             }
         },
 
@@ -81,6 +82,15 @@
                 }); 
 
 
+            },
+
+            toggleComments(){
+                // if(this.showComments == false){
+                //     return this.showComments = true;
+                // }
+                
+                this.showComments = false;
+                console.log(this.showComments);
             }
             
             

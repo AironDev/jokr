@@ -1995,7 +1995,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       newComment: '',
-      comments: []
+      comments: [],
+      showComents: true
     };
   },
   methods: {
@@ -2017,6 +2018,13 @@ __webpack_require__.r(__webpack_exports__);
         //console.log(response.data.data);
         _this2.comments.push(response.data.data);
       });
+    },
+    toggleComments: function toggleComments() {
+      // if(this.showComments == false){
+      //     return this.showComments = true;
+      // }
+      this.showComments = false;
+      console.log(this.showComments);
     }
   },
   computed: {},
@@ -38797,7 +38805,22 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card-small comments" }, [
-    _vm._m(0),
+    _c("h4", { staticClass: "widget-title" }, [
+      _c(
+        "a",
+        {
+          staticStyle: { color: "#e8e8e8" },
+          attrs: { href: "#" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.toggleComments()
+            }
+          }
+        },
+        [_vm._v(_vm._s(_vm.showComents) + "Comments "), _vm._m(0)]
+      )
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "widget-body" }, [
       _c(
@@ -38894,11 +38917,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h4", { staticClass: "widget-title" }, [
-      _vm._v("Comments "),
-      _c("span", { staticClass: "ml-2" }, [
-        _c("i", { staticClass: "fa fa-caret-down" })
-      ])
+    return _c("span", { staticClass: "ml-1" }, [
+      _c("i", { staticClass: "fa fa-caret-down" })
     ])
   },
   function() {
