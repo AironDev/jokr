@@ -56,4 +56,9 @@ class User extends Authenticatable implements ReacterableContract
     {
         return $this->hasMany('App\Post', 'user_id');
     }
+
+    public function roles()
+    {
+        return $this->hasMany('App\Role', 'user_id');
+    }
 }
