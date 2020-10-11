@@ -103,5 +103,12 @@ Route::get('/test', function(){
 	return response()->json('hellp', 200);
 });
 
+
+
+// ADMIN
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth'] ], function () {
+     Route::get('/', 'DashboardController@index')->name('dashboard');
+});
+
 // Web Authentication Endpoints
 Auth::routes();
