@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Profile;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Support\Facades\storage;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index($username = null)
     {
+        $user = User::where('username', $username)->with('profile')->first();
+        return view('user.profile.index')->with(['user' => $user]);
     }
 
     public function create()

@@ -2,20 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use App\User;
-use App\Http\Requests\UserRequest;
-use Illuminate\Support\Facades\Hash;
+
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the users
-     *
-     * @param  \App\User  $model
-     * @return \Illuminate\View\View
-     */
-    public function index(User $model)
+    public function index()
     {
-        return view('users.index', ['users' => $model->paginate(15)]);
+        return view('user.index');
+    }
+
+    public function friends()
+    {
+        return view('user.friends');
+    }
+
+    public function about()
+    {
+        return view('user.about');
+    }
+
+    public function photos()
+    {
+        return view('user.photos');
+    }
+
+    public function signup()
+    {
+        return view('auth.signup');
+    }
+
+    public function signin()
+    {
+        return view('auth.signin');
     }
 }

@@ -9,39 +9,9 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function index()
+    public function faq()
     {
         return view('index');
     }
 
-    public function friends()
-    {
-        return view('friends');
-    }
-
-    public function about()
-    {
-        return view('about');
-    }
-
-    public function photos()
-    {
-        return view('photos');
-    }
-
-    public function signup()
-    {
-        return view('auth.signup');
-    }
-
-    public function signin()
-    {
-        return view('auth.signin');
-    }
-
-    public function profile($username = null)
-    {
-        $user = User::where('username', $username)->with('profile')->first();
-        return view('user.profile.index')->with(['user' => $user]);
-    }
 }

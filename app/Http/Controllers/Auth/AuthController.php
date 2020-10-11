@@ -48,7 +48,7 @@ class AuthController extends Controller
            auth()->loginUsingId($user->id);
         }
         
-        return redirect()->route('index');
+        return redirect()->route('user.index');
     }
 
     public function signIn(Request $request){
@@ -56,7 +56,7 @@ class AuthController extends Controller
 
         $auth =  auth()->attempt($user);
         if($auth){
-            return redirect()->route('index');
+            return redirect()->route('user.index');
         }
         return redirect()->back();
     }
