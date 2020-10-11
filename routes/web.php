@@ -39,28 +39,28 @@ Route::get('/slug/{id}', function($id){
 
 // Profile Controller Endpoints
 Route::group(['middleware'=>['web', 'auth']], function(){
+	Route::get('/profile/{username?}', 'ProfileController@index')->name('profile');
 	Route::get('/profile/settings', 'ProfileController@edit')->name('profile.edit');
 	Route::patch('/profile/settings', 'ProfileController@update')->name('profile.update');
+	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 });
 
 
 // Auth/Guest Routes
 Route::group(['middleware'=>['web', 'guest']], function(){
-	Route::get('/signup', 'PageController@signup')->name('signup');
-	Route::get('/signin', 'PageController@signin')->name('signin');
+	Route::get('/signup', 'UserController@signup')->name('signup');
+	Route::get('/signin', 'UserController@signin')->name('signin');
 	Route::post('/signin', 'Auth\AuthController@signIn')->name('signin.store');
 	Route::post('/signup', 'Auth\AuthController@signup')->name('signup.store');
 });
 
 
-// Page Controller Endpoints
+// User Pages Controller Endpoints
 Route::group(['middleware' => ['web', 'auth']], function () {
-	Route::get('/', 'PageController@index')->name('index');;
-	Route::get('/friends', 'PageController@friends')->name('friends');
-	Route::get('/about', 'PageController@about')->name('about');
-	Route::get('/photos', 'PageController@photos')->name('photos');
-	Route::get('/profile/{username?}', 'PageController@profile')->name('profile');
-	
+	Route::get('/', 'UserController@index')->name('user.index');;
+	Route::get('/friends', 'UserController@friends')->name('friends');
+	Route::get('/about', 'UserController@about')->name('about');
+	Route::get('/photos', 'UserController@photos')->name('photos');	
  });
 
 
@@ -103,5 +103,17 @@ Route::get('/test', function(){
 	return response()->json('hellp', 200);
 });
 
+
+
+// ADMIN
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth'] ], function () {
+     Route::get('/', 'DashboardController@index')->name('admin.index');
+});
+
 // Web Authentication Endpoints
 Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+

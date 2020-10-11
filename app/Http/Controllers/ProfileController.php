@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Profile;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Support\Facades\storage;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index($username = null)
     {
+        $user = User::where('username', $username)->with('profile')->first();
+        return view('user.profile.index')->with(['user' => $user]);
     }
 
     public function create()
@@ -22,7 +25,7 @@ class ProfileController extends Controller
     {
         $user_id = Auth::user()->id;
         $profile = Profile::where('user_id', $user_id)->first();
-        return view('profile.edit')->with(['profile' => $profile]);
+        return view('user.profile.edit')->with(['profile' => $profile]);
     }
 
     public function update(UpdateProfileRequest $request)
@@ -90,5 +93,17 @@ class ProfileController extends Controller
 
     public function destroy()
     {
+    }
+
+    /**
+     * Change the password
+     *
+     * @param  \App\Http\Requests\PasswordRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function password(PasswordRequest $request)
+    {
+        auth()->user()->update(['password' => Hash::make($request->get('password'))]);
+        return back()->withPasswordStatus(__('Password successfully updated.'));
     }
 }
