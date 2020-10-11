@@ -22,7 +22,7 @@ class ProfileController extends Controller
     {
         $user_id = Auth::user()->id;
         $profile = Profile::where('user_id', $user_id)->first();
-        return view('profile.edit')->with(['profile' => $profile]);
+        return view('user.profile.edit')->with(['profile' => $profile]);
     }
 
     public function update(UpdateProfileRequest $request)
@@ -90,5 +90,17 @@ class ProfileController extends Controller
 
     public function destroy()
     {
+    }
+
+    /**
+     * Change the password
+     *
+     * @param  \App\Http\Requests\PasswordRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function password(PasswordRequest $request)
+    {
+        auth()->user()->update(['password' => Hash::make($request->get('password'))]);
+        return back()->withPasswordStatus(__('Password successfully updated.'));
     }
 }
