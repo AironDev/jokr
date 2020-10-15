@@ -62,10 +62,11 @@
 
             getComments(){
                 return axios.get(`/posts/${this.post.id}/comments`, {
+                    
                 })
                 .then(response => {
-                        //console.log(response.data.data);
-                        this.comments = (response.data.data);
+                        console.log(response.data.data);
+                        //this.comments = (response.data.data);
                 });  
 
             },

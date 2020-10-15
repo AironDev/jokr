@@ -112,6 +112,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 
      // User and Profile Management
      Route::get('/users/{username?}/edit', 'UserController@edit')->name('profile.edit');
+
+     // RBAC Endpoints
+     Route::get('/rbac/roles', 'RbacController@getRoles')->name('roles.index');
 });
 
 // Web Authentication Endpoints

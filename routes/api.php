@@ -75,3 +75,6 @@ Route::get('/react', function(){
 
 	return response()->json(['userReactions' => $reactions['reacters']]);
 });
+
+// RBAC Endpoints
+     //Route::get('/rbac/roles', 'RbacController@getRoles')->name('roles.index');

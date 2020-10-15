@@ -20,6 +20,7 @@
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
+        "silber/bouncer": "v1.0.0-rc.9",
         "unisharp/laravel-filemanager": "^2.1"
     },
     "require-dev": {
