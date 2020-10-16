@@ -1,12 +1,13 @@
 class PostService{
 
+
     constructor(){
 
     }
  
      
-     getPost(auth_user){
-        return axios.get(`/posts?auth_user_id=${auth_user}`, {
+     getPost(){
+        return axios.get('/posts', {
         })
         .then(response => {
             return response.data;
@@ -27,8 +28,8 @@ class PostService{
     // }
 
 
-    loadMore(next_page, auth_user){
-         return axios.get(`${next_page}&auth_user_id=${auth_user}` , {
+    loadMore(next_page){
+         return axios.get(`${next_page}` , {
         })
          .then(response => {
             return response.data;

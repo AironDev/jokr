@@ -18,7 +18,7 @@ class PostResource extends JsonResource
     public function toArray($request)
     {   
         $user = User::where('id', $this->user_id)->with('profile:user_id,photo')->first();
-        $auth_user = User::where('id', $request->auth_user_id)->first();
+        $auth_user = auth()->user(); //User::where('id', $request->auth_user_id)->first();
 
         $userReactionInterface = $auth_user->viaLoveReacter();
         

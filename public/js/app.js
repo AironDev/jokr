@@ -2003,7 +2003,9 @@ __webpack_require__.r(__webpack_exports__);
     getComments: function getComments() {
       var _this = this;
 
-      return axios.get("/posts/".concat(this.post.id, "/comments"), {}).then(function (response) {
+      return axios.get("/posts/".concat(this.post.id, "/comments"), {
+        params: {}
+      }).then(function (response) {
         //console.log(response.data.data);
         _this.comments = response.data.data;
       });
@@ -2015,7 +2017,8 @@ __webpack_require__.r(__webpack_exports__);
         content: this.newComment,
         auth_user: this.auth_user
       }).then(function (response) {
-        //console.log(response.data.data);
+        console.log(response.data.data);
+
         _this2.comments.push(response.data.data);
       });
     },
@@ -2139,7 +2142,7 @@ __webpack_require__.r(__webpack_exports__);
     getPost: function getPost() {
       var _this = this;
 
-      return this.post.getPost(this.auth_user).then(function (response) {
+      return this.post.getPost().then(function (response) {
         _this.posts = response.data;
         _this.options['total'] = response.meta.total;
         _this.options['last_page_url'] = response.links.last;
@@ -2154,7 +2157,7 @@ __webpack_require__.r(__webpack_exports__);
         var bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight >= document.documentElement.offsetHeight;
 
         if (bottomOfWindow && _this2.load_more) {
-          _this2.post.loadMore(_this2.options['next_page_url'], _this2.auth_user).then(function (response) {
+          _this2.post.loadMore(_this2.options['next_page_url']).then(function (response) {
             _this2.posts = _this2.posts.concat(response.data);
             _this2.options['next_page_url'] = response.links.next; //console.log(this.posts);
           })["catch"](function (err) {
@@ -6919,7 +6922,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.comments .comment-content {\n    padding:5px;\n}\n.comments .like-page-list-wrapper li{\n    border: thin solid whitesmoke;\n    padding:10px;\n}\n.hidden{\n    display: none;\n}\n", ""]);
+exports.push([module.i, "\n.comments .comment-content {\n    padding:5px;\n}\n.comments .like-page-list-wrapper li{\n    border: thin solid whitesmoke;\n    padding:10px;\n}\n.hidden{\n    display: none;\n}\n.comments .share-text-box .share-text-field {\n    padding: 13px 1px 13px 20px;\n    position: relative;\n    border-radius: 10px;\n}\n", ""]);
 
 // exports
 
@@ -38810,7 +38813,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card-small comments" }, [
+  return _c("div", { staticClass: "card-small comments p-0" }, [
     _c("h4", { staticClass: "widget-title" }, [
       _c(
         "a",
@@ -38870,8 +38873,6 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "share-box-inner mt-4" }, [
-            _vm._m(2),
-            _vm._v(" "),
             _c("div", { staticClass: "share-content-box w-100" }, [
               _c(
                 "form",
@@ -38944,23 +38945,6 @@ var staticRenderFns = [
           _c("img", {
             attrs: {
               src: "assets/images/profile/profile-small-33.jpg",
-              alt: "profile picture"
-            }
-          })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "profile-thumb" }, [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("figure", { staticClass: "profile-thumb-small" }, [
-          _c("img", {
-            attrs: {
-              src: "assets/images/profile/profile-small-29.jpg",
               alt: "profile picture"
             }
           })
@@ -52130,8 +52114,8 @@ var PostService = /*#__PURE__*/function () {
 
   _createClass(PostService, [{
     key: "getPost",
-    value: function getPost(auth_user) {
-      return axios.get("/posts?auth_user_id=".concat(auth_user), {}).then(function (response) {
+    value: function getPost() {
+      return axios.get('/posts', {}).then(function (response) {
         return response.data;
       })["catch"](function (err) {
         console.log(err);
@@ -52148,8 +52132,8 @@ var PostService = /*#__PURE__*/function () {
 
   }, {
     key: "loadMore",
-    value: function loadMore(next_page, auth_user) {
-      return axios.get("".concat(next_page, "&auth_user_id=").concat(auth_user), {}).then(function (response) {
+    value: function loadMore(next_page) {
+      return axios.get("".concat(next_page), {}).then(function (response) {
         return response.data;
       })["catch"](function (err) {
         console.log(err);

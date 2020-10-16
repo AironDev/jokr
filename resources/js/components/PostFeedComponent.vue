@@ -89,7 +89,7 @@
 
         methods: {
             getPost () {
-                return this.post.getPost(this.auth_user)
+                return this.post.getPost()
                     .then(response => {
                         this.posts = response.data;
                         this.options['total'] = response.meta.total;
@@ -105,7 +105,7 @@
 
                   
                     if (bottomOfWindow && this.load_more) {
-                        this.post.loadMore(this.options['next_page_url'], this.auth_user)
+                        this.post.loadMore(this.options['next_page_url'])
                             .then(response => {
                                 this.posts = this.posts.concat(response.data);
                                 this.options['next_page_url'] = response.links.next;

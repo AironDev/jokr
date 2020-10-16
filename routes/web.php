@@ -82,7 +82,7 @@ Route::group(['middleware' => ['auth', 'web']], function(){
 
 
 // Comments Endpoints
-Route::group(['middleware' => [ 'web']], function(){
+Route::group(['middleware' => [ 'web', 'auth']], function(){
     Route::post('/posts/{id}/comment', 'CommentController@storeComment')->name('post.comment.store');
     Route::get('/posts/{id}/comments', 'CommentController@getComments')->name('post.comments.get');
     // Route::get('/post/react', 'PostController@react');
