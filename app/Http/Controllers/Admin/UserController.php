@@ -18,7 +18,7 @@ class UserController extends Controller
     public function edit($username)
     {
         $user = User::where('username', $username)->with('profile')->first();
-        if( $user === null ){
+        if ($user === null) {
             $user = auth()->user();
             //dd($user->profile->photo);
             return view('admin.users.edit')->with(['user' => $user]);
