@@ -1,6 +1,6 @@
 <template>
 <!-- widget single item start -->
-    <div class="card-small comments">
+    <div class="card-small comments p-0">
         <h4 class="widget-title"><a href="#" @click.prevent="toggleComments()" style="color:#e8e8e8;">Comments <span class="ml-1"><i class="fa fa-caret-down"> </i></span></a></h4>
         <div class="widget-body" v-if="commentDisplay">
             <ul class="like-page-list-wrapper"  id="comments" style="max-height: 200px; overflow-y:scroll">
@@ -23,13 +23,13 @@
             </ul>
             <div class="share-box-inner mt-4">
                     <!-- profile picture end -->
-                    <div class="profile-thumb">
+                    <!-- <div class="profile-thumb">
                         <a href="#">
                             <figure class="profile-thumb-small">
                                 <img src="assets/images/profile/profile-small-29.jpg" alt="profile picture">
                             </figure>
                         </a>
-                    </div>
+                    </div> -->
                     <!-- profile picture end -->
 
                     <!-- share content box start -->
@@ -62,6 +62,7 @@
 
             getComments(){
                 return axios.get(`/posts/${this.post.id}/comments`, {
+                    params: {}
                 })
                 .then(response => {
                         //console.log(response.data.data);
@@ -76,7 +77,7 @@
                     auth_user: this.auth_user
                 })
                 .then(response => {
-                        //console.log(response.data.data);
+                        console.log(response.data.data);
                         this.comments.push(response.data.data);
 
                 }); 
@@ -123,6 +124,12 @@
 
     .hidden{
         display: none;
+    }
+
+    .comments .share-text-box .share-text-field {
+        padding: 13px 1px 13px 20px;
+        position: relative;
+        border-radius: 10px;
     }
 </style>
 

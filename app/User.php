@@ -9,11 +9,13 @@ use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
 use App\Profile;
 use Illuminate\Support\Facades\Hash;  // Import Hash facade
+use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 class User extends Authenticatable implements ReacterableContract
 {
     use Notifiable;
     use Reacterable;
+    use HasRolesAndAbilities;
 
     /**
      * The attributes that are mass assignable.
@@ -56,4 +58,5 @@ class User extends Authenticatable implements ReacterableContract
     {
         return $this->hasMany('App\Post', 'user_id');
     }
+
 }

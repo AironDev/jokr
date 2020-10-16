@@ -6,7 +6,7 @@
             </div>
         </a>
         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-            {{ __('Creative Tim') }}
+            {{ __('Jokr') }}
         </a>
     </div>
     <div class="sidebar-wrapper">
@@ -14,7 +14,7 @@
             <li class="{{ $elementActive == 'dashboard' ? 'active' : '' }}">
                 <a href="{{ route('admin.index', 'dashboard') }}">
                     <i class="nc-icon nc-bank"></i>
-                    <p>{{ __('Dashboard') }}</p>
+                    <p>{{ __('ADMIN') }}</p>
                 </a>
             </li>
             <li class="{{ $elementActive == 'user' || $elementActive == 'profile' ? 'active' : '' }}">

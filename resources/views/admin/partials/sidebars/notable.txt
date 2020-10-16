@@ -1,0 +1,6 @@
+Different sidebars for roles
+author can setup games (quizes, puzzles, etc)
+moderator can manage games (set status to active or inactive but cannot delete on edit game content)
+editor can perform CRU-D operations (but cannot not delete)
+admin can perform CRUD operations for all items
+super admin is on god mode

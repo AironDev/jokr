@@ -1,4 +1,4 @@
-@extends('layouts.app', [
+@extends('layouts.dash', [
     'class' => '',
     'elementActive' => 'dashboard'
 ])

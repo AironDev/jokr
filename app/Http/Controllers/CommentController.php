@@ -9,6 +9,10 @@ use App\Http\Resources\CommentResource;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +22,8 @@ class CommentController extends Controller
     {
         $data = Comment::where('post_id', $id)->get();
         return CommentResource::collection($data);
+
+        //return response()->json(['data' => request()->auth_user]);
     }
 
     /**

@@ -39,8 +39,8 @@ Route::get('/slug/{id}', function($id){
 
 // Profile Controller Endpoints
 Route::group(['middleware'=>['web', 'auth']], function(){
-	Route::get('/profile/{username?}', 'ProfileController@index')->name('profile');
 	Route::get('/profile/settings', 'ProfileController@edit')->name('profile.edit');
+	Route::get('/profile/{username?}', 'ProfileController@index')->name('profile');
 	Route::patch('/profile/settings', 'ProfileController@update')->name('profile.update');
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 });
@@ -82,7 +82,7 @@ Route::group(['middleware' => ['auth', 'web']], function(){
 
 
 // Comments Endpoints
-Route::group(['middleware' => [ 'web']], function(){
+Route::group(['middleware' => [ 'web', 'auth']], function(){
     Route::post('/posts/{id}/comment', 'CommentController@storeComment')->name('post.comment.store');
     Route::get('/posts/{id}/comments', 'CommentController@getComments')->name('post.comments.get');
     // Route::get('/post/react', 'PostController@react');
@@ -105,9 +105,16 @@ Route::get('/test', function(){
 
 
 
-// ADMIN
+// ADMIN ENDPOINTS GROUP
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth'] ], function () {
+	// Dashboard
      Route::get('/', 'DashboardController@index')->name('admin.index');
+
+     // User and Profile Management
+     Route::get('/users/{username?}/edit', 'UserController@edit')->name('profile.edit');
+
+     // RBAC Endpoints
+     Route::get('/rbac/roles', 'RbacController@getRoles')->name('roles.index');
 });
 
 // Web Authentication Endpoints
