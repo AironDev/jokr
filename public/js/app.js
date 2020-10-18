@@ -38858,7 +38858,7 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("p", { staticClass: "list-subtitle comment-content" }, [
+                    _c("p", { staticClass: "comment-content" }, [
                       _vm._v(_vm._s(comment.content) + " "),
                       _c(
                         "span",
@@ -38902,7 +38902,6 @@ var render = function() {
                     staticClass: "share-text-field autoresize",
                     attrs: {
                       name: "comment",
-                      id: "newComment",
                       "aria-disabled": "true",
                       placeholder: "What's your reaction?",
                       id: _vm.post.id
