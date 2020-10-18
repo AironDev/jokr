@@ -17,7 +17,7 @@
 
                     <div class="unorder-list-info w-100">
                         <h5 class="list-title"><a href="#">{{comment.user.display_name}}</a></h5>
-                        <p class="list-subtitle comment-content">{{comment.content}} <span class="text-muted float-right mt-3" style="font-size: 9px">{{comment.date}}</span></p>
+                        <p class="comment-content">{{comment.content}} <span class="text-muted float-right mt-3" style="font-size: 9px">{{comment.date}}</span></p>
                     </div>
                 </li>                       
             </ul>
@@ -35,7 +35,7 @@
                     <!-- share content box start -->
                     <div class="share-content-box w-100">
                         <form class="share-text-box" @submit.prevent="addComment()">
-                            <textarea name="comment" id="newComment" v-model="newComment" class="share-text-field autoresize" aria-disabled="true" placeholder="What's your reaction?"  :id="post.id"></textarea>
+                            <textarea name="comment" v-model="newComment" class="share-text-field autoresize" aria-disabled="true" placeholder="What's your reaction?"  :id="post.id"></textarea>
                             <button class="btn-share" type="submit">send</button>
                         </form>
                     </div>

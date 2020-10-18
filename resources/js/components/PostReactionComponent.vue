@@ -101,12 +101,11 @@
     },
 
     methods: {
-        sayHi() {
-            //console.log('hello from post reaction component');
-        },
-
         react(post_id, type, rate){
-            return axios.get(`/post/react/?auth_user_id=${this.auth_user}&post_id=${post_id}&type=${type}&rate=${rate}`, {
+            return axios.post(`/post/react`, {
+                post_id: post_id,
+                type: type,
+                rate: rate
             })
             .then(response => {
 
@@ -225,7 +224,6 @@
     },
 
     mounted() {
-            this.sayHi();
     }
 
   };

@@ -115,14 +115,10 @@ class PostController extends Controller
     public function react(Request $request)
     {
 
-        $user = User::find($request->auth_user_id);
+        $user = Auth::user();
         $post = Post::find($request->post_id);
         $type = $request->type;
         $rate = (int)$request->rate;
-
-        if ($user->id != Auth::user()->id) {
-            return "are you a marlian ?";
-        }
 
         // user model instance of the Reacterable interface
         $userReactionInterface = $user->viaLoveReacter();
@@ -152,7 +148,7 @@ class PostController extends Controller
                 'reaction_count' => $reactions['reacters'],
                 'message' => $user->name . ' and ' . $reactions['reacters'] . ' others reacted to your post ',
             ];
-            $post->first()->user->notify(new PostReaction($notifyData));
+            $post->user->notify(new PostReaction($notifyData));
             return $reactions;
         } else {
             $userReactionInterface->unreactTo($post, $type, $rate);
