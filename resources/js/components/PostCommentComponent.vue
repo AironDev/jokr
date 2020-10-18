@@ -35,7 +35,7 @@
                     <!-- share content box start -->
                     <div class="share-content-box w-100">
                         <form class="share-text-box" @submit.prevent="addComment()">
-                            <textarea name="comment" v-model="newComment" class="share-text-field" aria-disabled="true" placeholder="What's your reaction?"  :id="post.id"></textarea>
+                            <textarea name="comment" id="newComment" v-model="newComment" class="share-text-field ops" aria-disabled="true" placeholder="What's your reaction?"  :id="post.id"></textarea>
                             <button class="btn-share" type="submit">send</button>
                         </form>
                     </div>
@@ -87,7 +87,13 @@
 
             toggleComments(event){
                 if(this.showComments == false){
-                    return this.showComments = true;
+                    this.showComments = true;
+                    jQuery(document).ready(function() {
+                        setTimeout(function() { 
+                           jQuery('textarea.ops').autoHeight();
+                        }, 1000);
+           
+                    });
                 }else{
                     this.showComments = false;
                 }

@@ -6,7 +6,16 @@
 
 require('./bootstrap');
 
+
+// use to make an input field auto resize - extends jQuery
+// to use it - simply select the input field using regular jQuery selectors
+// then attach .autoHeight to it
+// example: jQuery('textarea.ops').autoHeight();
+require('./helpers/autoresize.js');
+
 window.Vue = require('vue');
+
+
 
 /**
  * The following block of code may be used to automatically register your

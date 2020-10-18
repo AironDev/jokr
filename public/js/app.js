@@ -2024,7 +2024,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     toggleComments: function toggleComments(event) {
       if (this.showComments == false) {
-        return this.showComments = true;
+        this.showComments = true;
+        jQuery(document).ready(function () {
+          setTimeout(function () {
+            jQuery('textarea.ops').autoHeight();
+          }, 1000);
+        });
       } else {
         this.showComments = false;
       }
@@ -38895,9 +38900,10 @@ var render = function() {
                         expression: "newComment"
                       }
                     ],
-                    staticClass: "share-text-field",
+                    staticClass: "share-text-field ops",
                     attrs: {
                       name: "comment",
+                      id: "newComment",
                       "aria-disabled": "true",
                       placeholder: "What's your reaction?",
                       id: _vm.post.id
@@ -51599,7 +51605,13 @@ module.exports = function(module) {
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // use to make an input field auto resize - extends jQuery
+// to use it - simply select the input field using regular jQuery selectors
+// then attach .autoHeight to it
+// example: jQuery('textarea.ops').autoHeight();
+
+
+__webpack_require__(/*! ./helpers/autoresize.js */ "./resources/js/helpers/autoresize.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
@@ -52051,6 +52063,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserNotificationComponent_vue_vue_type_template_id_156ec1ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/helpers/autoresize.js":
+/*!********************************************!*\
+  !*** ./resources/js/helpers/autoresize.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+jQuery.fn.extend({
+  autoHeight: function autoHeight() {
+    function autoHeight_(element) {
+      return jQuery(element).css({
+        'height': 'auto',
+        'overflow-y': 'hidden'
+      }).height(element.scrollHeight);
+    }
+
+    return this.each(function () {
+      autoHeight_(this).on('input', function () {
+        autoHeight_(this);
+      });
+    });
+  }
+});
 
 /***/ }),
 

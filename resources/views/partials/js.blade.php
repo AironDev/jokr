@@ -25,3 +25,7 @@
     <script src="{{asset('assets/js/plugins/isotope.pkgd.min.js')}}"></script>
     <!-- Main JS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
+    <!-- Auto Grow Textarea -->
+    <!-- <script src="{{asset('assets/js/autoresize.js')}}"></script> -->
+    
+    
