@@ -2027,7 +2027,7 @@ __webpack_require__.r(__webpack_exports__);
         this.showComments = true;
         jQuery(document).ready(function () {
           setTimeout(function () {
-            jQuery('textarea.ops').autoHeight();
+            jQuery('textarea.autoresize').autoHeight();
           }, 1000);
         });
       } else {
@@ -6927,7 +6927,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.comments .comment-content {\n    padding:5px;\n}\n.comments .like-page-list-wrapper li{\n    border: thin solid whitesmoke;\n    padding:10px;\n}\n.hidden{\n    display: none;\n}\n.comments .share-text-box .share-text-field {\n    padding: 13px 1px 13px 20px;\n    position: relative;\n    border-radius: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.comments .comment-content {\n    padding:5px;\n}\n.comments .like-page-list-wrapper li{\n    border: thin solid whitesmoke;\n    padding:10px;\n}\n.hidden{\n    display: none;\n}\n.comments .share-text-box .share-text-field {\n    padding: 13px 1px 13px 20px;\n    position: relative;\n    border-radius: 10px;\n}\n@media only screen and (max-width: 479.98px) {\n.comments .share-text-box .btn-share {\n    display: flex !important;\n    top: 95%;\n    padding: 10px 20px;\n}\n}\n", ""]);
 
 // exports
 
@@ -38900,7 +38900,7 @@ var render = function() {
                         expression: "newComment"
                       }
                     ],
-                    staticClass: "share-text-field ops",
+                    staticClass: "share-text-field autoresize",
                     attrs: {
                       name: "comment",
                       id: "newComment",
