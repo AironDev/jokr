@@ -226,7 +226,7 @@
                                 <!-- share content box start -->
                                 <div class="share-content-box w-100">
                                     <form class="share-text-box">
-                                        <textarea name="share" class="share-text-field" aria-disabled="true" placeholder="What's funny?" data-toggle="modal" data-target="#textbox" id="email"></textarea>
+                                        <textarea name="share" class="share-text-field" aria-disabled="true" placeholder="What's funny?" data-toggle="modal" data-target="#textbox" id="whats-funny"></textarea>
                                         <button class="btn-share" type="submit">share</button>
                                     </form>
                                 </div>
@@ -390,8 +390,11 @@
 
 <!-- JS   ================== -->
 @section('js')
+
     @Include('partials.js')
     <script src="https://cdn.tiny.cloud/1/bqjnseimjjp05nmtsdy3zl6tne4hdpgf3zbsvlzs7rjfx51a/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
 
     <script>
             var editor_config = {
@@ -429,7 +432,5 @@
             };
     tinymce.init(editor_config);
     </script>
-
-    
 @endsection
 
