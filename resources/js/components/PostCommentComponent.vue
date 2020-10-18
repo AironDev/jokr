@@ -35,7 +35,7 @@
                     <!-- share content box start -->
                     <div class="share-content-box w-100">
                         <form class="share-text-box" @submit.prevent="addComment()">
-                            <textarea name="comment" id="newComment" v-model="newComment" class="share-text-field ops" aria-disabled="true" placeholder="What's your reaction?"  :id="post.id"></textarea>
+                            <textarea name="comment" id="newComment" v-model="newComment" class="share-text-field autoresize" aria-disabled="true" placeholder="What's your reaction?"  :id="post.id"></textarea>
                             <button class="btn-share" type="submit">send</button>
                         </form>
                     </div>
@@ -90,7 +90,7 @@
                     this.showComments = true;
                     jQuery(document).ready(function() {
                         setTimeout(function() { 
-                           jQuery('textarea.ops').autoHeight();
+                           jQuery('textarea.autoresize').autoHeight();
                         }, 1000);
            
                     });
@@ -136,6 +136,14 @@
         padding: 13px 1px 13px 20px;
         position: relative;
         border-radius: 10px;
+    }
+
+    @media only screen and (max-width: 479.98px) {
+      .comments .share-text-box .btn-share {
+        display: flex !important;
+        top: 95%;
+        padding: 10px 20px;
+      }
     }
 </style>
 
