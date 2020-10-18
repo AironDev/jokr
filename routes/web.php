@@ -55,7 +55,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 
 // Auth User Notifications Endpoints
-Route::group(['middleware' => [ 'web']], function(){
+Route::group(['middleware' => [ 'web', 'auth']], function(){
 	Route::get('/user/notifications', 'NotificationController@userNotifications');
 	Route::get('/user/notifications/{id}/read', 'NotificationController@markAsRead');
 	Route::patch('/user/notifications/{id}/read', 'NotificationController@markAsRead');
@@ -86,14 +86,6 @@ Route::group(['middleware' => [ 'web', 'auth']], function(){
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
      \UniSharp\LaravelFilemanager\Lfm::routes();
  }); 
-
-// 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/test', function(){
-	return response()->json('hellp', 200);
-});
-
 
 
 // ADMIN ENDPOINTS GROUP
