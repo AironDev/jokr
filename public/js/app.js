@@ -2300,12 +2300,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    sayHi: function sayHi() {//console.log('hello from post reaction component');
-    },
     react: function react(post_id, type, rate) {
       var _this = this;
 
-      return axios.get("/post/react/?auth_user_id=".concat(this.auth_user, "&post_id=").concat(post_id, "&type=").concat(type, "&rate=").concat(rate), {}).then(function (response) {
+      return axios.post("/post/react", {
+        post_id: post_id,
+        type: type,
+        rate: rate
+      }).then(function (response) {
         var userReactions = _this.post.user_reactions;
         var postReaction = _this.post.reactions; //response payload contains current post points and total reactions
 
@@ -2425,9 +2427,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  mounted: function mounted() {
-    this.sayHi();
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -2480,9 +2480,8 @@ __webpack_require__.r(__webpack_exports__);
     getNotifications: function getNotifications() {
       var _this = this;
 
-      return axios.get("/notifications/?user_id=".concat(this.auth_user), {}).then(function (response) {
-        _this.notifications = response.data.data;
-        console.log(_this.notifications);
+      return axios.get("/user/notifications", {}).then(function (response) {
+        _this.notifications = response.data.data; // console.log(this.notifications);
       });
     }
   },

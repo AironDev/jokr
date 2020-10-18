@@ -37,12 +37,12 @@
 
         methods: {
             getNotifications () {
-                return axios.get(`/notifications/?user_id=${this.auth_user}`, {
+                return axios.get(`/user/notifications`, {
 
                 })
                     .then(response => {
                         this.notifications = response.data.data;
-                        console.log(this.notifications);
+                        // console.log(this.notifications);
                         
                     }); 
             },

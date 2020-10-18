@@ -19,17 +19,7 @@ use Cog\Contracts\Love\ReactionType\Models\ReactionType;
 |
 */
 
-// Return curent auth user - called from vue components
-Route::get('/csrf', function(){
-	return csrf_token();
-});
-
-// Return curent auth user crsf token- called from vue components
-Route::get('/user/{id}', function($id){
-	$user = User::where('id', $id)->with('profile')->first();
-	return response()->json($user);
-});
-
+// create slug for username
 Route::get('/slug/{id}', function($id){
 	$user = User::find($id);
 	$user->username = Str::slug($user->name, '-');
@@ -64,10 +54,11 @@ Route::group(['middleware' => ['web', 'auth']], function () {
  });
 
 
-// Notifications Endpoints
+// Auth User Notifications Endpoints
 Route::group(['middleware' => [ 'web']], function(){
-	 Route::get('/notifications', 'NotificationController@userNotifications');
-	 Route::get('/read', 'NotificationController@markAsRead');
+	Route::get('/user/notifications', 'NotificationController@userNotifications');
+	Route::get('/user/notifications/{id}/read', 'NotificationController@markAsRead');
+	Route::patch('/user/notifications/{id}/read', 'NotificationController@markAsRead');
 });
 
 
@@ -75,7 +66,7 @@ Route::group(['middleware' => [ 'web']], function(){
 // Post Endpoints
 Route::group(['middleware' => ['auth', 'web']], function(){
     Route::get('/posts', 'PostController@index');
-    Route::get('/post/react', 'PostController@react');
+    Route::post('/post/react', 'PostController@react');
     Route::post('/posts', 'PostController@store')->name('posts.store');  
    
 });
@@ -117,10 +108,35 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
      Route::get('/rbac/roles', 'RbacController@getRoles')->name('roles.index');
 });
 
-// Web Authentication Endpoints
-Auth::routes();
+
+
+
+
+
+
+/*
+	MISC ROUTES
+*/
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+ // Return curent auth user crsf token- called from vue components
+Route::get('/user/{id}', function($id){
+	$user = User::where('id', $id)->with('profile')->first();
+	return response()->json($user);
+});
+
+// Return curent auth user - called from vue components
+Route::get('/csrf', function(){
+	return csrf_token();
+});
+
+// Test anything here
+Route::get('/test', function(){
+	$post = Post::find(25);
+	return response()->json($post->owner());
+});
+// Web Authentication Endpoints
+Auth::routes();
 
 

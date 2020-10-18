@@ -15,10 +15,15 @@ class Post extends Model implements ReactableContract
     ];
 
     public function user(){
-        return $this->belongsTo('App\User', 'id');
+        return $this->belongsTo('App\User', 'user_id');
     }
 
     public function comments(){
     	return $this->hasMany('App\Comment', 'post_id');
+    }
+
+    public function owner(){
+        $owner = User::where('id', $this->user_id)->first();
+        return $owner;
     }
 }
