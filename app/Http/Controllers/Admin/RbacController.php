@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Silber\Bouncer\Bouncer;
 use App\User;
+use App\Http\Controllers\Controller;
 
 class RbacController extends Controller
 {
@@ -33,9 +34,10 @@ class RbacController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createRolesAndAbilities()
     {
-        //
+        return view('admin.rbac.create');
+
     }
 
     /**
@@ -44,7 +46,7 @@ class RbacController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function createRoleAndAbility(CreateRoleAndAbilityRequest $request)
+    public function storeRoleAndAbility(CreateRoleAndAbilityRequest $request)
     {
         $role = Bouncer::role()->firstOrCreate([
             'name' => $request->role_name,
