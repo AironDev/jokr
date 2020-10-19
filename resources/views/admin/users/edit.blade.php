@@ -136,9 +136,9 @@
                 </div>
             </div>
             <div class="col-md-8 text-center">
-                <form class="col-md-12" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                <form class="col-md-12" action="{{ route('admin.users.update', 'id') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
+                    @method('PATCH')
                     <div class="card">
                         <div class="card-header">
                             <h5 class="title">{{ __('Edit Profile') }}</h5>
@@ -180,7 +180,7 @@
                         </div>
                     </div>
                 </form>
-                <form class="col-md-12" action="{{ route('profile.password') }}" method="POST">
+                <form class="col-md-12" action="{{ route('admin.users.password', 'id') }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="card">

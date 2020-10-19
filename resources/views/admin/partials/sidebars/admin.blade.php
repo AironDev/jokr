@@ -17,24 +17,25 @@
                     <p>{{ __('ADMIN') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'user' || $elementActive == 'profile' ? 'active' : '' }}">
-                <a data-toggle="collapse" aria-expanded="true" href="#laravelExamples">
+
+            <li class="{{Route::is('admin.users.index') || Route::is('admin.users.edit') ? 'active' : ''}}">
+                <a data-toggle="collapse" aria-expanded="false" href="#laravelExamples">
                     <i class="nc-icon"><img src="{{ asset('paper/img/laravel.svg') }}"></i>
                     <p>
-                            {{ __('Laravel examples') }}
+                            {{ __('Users') }}
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse show" id="laravelExamples">
+                <div class="collapse" id="laravelExamples">
                     <ul class="nav">
-                        <li class="{{ $elementActive == 'profile' ? 'active' : '' }}">
-                            <a href="{{ route('profile.edit') }}">
+                        <li class="{{Route::is('admin.users.index') ? 'active' : ''}}">
+                            <a href="{{ route('admin.users.index') }}">
                                 <span class="sidebar-mini-icon">{{ __('UP') }}</span>
-                                <span class="sidebar-normal">{{ __(' User Profile ') }}</span>
+                                <span class="sidebar-normal">{{ __(' View Users ') }}</span>
                             </a>
                         </li>
-                        <li class="{{ $elementActive == 'user' ? 'active' : '' }}">
-                            <a href="{{ route('admin.index', 'user') }}">
+                        <li class="{{Route::is('admin.users.edit', 'airon') ? 'active' : ''}}">
+                            <a href="{{ route('admin.users.edit', 'airon') }}">
                                 <span class="sidebar-mini-icon">{{ __('U') }}</span>
                                 <span class="sidebar-normal">{{ __(' User Management ') }}</span>
                             </a>
@@ -42,6 +43,8 @@
                     </ul>
                 </div>
             </li>
+
+            
             <li class="{{ $elementActive == 'icons' ? 'active' : '' }}">
                 <a href="{{ route('admin.index', 'icons') }}">
                     <i class="nc-icon nc-diamond"></i>
@@ -54,6 +57,29 @@
                     <p>{{ __('Maps') }}</p>
                 </a>
             </li>
+
+
+            <li class="{{Route::is('rbac.create') ? 'active' : ''}}">
+                <a data-toggle="collapse" aria-expanded="false" href="#rbac">
+                    <i class="nc-icon"><img src="{{ asset('paper/img/laravel.svg') }}"></i>
+                    <p>
+                            {{ __('Rbac') }}
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="rbac">
+                    <ul class="nav">
+                        <li class="{{Route::is('rbac.create') ? 'active' : ''}}">
+                            <a href="{{ route('rbac.create') }}">
+                                <span class="sidebar-mini-icon">{{ __('U') }}</span>
+                                <span class="sidebar-normal">{{ __('Create') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
             <li class="{{ $elementActive == 'notifications' ? 'active' : '' }}">
                 <a href="{{ route('admin.index', 'notifications') }}">
                     <i class="nc-icon nc-bell-55"></i>

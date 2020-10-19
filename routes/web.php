@@ -94,10 +94,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
      Route::get('/', 'DashboardController@index')->name('admin.index');
 
      // User and Profile Management
-     Route::get('/users/{username?}/edit', 'UserController@edit')->name('profile.edit');
+     Route::get('/users', 'UserController@index')->name('admin.users.index'); // admin/users
+     Route::post('/users/create/', 'UserController@create')->name('admin.users.create'); 
+     Route::get('/users/edit/{userId}', 'UserController@edit')->name('admin.users.edit'); //admin/edit/airon
+     Route::patch('/users/update/{userId}', 'UserController@update')->name('admin.users.update');
+     Route::put('/users/change_password/{userId}', 'UserController@changePassword')->name('admin.users.password');
+     Route::delete('/users/delete/{userId}', 'UserController@destroy')->name('admin.users.delete');
+
+
 
      // RBAC Endpoints
      Route::get('/rbac/roles', 'RbacController@getRoles')->name('roles.index');
+     Route::get('/rbac/create', 'RbacController@createRolesAndAbilities')->name('rbac.create');
 });
 
 
