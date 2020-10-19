@@ -37,7 +37,6 @@ class RbacController extends Controller
     public function createRolesAndAbilities()
     {
         return view('admin.rbac.create');
-
     }
 
     /**
