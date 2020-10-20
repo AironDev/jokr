@@ -89,7 +89,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 
 
 // ADMIN ENDPOINTS GROUP
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth'] ], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['web'] ], function () {
 	// Dashboard
      Route::get('/', 'DashboardController@index')->name('admin.index');
 
@@ -102,10 +102,24 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
      Route::delete('/users/delete/{userId}', 'UserController@destroy')->name('admin.users.delete');
 
 
-
-     // RBAC Endpoints
+     /*RBAC
+		// RBAC Endpoints
+     */
      Route::get('/rbac/roles', 'RbacController@getRoles')->name('roles.index');
+     Route::get('/rbac/abilities', 'RbacController@getAbilities')->name('abilities.index');
+
+     // Single page to create new Role and Ability
      Route::get('/rbac/create', 'RbacController@createRolesAndAbilities')->name('rbac.create');
+     // Attach Ability to Role
+     Route::get('/rbac/attach', 'RbacController@attachAbilityToRole')->name('rbac.attach');
+     Route::post('/rbac/attach', 'RbacController@attachAbilityToRole')->name('rbac.attach.ability');
+
+     // Assign role to a user
+     Route::get('/rbac/assign', 'RbacController@assignRole')->name('rbac.assign');
+     Route::post('/rbac/assign/{user_id}', 'RbacController@assignRoleToUser')->name('rbac.assign.role');
+
+     Route::post('/rbac/create/role', 'RbacController@storeRole')->name('rbac.store.role');
+     Route::post('/rbac/create/ability', 'RbacController@storeAbility')->name('rbac.store.ability');
 });
 
 

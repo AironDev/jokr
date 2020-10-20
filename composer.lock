@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a0b4b5e41e643fe94978519a4e98ca8",
+    "content-hash": "476750b7a457379da733cf4f854c8d31",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2491,16 +2491,16 @@
         },
         {
             "name": "silber/bouncer",
-            "version": "v1.0.0-rc.9",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/JosephSilber/bouncer.git",
-                "reference": "05f030bb88d9a26d6cd9c580f883a0dd0d9c767f"
+                "url": "https://github.com/AironDev/bouncer.git",
+                "reference": "449e1f2f707ec0ece8ee456f22eab20d6b252c6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JosephSilber/bouncer/zipball/05f030bb88d9a26d6cd9c580f883a0dd0d9c767f",
-                "reference": "05f030bb88d9a26d6cd9c580f883a0dd0d9c767f",
+                "url": "https://api.github.com/repos/AironDev/bouncer/zipball/449e1f2f707ec0ece8ee456f22eab20d6b252c6c",
+                "reference": "449e1f2f707ec0ece8ee456f22eab20d6b252c6c",
                 "shasum": ""
             },
             "require": {
@@ -2537,7 +2537,19 @@
                     "Silber\\Bouncer\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Silber\\Bouncer\\Tests\\": "tests/"
+                },
+                "files": [
+                    "tests/helpers.php"
+                ]
+            },
+            "scripts": {
+                "test": [
+                    "phpunit"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -2557,7 +2569,10 @@
                 "permissions",
                 "roles"
             ],
-            "time": "2020-09-08T15:47:38+00:00"
+            "support": {
+                "source": "https://github.com/AironDev/bouncer/tree/master"
+            },
+            "time": "2020-10-20T16:23:33+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -6671,7 +6686,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "silber/bouncer": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
