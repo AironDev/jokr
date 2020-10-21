@@ -120,25 +120,25 @@ class RbacController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function attachAbilityToRole(Request $request)
-    {   $validator = Validator::make($request->only('role', 'ability'), [
+    {
+        $validator = Validator::make($request->only('role', 'ability'), [
                         'role' => 'required|string',
                         'ability' => 'required|string'
                     ]);
         $validator->validate();
         try {
             $role = Bouncer::role()->firstOrCreate([
-                    'name' => $request->role
-                ]);
+                'name' => $request->role
+            ]);
 
             $ability =  Bouncer::ability()->firstOrCreate([
-                        'name' => $request->ability
-                    ]);
+                    'name' => $request->ability
+                ]);
 
             Bouncer::allow($role)->to($ability);
             return response()->json([
                 'data' =>  $role->getAbilities()
             ]);
-
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -189,13 +189,13 @@ class RbacController extends Controller
      */
     public function getUserRoles(Request $request)
     {
-       try {
+        try {
             $user = User::find($request->userId);
             $roles = $user->getRoles();
             return response()->json($roles);
-       }catch (\Exception $e) {
-           return $e->getMessage();
-       }
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -206,13 +206,13 @@ class RbacController extends Controller
      */
     public function getUserAbilities(Request $request)
     {
-       try {
+        try {
             $user = User::find($request->userId);
             $roles = $user->getAbilities();
             return response()->json($roles);
-       }catch (\Exception $e) {
-           return $e->getMessage();
-       }
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
 
