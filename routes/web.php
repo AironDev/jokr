@@ -107,17 +107,23 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['web
      */
      Route::get('/rbac/roles', 'RbacController@getRoles')->name('roles.index');
      Route::get('/rbac/abilities', 'RbacController@getAbilities')->name('abilities.index');
+     Route::get('/rbac/create', 'RbacController@createRolesAndAbilities')->name('rbac.create'); // Single page to create new Role and Ability
 
-     // Single page to create new Role and Ability
-     Route::get('/rbac/create', 'RbacController@createRolesAndAbilities')->name('rbac.create');
      // Attach Ability to Role
      Route::get('/rbac/attach', 'RbacController@attachAbilityToRole')->name('rbac.attach');
      Route::post('/rbac/attach', 'RbacController@attachAbilityToRole')->name('rbac.attach.ability');
 
      // Assign role to a user
-     Route::get('/rbac/assign', 'RbacController@assignRole')->name('rbac.assign');
-     Route::post('/rbac/assign/{user_id}', 'RbacController@assignRoleToUser')->name('rbac.assign.role');
+     Route::post('/rbac/assign/{user_id}', 'RbacController@assignUserRole')->name('rbac.assign.role');
+     // Get user role
+     Route::get('/rbac/user/roles/{user_id?}', 'RbacController@getUserRoles')->name('rbac.user.roles');
+     // Get user abilities
+     Route::get('/rbac/user/abilities/{user_id?}', 'RbacController@getUserAbilities')->name('rbac.user.abilities');
+     // Retract role from user
+     Route::post('/rbac/retract/{user_id}', 'RbacController@retractUserRole')->name('rbac.retract.role');
 
+
+     // Store the newly created role and abiltit
      Route::post('/rbac/create/role', 'RbacController@storeRole')->name('rbac.store.role');
      Route::post('/rbac/create/ability', 'RbacController@storeAbility')->name('rbac.store.ability');
 });
