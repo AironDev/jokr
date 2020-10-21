@@ -136,9 +136,7 @@ class RbacController extends Controller
 
             Bouncer::allow($role)->to($ability);
             return response()->json([
-                'data' =>  $role->getAbilities()->map(function($data){
-                    return  $data->name;
-                })
+                'data' =>  $role->getAbilities()
             ]);
 
         } catch (\Exception $e) {
