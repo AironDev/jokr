@@ -89,7 +89,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 
 
 // ADMIN ENDPOINTS GROUP
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth'] ], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['web'] ], function () {
 	// Dashboard
      Route::get('/', 'DashboardController@index')->name('admin.index');
 
@@ -102,10 +102,30 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
      Route::delete('/users/delete/{userId}', 'UserController@destroy')->name('admin.users.delete');
 
 
-
-     // RBAC Endpoints
+     /*RBAC
+		// RBAC Endpoints
+     */
      Route::get('/rbac/roles', 'RbacController@getRoles')->name('roles.index');
-     Route::get('/rbac/create', 'RbacController@createRolesAndAbilities')->name('rbac.create');
+     Route::get('/rbac/abilities', 'RbacController@getAbilities')->name('abilities.index');
+     Route::get('/rbac/create', 'RbacController@createRolesAndAbilities')->name('rbac.create'); // Single page to create new Role and Ability
+
+     // Attach Ability to Role
+     Route::get('/rbac/attach', 'RbacController@attachAbilityToRole')->name('rbac.attach');
+     Route::post('/rbac/attach', 'RbacController@attachAbilityToRole')->name('rbac.attach.ability');
+
+     // Assign role to a user
+     Route::post('/rbac/assign/{user_id}', 'RbacController@assignUserRole')->name('rbac.assign.role');
+     // Get user role
+     Route::get('/rbac/user/roles/{user_id?}', 'RbacController@getUserRoles')->name('rbac.user.roles');
+     // Get user abilities
+     Route::get('/rbac/user/abilities/{user_id?}', 'RbacController@getUserAbilities')->name('rbac.user.abilities');
+     // Retract role from user
+     Route::post('/rbac/retract/{user_id}', 'RbacController@retractUserRole')->name('rbac.retract.role');
+
+
+     // Store the newly created role and abiltit
+     Route::post('/rbac/create/role', 'RbacController@storeRole')->name('rbac.store.role');
+     Route::post('/rbac/create/ability', 'RbacController@storeAbility')->name('rbac.store.ability');
 });
 
 

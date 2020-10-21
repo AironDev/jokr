@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Silber\Bouncer\Bouncer;
+//use Silber\Bouncer\Bouncer;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Silber\Bouncer\BouncerFacade as Bouncer;
 
 class RbacController extends Controller
 {
@@ -16,7 +18,8 @@ class RbacController extends Controller
      */
     public function getRoles()
     {
-        //
+        $roles = Bouncer::role()->all();
+        return $roles;
     }
 
     /**
@@ -26,75 +29,192 @@ class RbacController extends Controller
      */
     public function getAbilities()
     {
-        //
+        $abilities = Bouncer::ability()->all();
+        return $abilities;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource (roles and abilities).
      *
      * @return \Illuminate\Http\Response
      */
     public function createRolesAndAbilities()
     {
         return view('admin.rbac.create');
-
     }
 
     /**
-     * Store a newly created roles and ability.
+     * store a new role.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeRoleAndAbility(CreateRoleAndAbilityRequest $request)
+    public function storeRole(Request $request)
     {
-        $role = Bouncer::role()->firstOrCreate([
-            'name' => $request->role_name,
+        $validator = Validator::make($request->all(), [
+            'role_name' => 'required|string',
+            'role_title' => 'required|string',
+            'role_description' => 'required|string',
+        ]);
+
+        $validator->validate();
+
+        $role = Bouncer::role()->updateOrCreate([
+            'name' => $request->role_name, //match only the name attribute while creating
+        ]);
+
+        $role->update([
             'title' => $request->role_title,
             'description' => $request->role_description,
         ]);
 
-        $ability = Bouncer::ability()->firstOrCreate([
-            'name' => $request->ability_name,
-            'title' => $request->ability_title,
-            'description' => $request->ability_description,
-        ]);
-
-        Bouncer::allow($role)->to($ability);
+        return $role;
     }
 
     /**
-     * Store a new and ability.
+     * store a new ability.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function storeAbility(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'ability_name' => 'required|string',
+                'ability_title' => 'required|string',
+                'ability_description' => 'required|string',
+            ]);
+
+            $validator->validate();
+
+            $ability = Bouncer::ability()->updateOrCreate([
+                'name' => $request->ability_name, //match only the name attribute while creating
+            ]);
+
+            $ability->update([
+                'title' => $request->ability_title,
+                'description' => $request->ability_description,
+            ]);
+
+            return $ability;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * show form to attach ability to role.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function createAbility(Request $request)
+    public function attachAbility(CreateRoleAndAbilityRequest $request)
     {
-        //
+        return view('admin.rbac.attach');
     }
 
-     /**
-     * Store a new and ability.
+
+    /**
+     * attach role and ability to user.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function createRole(Request $request)
+    public function attachAbilityToRole(Request $request)
     {
-        //
+        $validator = Validator::make($request->only('role', 'ability'), [
+                        'role' => 'required|string',
+                        'ability' => 'required|string'
+                    ]);
+        $validator->validate();
+        try {
+            $role = Bouncer::role()->firstOrCreate([
+                'name' => $request->role
+            ]);
+
+            $ability =  Bouncer::ability()->firstOrCreate([
+                    'name' => $request->ability
+                ]);
+
+            Bouncer::allow($role)->to($ability);
+            return response()->json([
+                'data' =>  $role->getAbilities()
+            ]);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
-     * Display the specified resource.
+     * assign role to user.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function assignUserRole(Request $request)
     {
-        //
+        try {
+            $role = Bouncer::role()->where('name', $request->role_name)->first();
+            $user = User::find($request->user_id);
+            Bouncer::assign($role)->to($user);
+            return $user->getRoles();
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+            return response()->json(['error' => $error]);
+        }
     }
+
+    /**
+     * retract role from user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function retractUserRole(Request $request)
+    {
+        try {
+            $role = Bouncer::role()->where('name', $request->role_name)->first();
+            $user = User::find($request->user_id);
+            //Bouncer::retract($role)->from($user);
+            return $role;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * Get all user roles.
+     *
+     * @param  params  $userId
+     * @return \Illuminate\Http\Response
+     */
+    public function getUserRoles(Request $request)
+    {
+        try {
+            $user = User::find($request->userId);
+            $roles = $user->getRoles();
+            return response()->json($roles);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * Get all user abilities.
+     *
+     * @param  params  $userId
+     * @return \Illuminate\Http\Response
+     */
+    public function getUserAbilities(Request $request)
+    {
+        try {
+            $user = User::find($request->userId);
+            $roles = $user->getAbilities();
+            return response()->json($roles);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
 
     /**
      * Show the form for editing the specified resource.

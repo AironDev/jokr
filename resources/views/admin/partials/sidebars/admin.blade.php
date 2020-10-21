@@ -59,7 +59,7 @@
             </li>
 
 
-            <li class="{{Route::is('rbac.create') ? 'active' : ''}}">
+            <li class="{{ $elementActive == 'rbac' ? 'active' : '' }}">
                 <a data-toggle="collapse" aria-expanded="false" href="#rbac">
                     <i class="nc-icon"><img src="{{ asset('paper/img/laravel.svg') }}"></i>
                     <p>
@@ -69,8 +69,8 @@
                 </a>
                 <div class="collapse" id="rbac">
                     <ul class="nav">
-                        <li class="{{Route::is('rbac.create') ? 'active' : ''}}">
-                            <a href="{{ route('rbac.create') }}">
+                        <li class="{{ $elementActive == 'rbac' ? 'active' : '' }}">
+                            <a href="{{ route('rbac.create', 'rbac') }}">
                                 <span class="sidebar-mini-icon">{{ __('U') }}</span>
                                 <span class="sidebar-normal">{{ __('Create') }}</span>
                             </a>

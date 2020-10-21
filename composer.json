@@ -7,6 +7,15 @@
         "laravel"
     ],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/AironDev/bouncer",
+            "trunk-path": "Trunk",
+            "branches-path": "Branches",
+            "tags-path": "Tags"
+        }
+    ],
     "require": {
         "php": "^7.2.5",
         "ext-gd": "*",
@@ -20,7 +29,7 @@
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
-        "silber/bouncer": "v1.0.0-rc.9",
+        "silber/bouncer": "dev-master",
         "unisharp/laravel-filemanager": "^2.1"
     },
     "require-dev": {
