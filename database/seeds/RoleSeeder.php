@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Role;
+use Silber\Bouncer\BouncerFacade as Bouncer;
 
 class RoleSeeder extends Seeder
 {
@@ -13,38 +13,52 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('roles')->truncate();
 
-        Role::create([
+        Bouncer::role()->create([
             'name' => 'sudo',
+            'title' => 'Sudo',
             'description' =>
                 'This guy is on god mode, avoid him',
         ]);
-        Role::create([
-            'name' => 'admin',h
+        Bouncer::role()->create([
+            'name' => 'admin',
+            'title' => 'Administrator',
             'description' =>
-                'somebody who has access to all the administration features within a single site.',
+                'Somebody who has access to all the administration features within a single site.',
         ]);
-        Role::create([
+        Bouncer::role()->create([
             'name' => 'author',
+            'title' => 'Author',
             'description' =>
-                'can setup games (quizes, puzzles, etc)',
+                'Can setup games (quizes, puzzles, etc)',
         ]);
-        Role::create([
+        Bouncer::role()->create([
             'name' => 'moderator',
+            'title' => 'Moderator',
             'description' =>
-                'can manage games (set status to active or inactive, flag offensive comments)',
+                'Can manage games (set status to active or inactive, flag offensive comments)',
         ]);
-        Role::create([
+        Bouncer::role()->create([
             'name' => 'editor',
+            'title' => 'Editor',
             'description' =>
-                'can perform CRU-D operations (but cannot not delete)',
+                'Can perform CRU-D operations (but cannot not delete)',
         ]);
         
-        Role::create([
+        Bouncer::role()->create([
             'name' => 'user',
+            'title' => 'User',
             'description' => 
-                'somebody who can only manage their profile.',
+                'Somebody who can only manage their profile.',
+        ]);
+
+        Bouncer::role()->create([
+            'name' => 'guest',
+            'title' => 'Guest',
+            'description' => 
+                'This guy does not know what is happening, right?',
         ]);
     }
 }

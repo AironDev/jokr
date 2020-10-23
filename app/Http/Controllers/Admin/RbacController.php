@@ -8,6 +8,10 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Silber\Bouncer\BouncerFacade as Bouncer;
+use App\Helpers\Util;
+
+
+
 
 class RbacController extends Controller
 {
@@ -40,7 +44,9 @@ class RbacController extends Controller
      */
     public function createRolesAndAbilities()
     {
-        return view('admin.rbac.create');
+        $roles = Bouncer::role()->all();
+        $abilities = Bouncer::ability()->paginate(10);
+        return view('admin.rbac.create')->with(['roles' => $roles, 'abilities' => $abilities]);
     }
 
     /**
@@ -67,7 +73,12 @@ class RbacController extends Controller
             'description' => $request->role_description,
         ]);
 
-        return $role;
+        
+        if($request->header('Accept') == 'application/json'){
+            return response()->json(['status' => 'created', 'message' => 'Role created successfully' ], 201);
+        }else{
+            return redirect()->back()->with('status', 'Role created successfully');
+        }
     }
 
     /**
@@ -95,7 +106,8 @@ class RbacController extends Controller
                 'description' => $request->ability_description,
             ]);
 
-            return $ability;
+            //return $ability;
+             return redirect()->back()->with('status', 'Ability created successfully');
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -248,5 +260,10 @@ class RbacController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getModels()
+    {
+        return Util::getModels();
     }
 }
