@@ -77,7 +77,7 @@
                     </form>
                 </div>
                 <div class="col-md-6">
-                    <form class="" action="{{ route('rbac.store.ability', 'id') }}" method="POST">
+                    <form class="" action="{{ route('rbac.attach.ability', 'id') }}" method="POST">
                         @csrf
                         @method('POST')
                         <div class="card">
@@ -89,18 +89,18 @@
                                     <label class="col-md-3 col-form-label">{{ __('Role') }}</label>
                                     <div class="col-md-9">
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="role">
                                                 <option class="form-control" value="">{{'select'}}</option>
                                                 @foreach($roles as $role)
-                                                <option name="role_name" value="{{$role->name}}">
+                                                <option name="role" value="{{$role->name}}">
                                                     {{$role->name}}
                                                 </option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        @if ($errors->has('role_name'))
+                                        @if ($errors->has('role'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('role_name') }}</strong>
+                                                <strong>{{ $errors->first('role') }}</strong>
                                             </span>
                                         @endif
                                     </div>
@@ -109,18 +109,18 @@
                                     <label class="col-md-3 col-form-label">{{ __('Ability') }}</label>
                                     <div class="col-md-9">
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="ability">
                                                 <option class="form-control" value="">{{'select'}}</option>
                                                 @foreach($abilities as $ability)
-                                                <option name="ability_name" value="{{$ability->name}}">
+                                                <option name="ability" value="{{$ability->name}}">
                                                     {{$ability->name}}
                                                 </option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        @if ($errors->has('ability_name'))
+                                        @if ($errors->has('ability'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('ability_name') }}</strong>
+                                                <strong>{{ $errors->first('ability') }}</strong>
                                             </span>
                                         @endif
                                     </div>
@@ -177,8 +177,7 @@
                                     <td>{{$role->title}}</td>
                                     <td>{{$role->description}}</td>
                                     <td>
-                                        <a href="#"><i class="fa fa-edit"></i></a>
-                                        <a href="#"><i class="fa fa-eye"></i></a>
+                                        <a href="{{route('rbac.role', $role->name)}}"><i class="fa fa-eye"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -231,6 +230,8 @@
                     </div>
                 </div>
             </div>
+
+            
         </div>
     </div>
 @endsection

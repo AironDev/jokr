@@ -26,6 +26,13 @@ class RbacController extends Controller
         return $roles;
     }
 
+    public function getSingleRole($name)
+    {
+        $role = Bouncer::role()->where('name', $name)->first();
+        return view('admin.rbac.role')->with(['role' => $role]);
+        //return $roles;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,11 +49,11 @@ class RbacController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createRolesAndAbilities()
+    public function rbac()
     {
         $roles = Bouncer::role()->all();
         $abilities = Bouncer::ability()->paginate(10);
-        return view('admin.rbac.create')->with(['roles' => $roles, 'abilities' => $abilities]);
+        return view('admin.rbac.index')->with(['roles' => $roles, 'abilities' => $abilities]);
     }
 
     /**
@@ -148,9 +155,12 @@ class RbacController extends Controller
                 ]);
 
             Bouncer::allow($role)->to($ability);
-            return response()->json([
-                'data' =>  $role->getAbilities()
-            ]);
+
+            if($request->header('Accept') == 'application/json'){
+                return response()->json(['status' => 'created', 'message' => 'Role attached successfully' ], 201);
+            }else{
+                return redirect()->back()->with('status', 'Ability attached successfully');
+            }
         } catch (\Exception $e) {
             return $e->getMessage();
         }

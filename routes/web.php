@@ -105,10 +105,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['web
      /*RBAC
 		// RBAC Endpoints
      */
+     Route::get('/rbac', 'RbacController@rbac')->name('rbac'); // Single page to create new Role and Ability
      Route::get('/rbac/roles', 'RbacController@getRoles')->name('rbac.roles');
+     Route::get('/rbac/roles/{name?}', 'RbacController@getSingleRole')->name('rbac.role');
      Route::get('/rbac/abilities', 'RbacController@getAbilities')->name('rbac.abilities');
-     Route::get('/rbac/create', 'RbacController@createRolesAndAbilities')->name('rbac.create'); // Single page to create new Role and Ability
-
+     
      // Attach Ability to Role
      Route::get('/rbac/attach', 'RbacController@attachAbilityToRole')->name('rbac.attach');
      Route::post('/rbac/attach', 'RbacController@attachAbilityToRole')->name('rbac.attach.ability');
