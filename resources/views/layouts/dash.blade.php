@@ -119,17 +119,6 @@ The above copyright notice and this permission notice shall be included in all c
     
     @stack('scripts')
 
-    <script>
-        $("document").ready(function(){
-            setTimeout(function(){
-               $("#alert").remove();
-            }, 3000 ); // 5 secs
-            $("#alert").fadeTo(2000, 500).slideUp(500, function(){
-            $("#alert").slideUp("500");
-            });
-        });
-    </script>
-
     <!-- AT include('admin.partials.fixed-plugin-js') -->
 </body>
 

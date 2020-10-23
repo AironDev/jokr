@@ -6,7 +6,7 @@
 @section('content')
     <div class="content">
         @if (session('status'))
-            <div class="alert alert-success" role="alert">
+            <div id="alert" class="alert alert-success" role="alert">
                 {{ session('status') }}
             </div>
         @endif
@@ -132,4 +132,16 @@
             }
         });
     </script>
+
+    <script>
+        $("document").ready(function(){
+            setTimeout(function(){
+               $("#alert").remove();
+            }, 3000 ); // 5 secs
+            $("#alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#alert").slideUp("500");
+            });
+        });
+    </script>
+    
 @endpush
