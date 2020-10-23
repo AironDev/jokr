@@ -29,7 +29,9 @@ class RbacController extends Controller
     public function getSingleRole($name)
     {
         $role = Bouncer::role()->where('name', $name)->first();
-        return view('admin.rbac.role')->with(['role' => $role]);
+        $users = User::whereIs($name)->get();
+        $abilities = $role->getAbilities();
+        return view('admin.rbac.role')->with(['role' => $role, 'users' => $users, 'abilities' => $abilities]);
         //return $roles;
     }
 
@@ -194,10 +196,14 @@ class RbacController extends Controller
     public function retractUserRole(Request $request)
     {
         try {
-            $role = Bouncer::role()->where('name', $request->role_name)->first();
+            $role = Bouncer::role()->where('name', $request->role)->first();
             $user = User::find($request->user_id);
-            //Bouncer::retract($role)->from($user);
-            return $role;
+            Bouncer::retract($role)->from($user);
+            if($request->header('Accept') == 'application/json'){
+                return response()->json(['status' => 'ok', 'message' => 'Role retracted successfully' ], 201);
+            }else{
+                return redirect()->back()->with('status', 'role retracted successfully');
+            }
         } catch (Exception $e) {
             return $e->getMessage();
         }
