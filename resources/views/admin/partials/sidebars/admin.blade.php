@@ -51,34 +51,15 @@
                     <p>{{ __('Icons') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'map' ? 'active' : '' }}">
-                <a href="{{ route('admin.index', 'map') }}">
-                    <i class="nc-icon nc-pin-3"></i>
-                    <p>{{ __('Maps') }}</p>
-                </a>
-            </li>
-
 
             <li class="{{ $elementActive == 'rbac' ? 'active' : '' }}">
-                <a data-toggle="collapse" aria-expanded="false" href="#rbac">
-                    <i class="nc-icon"><img src="{{ asset('paper/img/laravel.svg') }}"></i>
-                    <p>
-                            {{ __('Rbac') }}
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="rbac">
-                    <ul class="nav">
-                        <li class="{{ $elementActive == 'rbac' ? 'active' : '' }}">
-                            <a href="{{ route('rbac.create', 'rbac') }}">
-                                <span class="sidebar-mini-icon">{{ __('U') }}</span>
-                                <span class="sidebar-normal">{{ __('Create') }}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <li class="{{ $elementActive == 'rbac' ? 'active' : '' }}">
+                    <a href="{{ route('rbac', 'rbac') }}">
+                        <i class="nc-icon nc-diamond"></i>
+                        <p>{{ __('RBAC') }}</p>
+                    </a>
+                </li>
             </li>
-
 
             <li class="{{ $elementActive == 'notifications' ? 'active' : '' }}">
                 <a href="{{ route('admin.index', 'notifications') }}">

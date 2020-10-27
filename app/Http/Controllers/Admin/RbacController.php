@@ -26,6 +26,15 @@ class RbacController extends Controller
         return $roles;
     }
 
+    public function getSingleRole($name)
+    {
+        $role = Bouncer::role()->where('name', $name)->first();
+        $users = User::whereIs($name)->get();
+        $abilities = $role->getAbilities();
+        return view('admin.rbac.role')->with(['role' => $role, 'users' => $users, 'abilities' => $abilities]);
+        //return $roles;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,11 +51,11 @@ class RbacController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createRolesAndAbilities()
+    public function rbac()
     {
         $roles = Bouncer::role()->all();
         $abilities = Bouncer::ability()->paginate(10);
-        return view('admin.rbac.create')->with(['roles' => $roles, 'abilities' => $abilities]);
+        return view('admin.rbac.index')->with(['roles' => $roles, 'abilities' => $abilities]);
     }
 
     /**
@@ -148,9 +157,12 @@ class RbacController extends Controller
                 ]);
 
             Bouncer::allow($role)->to($ability);
-            return response()->json([
-                'data' =>  $role->getAbilities()
-            ]);
+
+            if($request->header('Accept') == 'application/json'){
+                return response()->json(['status' => 'created', 'message' => 'Role attached successfully' ], 201);
+            }else{
+                return redirect()->back()->with('status', 'Ability attached successfully');
+            }
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -184,10 +196,14 @@ class RbacController extends Controller
     public function retractUserRole(Request $request)
     {
         try {
-            $role = Bouncer::role()->where('name', $request->role_name)->first();
+            $role = Bouncer::role()->where('name', $request->role)->first();
             $user = User::find($request->user_id);
-            //Bouncer::retract($role)->from($user);
-            return $role;
+            Bouncer::retract($role)->from($user);
+            if($request->header('Accept') == 'application/json'){
+                return response()->json(['status' => 'ok', 'message' => 'Role retracted successfully' ], 201);
+            }else{
+                return redirect()->back()->with('status', 'role retracted successfully');
+            }
         } catch (Exception $e) {
             return $e->getMessage();
         }
