@@ -155,11 +155,28 @@ Route::get('/csrf', function(){
 // Test anything here
 Route::get('/test', function(){
 	$post = Post::find(25);
-	return response()->json($post->owner());
+	return response()->json('xup na');
 });
 
 Route::get('/models', "Admin\RbacController@getModels");
 // Web Authentication Endpoints
+
+Route::group(['prefix' => 'faq'], function () {
+    Route::get('', 'FAQController@index');
+    Route::post('/question/{faq}/{type?}', 'FAQController@incrementClick');
+});
+
+// ADMIN
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin\FAQ'], function () {
+    Route::resource('/faqs/categories', 'CategoriesController', ['as' => 'faqs']);
+    
+    
+    Route::patch('/faqs/{faq}', 'FAQsController@update' )->name('faqs.update');
+    Route::resource('/faqs', 'FAQsController');
+});
+
+
+
 Auth::routes();
 
 
